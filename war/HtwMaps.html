@@ -17,7 +17,7 @@
     <!--                                           -->
     <!-- Any title is fine                         -->
     <!--                                           -->
-    <title>Web Application Starter Project</title>
+    <title>HTW Maps</title>
     
     <!--                                           -->
     <!-- This script loads your compiled module.   -->
@@ -25,6 +25,51 @@
     <!-- be added before this line.                -->
     <!--                                           -->
     <script type="text/javascript" language="javascript" src="htwmaps/htwmaps.nocache.js"></script>
+    <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAqGF_NAgYkc2b1O9qPw9CWBSwhE_DrHErwaWsyaBxkoBI89GeShRoILo6PlV9BQZ_pEkyNgB9072Ugw" type="text/javascript"></script>    
+	<script type="text/javascript" src="mapstraction.js"></script>
+    <script type="text/javascript"> 
+    		var maps;
+			var points;
+			var pointCount;
+			function init(){
+	            maps = new Mapstraction('map','openstreetmap');
+				points = [];
+				pointCount = 0;
+                var myPoint = new LatLonPoint(49.3431, 7.0213);
+                maps.setCenterAndZoom(myPoint, 10);
+ 	            maps.addControls({
+     	           pan: true, 
+     	           zoom: 'large',
+     	           map_type: true 
+     	       });
+            }
+            
+			function addPoint(lat, lon){
+				points[pointCount++] = new LatLonPoint(lat, lon);
+			}
+			
+			function drawPolyLine(){
+				var polyline = new Polyline(points);
+				polyline.setColor("#FF0000");
+				polyline.setOpacity(0.5);
+				polyline.setWidth(4);
+				maps.addPolyline(polyline);
+				points = [];
+				pointCount = 0;
+			}
+			
+			function addMarker(lat, lon){
+				maps.addMarker(new Marker(new LatLonPoint(lat, lon)));
+			}
+	</script>
+    <style type="text/css">
+		div#map {
+		  margin-left: 28em;
+		  border: 1px dashed silver;
+		  min-width: 600px;
+		  height: 700px;
+		}
+  	</style>
   </head>
 
   <!--                                           -->
@@ -32,7 +77,7 @@
   <!-- you can leave the body empty if you want  -->
   <!-- to create a completely dynamic UI.        -->
   <!--                                           -->
-  <body>
+  <body onload="init();">
 
     <!-- OPTIONAL: include this if you want history support -->
     <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
@@ -45,14 +90,13 @@
       </div>
     </noscript>
 
-    <table>
-    	<tr>
-    		<td width="30%"><img src="htwlogo.tiff" alt="HTW Maps" width="350" height="100"></td>
-    		<td width="100%" id=errorLabelContainer></td>
-    		<td width="20%" id=aboutLabelContainer></td>
-    	</tr>	
-    </table>
-   
-   <div id="testContainer"></div>
+	<div>
+		 <a href="HtwMaps.html"><img src="htwMapsLOGOsmall.png"></img></a>
+		 <span id="errorLabelContainer"> </span>
+		 <a href="about.html"> About </a>
+	</div>
+	
+	<div id="controlsPanel"></div>
+	<div id="map"></div>
   </body>
 </html>

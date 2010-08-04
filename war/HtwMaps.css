@@ -32,3 +32,8 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+.controlsPanel{
+	float: left; 
+	border: 1px dashed silver;
+}
