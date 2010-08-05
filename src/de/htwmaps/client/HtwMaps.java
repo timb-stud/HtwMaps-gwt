@@ -51,7 +51,7 @@ public class HtwMaps implements EntryPoint {
 		RadioButton beide = new RadioButton("weg", "beide");
 		
 		
-		Label speedLabel = new Label("Geschwinsigkeit waehlen:");
+		Label speedLabel = new Label("Geschwindigkeit waehlen:");
 		HorizontalPanel speedLandPanel = new HorizontalPanel();
 		HorizontalPanel speedAutobPanel = new HorizontalPanel();
 		Label speedLandLabel = new Label("Landstrassengeschwindigkeit:");
@@ -59,7 +59,7 @@ public class HtwMaps implements EntryPoint {
 		TextBox speedLandTextBox = new TextBox();
 		TextBox speedAutobTextBox = new TextBox();
 		
-		Label algoLabel = new Label("Routinglgorithmus waehlen:");
+		Label algoLabel = new Label("Routingalgorithmus waehlen:");
 		HorizontalPanel algoPanel = new HorizontalPanel();
 		RadioButton aStern = new RadioButton("algo", "A*");
 		RadioButton aThreaded = new RadioButton("algo", "A* Threaded");
