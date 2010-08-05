@@ -23,7 +23,6 @@ public class HtwMaps implements EntryPoint {
 	 */
 	@SuppressWarnings("deprecation")
 	public void onModuleLoad() {
-//		HorizontalSplitPanel mainPanel = new HorizontalSplitPanel();
 		VerticalPanel vPanel = new VerticalPanel();
 		Label error = new Label("Error");
 		error.addStyleName("errorLabel");
@@ -239,12 +238,6 @@ public class HtwMaps implements EntryPoint {
 		
 		
 		vPanel.setSize("300px", "10px");
-//		mainPanel.add(vPanel);
-//		mainPanel.add(new HTML("Map"));
-//
-//		mainPanel.setSplitPosition("27em");
-//		mainPanel.setSize("100%", "38em");
-//		RootPanel.get("controlsPanel").add(mainPanel);
 		vPanel.addStyleName("controlsPanel");
 		RootPanel.get("controlsPanel").add(vPanel);
 		RootPanel.get("errorLabelContainer").add(error);
