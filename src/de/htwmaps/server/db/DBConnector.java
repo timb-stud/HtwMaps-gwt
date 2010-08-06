@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import de.htwmaps.util.Property;
+import com.google.gwt.core.client.GWT;
 
 /**
  * Name: <code>MySQL</code>
@@ -29,11 +29,11 @@ public class DBConnector {
 	private static DBConnector instance = null;
 
 	private DBConnector() {
-		Property prop = new Property("Datenbank.ini");
-		host = prop.getProp("host");
-		username = prop.getProp("username");
-		password = prop.getProp("password");
-		driver = prop.getProp("driver");
+		DBConstants dbConstants = GWT.create(DBConstants.class);
+		driver = dbConstants.driver();
+		host = dbConstants.host();
+		password = dbConstants.password();
+		username = dbConstants.username();
 		connected = connect();
 	}
 

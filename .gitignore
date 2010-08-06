@@ -1,3 +1,4 @@
 war/WEB-INF/classes
 .classpath
 war/mapstraction.js
+src/de/htwmaps/server/db/DBConstants.properties
