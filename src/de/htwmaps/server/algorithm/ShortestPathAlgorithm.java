@@ -6,8 +6,6 @@ import de.htwmaps.shared.exceptions.PathNotFoundException;
 public abstract class ShortestPathAlgorithm {
 	GraphData graphData;
 	
-	public static final int ROUTE_OPTION_SHORTEST = 1337;
-	public static final int ROUTE_OPTION_FASTEST = 4711;
 	public static final int MOTORWAY = 1;
 	public static final int PRIMARY = 5;
 	public static final int SECONDARY = 7;
@@ -29,9 +27,10 @@ public abstract class ShortestPathAlgorithm {
 		this.graphData = gd;
 	}
 	
-	public abstract Node[] findPath(int startNodeID, 
+	public abstract Node[] findShortestPath(int startNodeID, int goalNodeID) throws PathNotFoundException;
+	
+	public abstract Node[] findFastestPath(int startNodeID, 
 									int goalNodeID, 
-									int routeOption, 
 									int motorwaySpeed, 
 									int primarySpeed,
 									int secondarySpeed,
@@ -40,9 +39,8 @@ public abstract class ShortestPathAlgorithm {
 									int livingStreetSpeed) throws PathNotFoundException;
 	
 	
-	public abstract Node[] findPath(int startNodeID, 
+	public abstract Node[] findFastestPath(int startNodeID, 
 									int goalNodeID, 
-									int routeOption, 
 									int motorwaySpeed, 
 									int primarySpeed,
 									int residentialSpeed) throws PathNotFoundException;
