@@ -11,60 +11,98 @@ public class OptionsPanel extends VerticalPanel {
 	
 	Label wegLabel = new Label("Routenart waehlen:");
 	HorizontalPanel wegPanel = new HorizontalPanel();
-	RadioButton schnellste = new RadioButton("weg", "schnellste");
-	RadioButton kuerzeste = new RadioButton("weg", "kuerzeste");
-	RadioButton beide = new RadioButton("weg", "beide");
+	RadioButton fastestRadioButton = new RadioButton("weg", "schnellste");
+	RadioButton shortestRadioButton = new RadioButton("weg", "kuerzeste");
 	Label speedLabel = new Label("Geschwindigkeit waehlen:");
 	HorizontalPanel speedLandPanel = new HorizontalPanel();
 	HorizontalPanel speedAutobPanel = new HorizontalPanel();
-	Label speedLandLabel = new Label("Landstrassengeschwindigkeit:");
-	Label speedAutobLabel = new Label("Autobahngeschwindigkeit:");
-	TextBox speedLandTextBox = new TextBox();
-	TextBox speedAutobTextBox = new TextBox();
+	HorizontalPanel residentialSpeedPanel = new HorizontalPanel();
+	Label motorwaySpeedLabel = new Label("Autobahngeschwindigkeit:");
+	Label primarySpeedLabel = new Label("Landstrassengeschwindigkeit:");
+	Label residentialSpeedLabel = new Label("Innerorts:");
+	TextBox motorwaySpeedTextBox = new TextBox();
+	TextBox primarySpeedTextBox = new TextBox();
+	TextBox residentialSpeedTextBox = new TextBox();
 	Label algoLabel = new Label("Routingalgorithmus waehlen:");
 	HorizontalPanel algoPanel = new HorizontalPanel();
-	RadioButton aStern = new RadioButton("algo", "A*");
-	RadioButton aThreaded = new RadioButton("algo", "A* Threaded");
+	RadioButton aStarRadioButton = new RadioButton("algo", "A*");
+	RadioButton aStarBiRadioButton = new RadioButton("algo", "A* Bidirektional");
 
 	public OptionsPanel() {
 		setVisible(false);		
 		
 		//Welcher weg?
-		wegPanel.add(schnellste);
-		wegPanel.add(kuerzeste);
-		wegPanel.add(beide);
-		schnellste.setValue(true);
+		wegPanel.add(fastestRadioButton);
+		wegPanel.add(shortestRadioButton);
+		fastestRadioButton.setValue(true);
 		wegPanel.setSize("300px", "10px");
-		wegPanel.setCellHorizontalAlignment(schnellste, HasHorizontalAlignment.ALIGN_LEFT);
-		wegPanel.setCellHorizontalAlignment(kuerzeste, HasHorizontalAlignment.ALIGN_CENTER);
-		wegPanel.setCellHorizontalAlignment(beide, HasHorizontalAlignment.ALIGN_RIGHT);
+		wegPanel.setCellHorizontalAlignment(fastestRadioButton, HasHorizontalAlignment.ALIGN_LEFT);
+		wegPanel.setCellHorizontalAlignment(shortestRadioButton, HasHorizontalAlignment.ALIGN_CENTER);
 		add(wegLabel);
 		add(wegPanel);
 		
-		//Spped
-		speedLandPanel.add(speedLandLabel);
-		speedLandPanel.add(speedLandTextBox);
-		speedAutobPanel.add(speedAutobLabel);
-		speedAutobPanel.add(speedAutobTextBox);
+		//Speed
+		residentialSpeedPanel.add(residentialSpeedLabel);
+		residentialSpeedPanel.add(residentialSpeedTextBox);
+		residentialSpeedLabel.setSize("250px", "10px");
+		residentialSpeedTextBox.setSize("40px", "10px");
+		residentialSpeedTextBox.setText("50");
+		speedLandPanel.add(primarySpeedLabel);
+		speedLandPanel.add(primarySpeedTextBox);
+		speedAutobPanel.add(motorwaySpeedLabel);
+		speedAutobPanel.add(motorwaySpeedTextBox);
 		speedLandPanel.setSize("250px", "10px");
-		speedLandTextBox.setSize("40px", "10px");
-		speedLandPanel.setCellHorizontalAlignment(speedLandTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
+		primarySpeedTextBox.setSize("40px", "10px");
+		primarySpeedTextBox.setText("80");
+		speedLandPanel.setCellHorizontalAlignment(primarySpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
 		speedAutobPanel.setSize("250px", "10px");
-		speedAutobTextBox.setSize("40px", "10px");
-		speedAutobPanel.setCellHorizontalAlignment(speedAutobTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
+		motorwaySpeedTextBox.setSize("40px", "10px");
+		motorwaySpeedTextBox.setText("130");
+		speedAutobPanel.setCellHorizontalAlignment(motorwaySpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
 		add(speedLabel);
 		add(speedLandPanel);
 		add(speedAutobPanel);
+		add(residentialSpeedPanel);
 		
 		//Algo
-		algoPanel.add(aStern);
-		algoPanel.add(aThreaded);
-		aStern.setValue(true);
+		algoPanel.add(aStarRadioButton);
+		algoPanel.add(aStarBiRadioButton);
+		aStarRadioButton.setValue(true);
 		algoPanel.setSize("200px", "10px");
-		algoPanel.setCellHorizontalAlignment(aStern, HasHorizontalAlignment.ALIGN_LEFT);
-		algoPanel.setCellHorizontalAlignment(aThreaded, HasHorizontalAlignment.ALIGN_RIGHT);
+		algoPanel.setCellHorizontalAlignment(aStarRadioButton, HasHorizontalAlignment.ALIGN_LEFT);
+		algoPanel.setCellHorizontalAlignment(aStarBiRadioButton, HasHorizontalAlignment.ALIGN_RIGHT);
 		add(algoLabel);
 		add(algoPanel);
 	}
+
+	public RadioButton getFastestRadioButton() {
+		return fastestRadioButton;
+	}
+
+	public RadioButton getShortestRadioButton() {
+		return shortestRadioButton;
+	}
+
+	public RadioButton getaStarRadioButton() {
+		return aStarRadioButton;
+	}
+
+	public RadioButton getaStarBiRadioButton() {
+		return aStarBiRadioButton;
+	}
+
+	public TextBox getMotorwaySpeedTextBox() {
+		return motorwaySpeedTextBox;
+	}
+
+	public TextBox getPrimarySpeedTextBox() {
+		return primarySpeedTextBox;
+	}
+
+	public TextBox getResidentialSpeedTextBox() {
+		return residentialSpeedTextBox;
+	}
+	
+	
 	
 }

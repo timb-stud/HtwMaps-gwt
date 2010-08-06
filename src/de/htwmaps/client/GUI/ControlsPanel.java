@@ -77,4 +77,18 @@ public class ControlsPanel extends VerticalPanel{
 			}
 		});
 	}
+	
+	public Button getCalcRouteButton() {
+		return calcRouteButton;
+	}
+	
+	public LocationsPanel getLocationsPanel() {
+		return locationsPanel;
+	}
+
+	public OptionsPanel getOptionsPanel() {
+		return optionsPanel;
+	}
+
+	
 }

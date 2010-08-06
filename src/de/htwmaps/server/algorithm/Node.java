@@ -2,6 +2,7 @@ package de.htwmaps.server.algorithm;
 
 import java.util.LinkedList;
 
+
 /**
  * 
  * @author Stanislaw Tartakowski, Tim Bartsch

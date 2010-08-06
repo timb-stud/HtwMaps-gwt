@@ -1,5 +1,6 @@
 package de.htwmaps.server.algorithm;
 
+
 /**
  * Node representation used by A Star
  * @author Tim Bartsch

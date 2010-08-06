@@ -6,7 +6,15 @@
 <web-app>
   
   <!-- Servlets -->
-  
+    <servlet>
+    <servlet-name>FindPathServiceImpl</servlet-name>
+    <servlet-class>de.htwmaps.server.FindPathServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>FindPathServiceImpl</servlet-name>
+    <url-pattern>/HtwMaps/findPath</url-pattern>
+  </servlet-mapping>
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>HtwMaps.html</welcome-file>

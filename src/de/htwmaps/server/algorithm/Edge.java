@@ -1,5 +1,6 @@
 package de.htwmaps.server.algorithm;
 
+
 /**
  * 
  * @author Stanislaw Tartakowski, Tim Bartsch
