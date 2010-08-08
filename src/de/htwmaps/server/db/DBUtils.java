@@ -8,9 +8,9 @@ import de.htwmaps.shared.exceptions.NodeNotFoundException;
 
 public class DBUtils {
 	
-	private final static String GETNODEID_SELECT = "SELECT nodeID FROM streets WHERE cityname LIKE ? AND streetname = ?";
-	private final static String GETCITIESSTARTWITH_SELECT = "SELECT DISTINCT cityname FROM streets WHERE cityname LIKE ?";
-	private final static String GETSTREETSSTARTWITH_SELECT = "SELECT DISTINCT streetname FROM streets WHERE cityname = ? AND streetname LIKE ?";
+	private final static String GETNODEID_SELECT = "SELECT nodeID FROM streets WHERE cityname LIKE ? AND streetname = ?"; // TODO NEU MACHEN!!!
+	private final static String GETCITIESSTARTWITH_SELECT = "SELECT DISTINCT cityname FROM streets WHERE cityname LIKE ?"; //TODO NEU MACHEN!!!
+	private final static String GETSTREETSSTARTWITH_SELECT = "SELECT DISTINCT streetname FROM streets WHERE cityname = ? AND streetname LIKE ?"; //TODO NEU MACHEN!!!
 	
 	private DBUtils(){ }
 	

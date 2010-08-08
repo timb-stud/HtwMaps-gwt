@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.google.gwt.core.client.GWT;
-
 /**
  * Name: <code>MySQL</code>
  * <p>
@@ -29,11 +27,10 @@ public class DBConnector {
 	private static DBConnector instance = null;
 
 	private DBConnector() {
-		DBConstants dbConstants = GWT.create(DBConstants.class);
-		driver = dbConstants.driver();
-		host = dbConstants.host();
-		password = dbConstants.password();
-		username = dbConstants.username();
+		driver = DBProperties.getString("DBConnector.driver"); //$NON-NLS-1$
+		host = DBProperties.getString("DBConnector.host"); //$NON-NLS-1$
+		password = DBProperties.getString("DBConnector.password"); //$NON-NLS-1$
+		username = DBProperties.getString("DBConnector.username"); //$NON-NLS-1$
 		connected = connect();
 	}
 

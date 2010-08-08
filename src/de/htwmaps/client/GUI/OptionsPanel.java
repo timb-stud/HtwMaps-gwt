@@ -34,7 +34,7 @@ public class OptionsPanel extends VerticalPanel {
 		//Welcher weg?
 		wegPanel.add(fastestRadioButton);
 		wegPanel.add(shortestRadioButton);
-		fastestRadioButton.setValue(true);
+		shortestRadioButton.setValue(true);
 		wegPanel.setSize("300px", "10px");
 		wegPanel.setCellHorizontalAlignment(fastestRadioButton, HasHorizontalAlignment.ALIGN_LEFT);
 		wegPanel.setCellHorizontalAlignment(shortestRadioButton, HasHorizontalAlignment.ALIGN_CENTER);

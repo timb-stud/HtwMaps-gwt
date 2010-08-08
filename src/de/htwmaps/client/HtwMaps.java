@@ -39,7 +39,7 @@ public class HtwMaps implements EntryPoint {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						alert("Fail");
+						alert("Fail: " + caught.toString());
 						errorLabel.setText("an error occoured");
 					}
 

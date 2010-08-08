@@ -13,7 +13,7 @@
 
   <servlet-mapping>
     <servlet-name>FindPathServiceImpl</servlet-name>
-    <url-pattern>/HtwMaps/findPath</url-pattern>
+    <url-pattern>/htwmaps/findPath</url-pattern>
   </servlet-mapping>
   <!-- Default page to serve -->
   <welcome-file-list>
