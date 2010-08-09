@@ -52,7 +52,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			}
 			float[] nodeLats = new float[result.length];
 			float[] nodeLons = new float[result.length];
-			for(int i=0; i<0;i++){
+			for(int i=0; i<nodeLats.length;i++){
 				nodeLats[i] = result[i].getLat();
 				nodeLons[i] = result[i].getLon();
 			}
@@ -96,7 +96,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			}
 			float[] nodeLats = new float[result.length];
 			float[] nodeLons = new float[result.length];
-			for(int i=0; i<0;i++){
+			for(int i=0; i<nodeLats.length;i++){
 				nodeLats[i] = result[i].getLat();
 				nodeLons[i] = result[i].getLon();
 			}
@@ -138,7 +138,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			}
 			float[] nodeLats = new float[result.length];
 			float[] nodeLons = new float[result.length];
-			for(int i=0; i<0;i++){
+			for(int i=0; i<nodeLats.length;i++){
 				nodeLats[i] = result[i].getLat();
 				nodeLons[i] = result[i].getLon();
 			}
@@ -182,7 +182,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			}
 			float[] nodeLats = new float[result.length];
 			float[] nodeLons = new float[result.length];
-			for(int i=0; i<0;i++){
+			for(int i=0; i<nodeLats.length;i++){
 				nodeLats[i] = result[i].getLat();
 				nodeLons[i] = result[i].getLon();
 			}

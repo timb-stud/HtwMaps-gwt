@@ -8,6 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
+import de.htwmaps.client.GUI.AboutAnchor;
 import de.htwmaps.client.GUI.ControlsPanel;
 import de.htwmaps.shared.PathData;
 
@@ -15,7 +16,8 @@ import de.htwmaps.shared.PathData;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class HtwMaps implements EntryPoint {
-	Label errorLabel = new Label("Error Label");
+	Label statusLabel = new Label("Status Label");
+	AboutAnchor aboutAnchor = new AboutAnchor("About");
 	ControlsPanel controlsPanel = new ControlsPanel();
 	private FindPathServiceAsync findPathSvc = GWT.create(FindPathService.class);
 
@@ -25,7 +27,8 @@ public class HtwMaps implements EntryPoint {
 	public void onModuleLoad() {
 		controlsPanel.addStyleName("controlsPanel");
 		RootPanel.get("controlsPanel").add(controlsPanel);
-		RootPanel.get("errorLabelContainer").add(errorLabel);
+		RootPanel.get("statusLabelContainer").add(statusLabel);
+		RootPanel.get("aboutAnchorContainer").add(aboutAnchor);
 		
 		controlsPanel.getCalcRouteButton().addClickHandler(new ClickHandler() {
 			
@@ -39,17 +42,17 @@ public class HtwMaps implements EntryPoint {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						alert("Fail: " + caught.toString());
-						errorLabel.setText("an error occoured");
+						statusLabel.setText("an error occoured:" + caught.getMessage());
 					}
 
 					@Override
 					public void onSuccess(PathData result) {
-						alert("Success");
+						statusLabel.setText("A route was found.");
 						float[] nodeLats = result.getNodeLats();
 						float[] nodeLons = result.getNodeLons();
-						for(int i=0;i<nodeLats.length;i++)
+						for(int i=0;i<nodeLats.length;i++){
 							addPoint(nodeLats[i], nodeLons[i]);
+						}
 						drawPolyLine();
 						
 					}
@@ -58,7 +61,7 @@ public class HtwMaps implements EntryPoint {
 				String startCity = controlsPanel.getLocationsPanel().getStartCityTextBox().getText();
 				String startStreet = controlsPanel.getLocationsPanel().getStartStreetTextBox().getText();
 				String destCity = controlsPanel.getLocationsPanel().getDestCityTextBox().getText();
-				String destStreet = controlsPanel.getLocationsPanel().getDestCityTextBox().getText();
+				String destStreet = controlsPanel.getLocationsPanel().getDestStreetTextBox().getText();
 				
 				
 				
