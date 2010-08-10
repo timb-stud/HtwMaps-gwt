@@ -34,7 +34,7 @@ public class OptionsPanel extends VerticalPanel {
 		//Welcher weg?
 		wegPanel.add(fastestRadioButton);
 		wegPanel.add(shortestRadioButton);
-		shortestRadioButton.setValue(true);
+		fastestRadioButton.setValue(true);
 		wegPanel.setSize("300px", "10px");
 		wegPanel.setCellHorizontalAlignment(fastestRadioButton, HasHorizontalAlignment.ALIGN_LEFT);
 		wegPanel.setCellHorizontalAlignment(shortestRadioButton, HasHorizontalAlignment.ALIGN_CENTER);
@@ -42,23 +42,25 @@ public class OptionsPanel extends VerticalPanel {
 		add(wegPanel);
 		
 		//Speed
-		residentialSpeedPanel.add(residentialSpeedLabel);
-		residentialSpeedPanel.add(residentialSpeedTextBox);
-		residentialSpeedLabel.setSize("250px", "10px");
-		residentialSpeedTextBox.setSize("40px", "10px");
-		residentialSpeedTextBox.setText("50");
-		speedLandPanel.add(primarySpeedLabel);
-		speedLandPanel.add(primarySpeedTextBox);
-		speedAutobPanel.add(motorwaySpeedLabel);
-		speedAutobPanel.add(motorwaySpeedTextBox);
-		speedLandPanel.setSize("250px", "10px");
-		primarySpeedTextBox.setSize("40px", "10px");
-		primarySpeedTextBox.setText("80");
-		speedLandPanel.setCellHorizontalAlignment(primarySpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
 		speedAutobPanel.setSize("250px", "10px");
 		motorwaySpeedTextBox.setSize("40px", "10px");
 		motorwaySpeedTextBox.setText("130");
+		speedAutobPanel.add(motorwaySpeedLabel);
+		speedAutobPanel.add(motorwaySpeedTextBox);
 		speedAutobPanel.setCellHorizontalAlignment(motorwaySpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
+		speedLandPanel.setSize("250px", "10px");
+		primarySpeedTextBox.setSize("40px", "10px");
+		primarySpeedTextBox.setText("80");
+		speedLandPanel.add(primarySpeedLabel);
+		speedLandPanel.add(primarySpeedTextBox);
+		speedLandPanel.setCellHorizontalAlignment(primarySpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
+		residentialSpeedTextBox.setSize("40px", "10px");
+		residentialSpeedTextBox.setText("50");
+		residentialSpeedPanel.setSize("250px", "10px");
+		residentialSpeedPanel.add(residentialSpeedLabel);
+		residentialSpeedPanel.add(residentialSpeedTextBox);
+		residentialSpeedPanel.setCellHorizontalAlignment(residentialSpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
+
 		add(speedLabel);
 		add(speedLandPanel);
 		add(speedAutobPanel);

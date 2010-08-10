@@ -16,7 +16,7 @@ import de.htwmaps.shared.PathData;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class HtwMaps implements EntryPoint {
-	Label statusLabel = new Label("Status Label");
+	Label statusLabel = new Label("Status: Ready");
 	AboutAnchor aboutAnchor = new AboutAnchor("About");
 	ControlsPanel controlsPanel = new ControlsPanel();
 	private FindPathServiceAsync findPathSvc = GWT.create(FindPathService.class);
@@ -69,19 +69,19 @@ public class HtwMaps implements EntryPoint {
 				boolean aStarBi = controlsPanel.getOptionsPanel().getaStarBiRadioButton().getValue();
 				
 				
-				if(shortestPath){
-					if(aStarBi){
+				if (shortestPath) {
+					if (aStarBi) {
 						findPathSvc.findShortestPathAStarBi(startCity, startStreet, destCity, destStreet, callback);
-					}else{
+					} else {
 						findPathSvc.findShortestPathAStar(startCity, startStreet, destCity, destStreet, callback);
 					}
-				}else{
+				} else {
 					int motorwaySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim());
 					int primarySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
 					int residentialSpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
-					if(aStarBi){
+					if (aStarBi) {
 						findPathSvc.findFastestPathAStarBi(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
-					}else{
+					} else {
 						findPathSvc.findFastestPathAStar(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
 					}
 				}

@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class LocationsPanel extends VerticalPanel {
-	
+
 	HorizontalPanel startPanel1 = new HorizontalPanel();
 	HorizontalPanel startPanel2 = new HorizontalPanel();
 	HorizontalPanel endPanel1 = new HorizontalPanel();
@@ -18,7 +18,7 @@ public class LocationsPanel extends VerticalPanel {
 	TextBox startStreetTextBox = new TextBox();
 	TextBox destCityTextBox = new TextBox();
 	TextBox destStreetTextBox = new TextBox();
-	
+
 	public LocationsPanel() {
 		startCityTextBox.setText("Saarlouis");
 		startStreetTextBox.setText("Grubenweg");
@@ -59,6 +59,6 @@ public class LocationsPanel extends VerticalPanel {
 	public TextBox getDestStreetTextBox() {
 		return destStreetTextBox;
 	}
-	
-	
+
+
 }
