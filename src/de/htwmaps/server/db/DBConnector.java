@@ -10,6 +10,7 @@ import de.htwmaps.shared.exceptions.MySQLException;
  * Name: <code>MySQL</code>
  * <p>
  * Klasse gibt eine SQL Connection zurueck.
+ * Aendern der Datenbank waehrend der Laufzeit nicht moeglich.
  * </p>
  * <ul>
  * 	 <li>@author Yassir Klos, Christian Rech, Tim Bartsch</li>
