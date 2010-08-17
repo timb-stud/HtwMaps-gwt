@@ -1,9 +1,11 @@
 package de.htwmaps.server.db;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
 
 public class DBUtils {
@@ -14,8 +16,9 @@ public class DBUtils {
 	
 	private DBUtils(){ }
 	
-	public static int getNodeId(String city, String street) throws SQLException, NodeNotFoundException{
-		PreparedStatement select = DBConnector.getConnection().prepareStatement(GETNODEID_SELECT);
+	public static int getNodeId(String city, String street) throws SQLException, NodeNotFoundException, MySQLException{
+		Connection con = DBConnector.getConnection();
+		PreparedStatement select = con.prepareStatement(GETNODEID_SELECT);
 		select.setString(1, city);
 		select.setString(2, street);
 		ResultSet rs = select.executeQuery();
@@ -24,8 +27,9 @@ public class DBUtils {
 		return rs.getInt(1);
 	}
 	
-	public static String[] getCitiesStartsWith(String s) throws SQLException{
-		PreparedStatement select = DBConnector.getConnection().prepareStatement(GETCITIESSTARTWITH_SELECT);
+	public static String[] getCitiesStartsWith(String s) throws SQLException, MySQLException{
+		Connection con = DBConnector.getConnection();
+		PreparedStatement select = con.prepareStatement(GETCITIESSTARTWITH_SELECT);
 		select.setString(1, s + "%");
 		ResultSet rs  = select.executeQuery();
 		if(!rs.next())
@@ -40,8 +44,9 @@ public class DBUtils {
 		return result;
 	}
 	
-	public static String[] getStreetsStartsWith(String city, String s) throws SQLException{
-		PreparedStatement select = DBConnector.getConnection().prepareStatement(GETSTREETSSTARTWITH_SELECT);
+	public static String[] getStreetsStartsWith(String city, String s) throws SQLException, MySQLException{
+		Connection con = DBConnector.getConnection();
+		PreparedStatement select = con.prepareStatement(GETSTREETSSTARTWITH_SELECT);
 		select.setString(1, city);
 		select.setString(2, s + "%");
 		ResultSet rs  = select.executeQuery();
