@@ -1,6 +1,6 @@
 .classpath
 war/WEB-INF/classes
 war/mapstraction.js
-war/htwMaps/*.cache.*
-war/htwMaps/*.gwt.rpc
+war/htwmaps/*.cache.*
+war/htwmaps/*.gwt.rpc
 src/de/htwmaps/server/db/db.properties
