@@ -1,6 +1,7 @@
 .classpath
 war/WEB-INF/classes
 war/mapstraction.js
-war/WEB-INF/lib/mysql-connector-java-5.1.13-bin.jar
+war/htwmaps/*.cache.*
+war/htwmaps/*.gwt.rpc
 src/de/htwmaps/server/db/db.properties
 war/htwmaps/*.html

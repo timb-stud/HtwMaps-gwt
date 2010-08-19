@@ -1,10 +1,12 @@
 package de.htwmaps.server.db;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.htwmaps.server.algorithm.GraphData;
+import de.htwmaps.shared.exceptions.MySQLException;
 
 /**
  * 
@@ -45,10 +47,11 @@ public class DBAdapterParabel{
 		this.gd = gd;
 	}
 	
-	public void fillGraphData(int node1Id, int node2Id, float a, float h) throws SQLException{
+	public void fillGraphData(int node1Id, int node2Id, float a, float h) throws SQLException, MySQLException{
 		this.a = a;
 		this.h = h;
-		ResultSet resultSet = DBConnector.getConnection().createStatement().executeQuery(buildCoordSelectStatement(node1Id, node2Id));
+		Connection con = DBConnector.getConnection();
+		ResultSet resultSet = con.createStatement().executeQuery(buildCoordSelectStatement(node1Id, node2Id));
 		resultSet.next();
 		startNodeLat = resultSet.getFloat(1);
 		startNodeLon = resultSet.getFloat(2);
@@ -70,9 +73,10 @@ public class DBAdapterParabel{
 		return sb.toString();
 	}
 
-	private void initNodes() throws SQLException{
+	private void initNodes() throws SQLException, MySQLException{
 		int tableLength;
-		PreparedStatement pStmt = DBConnector.getConnection().prepareStatement(NODE_SELECT);
+		Connection con = DBConnector.getConnection();
+		PreparedStatement pStmt = con.prepareStatement(NODE_SELECT);
 		pStmt.setFloat(1, a);
 		pStmt.setFloat(2, (endNodeLat - startNodeLat));
 		pStmt.setFloat(3, endNodeLon - startNodeLon);
@@ -106,9 +110,10 @@ public class DBAdapterParabel{
 		}
 	}
 
-	private void initEdges() throws SQLException{
+	private void initEdges() throws SQLException, MySQLException{
 		int tableLength;
-		PreparedStatement pStmt = DBConnector.getConnection().prepareStatement(EDGE_SELECT);
+		Connection con = DBConnector.getConnection();
+		PreparedStatement pStmt = con.prepareStatement(EDGE_SELECT);
 		pStmt.setFloat(1, a);
 		pStmt.setFloat(2, (endNodeLat - startNodeLat));
 		pStmt.setFloat(3, endNodeLon - startNodeLon);

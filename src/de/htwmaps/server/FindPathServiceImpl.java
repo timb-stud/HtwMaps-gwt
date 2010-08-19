@@ -12,6 +12,7 @@ import de.htwmaps.server.algorithm.ShortestPathAlgorithm;
 import de.htwmaps.server.db.DBAdapterParabel;
 import de.htwmaps.server.db.DBUtils;
 import de.htwmaps.shared.PathData;
+import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
 import de.htwmaps.shared.exceptions.PathNotFoundException;
 import de.htwmaps.shared.exceptions.SQLException;
@@ -24,7 +25,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	
 	@Override
 	public PathData findShortestPathAStar(String startCity, String startStreet,
-			String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException{
+			String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException{
 		
 		try{
 			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
@@ -68,7 +69,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public PathData findFastestPathAStar(String startCity, String startStreet,
 			String destCity, String destStreet, int motorwaySpeed,
-			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException{
+			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException{
 
 		try{
 			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
@@ -111,7 +112,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public PathData findShortestPathAStarBi(String startCity,
-			String startStreet, String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException{
+			String startStreet, String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException{
 		try{
 			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
 			int goalNodeID = DBUtils.getNodeId(destCity, destStreet);
@@ -154,7 +155,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public PathData findFastestPathAStarBi(String startCity,
 			String startStreet, String destCity, String destStreet,
-			int motorwaySpeed, int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException{
+			int motorwaySpeed, int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException{
 		
 		try{
 			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
