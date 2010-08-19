@@ -15,6 +15,17 @@
     <servlet-name>FindPathServiceImpl</servlet-name>
     <url-pattern>/htwmaps/findPath</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CityStreetSuggestServiceImpl</servlet-name>
+    <servlet-class>de.htwmaps.server.CityStreetSuggestServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>CityStreetSuggestServiceImpl</servlet-name>
+    <url-pattern>/htwmaps/cityStreetSuggest</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>HtwMaps.html</welcome-file>

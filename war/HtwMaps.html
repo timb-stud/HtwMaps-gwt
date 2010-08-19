@@ -31,12 +31,16 @@
     		var maps;
 			var points;
 			var pointCount;
+			var polyline;
+			var markerStart;
+			var markerZiel;
 			function init(){
 	            maps = new Mapstraction('map','openstreetmap');
 				points = [];
 				pointCount = 0;
-                var myPoint = new LatLonPoint(49.3431, 7.0213);
-                maps.setCenterAndZoom(myPoint, 10);
+                var myPoint = new LatLonPoint(51.1632400, 10.4451736);
+                maps.setCenterAndZoom(myPoint, 6);
+                maps.enableScrollWheelZoom();
  	            maps.addControls({
      	           pan: true, 
      	           zoom: 'large',
@@ -49,17 +53,33 @@
 			}
 			
 			function drawPolyLine(){
-				var polyline = new Polyline(points);
+				polyline = new Polyline(points);
 				polyline.setColor("#FF0000");
-				polyline.setOpacity(0.5);
-				polyline.setWidth(4);
+				polyline.setOpacity(1);
+				polyline.setWidth(5);
 				maps.addPolyline(polyline);
 				points = [];
 				pointCount = 0;
 			}
+
+			function removePolyline(){
+				maps.removePolyline(polyline);
+			}
 			
-			function addMarker(lat, lon){
-				maps.addMarker(new Marker(new LatLonPoint(lat, lon)));
+			function addMarker(latStart, lonStart, latEnde, lonEnde){
+				markerStart = new Marker(new LatLonPoint(latStart, lonStart));
+				maps.addMarkerWithData(markerStart,{
+					infoBubble : "Start"
+			    });
+				markerZiel = new Marker(new LatLonPoint(latEnde, lonEnde));
+				maps.addMarkerWithData(markerZiel,{
+					infoBubble : "Ziel"
+			    });
+			}
+
+			function removeMarker(){
+				maps.removeMarker(markerStart);
+				maps.removeMarker(markerZiel);
 			}
 	</script>
     <style type="text/css">
