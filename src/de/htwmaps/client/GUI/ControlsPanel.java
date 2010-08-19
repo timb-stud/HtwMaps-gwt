@@ -20,7 +20,7 @@ public class ControlsPanel extends VerticalPanel{
 	public ControlsPanel() {
 		init();
 	}
-	
+
 	private void init(){
 		setSize("300px", "10px");
 		add(locationsPanel);
@@ -80,6 +80,10 @@ public class ControlsPanel extends VerticalPanel{
 	
 	public Button getCalcRouteButton() {
 		return calcRouteButton;
+	}
+	
+	public void setCalcRouteButton(boolean active) {
+		this.calcRouteButton.setEnabled(active);
 	}
 	
 	public LocationsPanel getLocationsPanel() {

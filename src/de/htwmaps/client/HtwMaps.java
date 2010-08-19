@@ -19,6 +19,7 @@ public class HtwMaps implements EntryPoint {
 	Label statusLabel = new Label("Status: Ready");
 	AboutAnchor aboutAnchor = new AboutAnchor("About");
 	ControlsPanel controlsPanel = new ControlsPanel();
+
 	private FindPathServiceAsync findPathSvc = GWT.create(FindPathService.class);
 
 	/**
@@ -34,6 +35,10 @@ public class HtwMaps implements EntryPoint {
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				controlsPanel.setCalcRouteButton(false);
+				statusLabel.setText("Status: Calculate route!");
+				removePolyline();
+				removeMarker();
 				if(findPathSvc == null){
 					findPathSvc = GWT.create(FindPathService.class);
 				}
@@ -42,19 +47,22 @@ public class HtwMaps implements EntryPoint {
 
 					@Override
 					public void onFailure(Throwable caught) {
-						statusLabel.setText("an error occoured:" + caught.getMessage());
+						controlsPanel.setCalcRouteButton(true);
+						statusLabel.setText("Status: an error occoured:" + caught.getMessage());
 					}
 
 					@Override
 					public void onSuccess(PathData result) {
-						statusLabel.setText("A route was found.");
+						controlsPanel.setCalcRouteButton(true);
+						statusLabel.setText("Status: A route was found.");
 						float[] nodeLats = result.getNodeLats();
 						float[] nodeLons = result.getNodeLons();
-						for(int i=0;i<nodeLats.length;i++){
+						int i = 0;
+						for(i=0;i<nodeLats.length;i++){
 							addPoint(nodeLats[i], nodeLons[i]);
 						}
 						drawPolyLine();
-						
+						addMarker(nodeLats[0], nodeLons[0], nodeLats[nodeLats.length - 1], nodeLons[nodeLats.length - 1]);
 					}
 				};
 				
@@ -63,7 +71,12 @@ public class HtwMaps implements EntryPoint {
 				String destCity = controlsPanel.getLocationsPanel().getDestCityTextBox().getText();
 				String destStreet = controlsPanel.getLocationsPanel().getDestStreetTextBox().getText();
 				
-				
+				if (startStreet.indexOf(",") != -1) {
+					startStreet = startStreet.substring(0, startStreet.indexOf(","));
+				}
+				if (destStreet.indexOf(",") != -1) {
+					destStreet = destStreet.substring(0, destStreet.indexOf(","));
+				}
 				
 				boolean shortestPath = controlsPanel.getOptionsPanel().getShortestRadioButton().getValue();
 				boolean aStarBi = controlsPanel.getOptionsPanel().getaStarBiRadioButton().getValue();
@@ -100,5 +113,17 @@ public class HtwMaps implements EntryPoint {
 
 	native void drawPolyLine() /*-{
 		$wnd.drawPolyLine();
+	}-*/;
+	
+	native void removePolyline() /*-{
+		$wnd.removePolyline();
+	}-*/;
+	
+	native void addMarker(float latStart, float lonStart, float latEnde, float lonEnde) /*-{
+		$wnd.addMarker(latStart, lonStart, latEnde, lonEnde);
+	}-*/;
+	
+	native void removeMarker() /*-{
+		$wnd.removeMarker();
 	}-*/;
 }

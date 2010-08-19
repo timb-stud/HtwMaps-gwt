@@ -1,10 +1,17 @@
 package de.htwmaps.client.GUI;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import de.htwmaps.client.CityStreetSuggestService;
+import de.htwmaps.client.CityStreetSuggestServiceAsync;
+import de.htwmaps.client.CitySuggestionKeyUpHandler;
+import de.htwmaps.client.StreetSuggestionKeyUpHandler;
 
 public class LocationsPanel extends VerticalPanel {
 
@@ -14,50 +21,64 @@ public class LocationsPanel extends VerticalPanel {
 	HorizontalPanel endPanel2 = new HorizontalPanel();
 	Label startLabel = new Label("Start:");
 	Label destLabel = new Label("Ende:");
-	TextBox startCityTextBox = new TextBox();
-	TextBox startStreetTextBox = new TextBox();
-	TextBox destCityTextBox = new TextBox();
-	TextBox destStreetTextBox = new TextBox();
+	MultiWordSuggestOracle startCitySuggestOracle = new MultiWordSuggestOracle();
+	MultiWordSuggestOracle startStreetSuggestOracle = new MultiWordSuggestOracle();
+	MultiWordSuggestOracle destCitySuggestOracle = new MultiWordSuggestOracle();
+	MultiWordSuggestOracle destStreetSuggestOracle = new MultiWordSuggestOracle();
+	SuggestBox startCitySuggestBox = new SuggestBox(startCitySuggestOracle);
+	SuggestBox startStreetSuggestBox = new SuggestBox(startStreetSuggestOracle);
+	SuggestBox destCitySuggestBox = new SuggestBox(destCitySuggestOracle);
+	SuggestBox destStreetSuggestBox = new SuggestBox(destStreetSuggestOracle);
+	
+	CityStreetSuggestServiceAsync cityStreetSuggestSvc = GWT.create(CityStreetSuggestService.class);
 
 	public LocationsPanel() {
-		startCityTextBox.setText("Saarlouis");
-		startStreetTextBox.setText("Grubenweg");
-		destCityTextBox.setText("Dillingen");
-		destStreetTextBox.setText("Am Hainbach");
+	
+		startCitySuggestBox.setText("Koblenz");
+		startStreetSuggestBox.setText("Paradies");
+		destCitySuggestBox.setText("Saarburg");
+		destStreetSuggestBox.setText("Bachweg");
+		
+		startCitySuggestBox.getTextBox().addKeyUpHandler(new CitySuggestionKeyUpHandler(cityStreetSuggestSvc, startCitySuggestOracle));
+		startStreetSuggestBox.getTextBox().addKeyUpHandler(new StreetSuggestionKeyUpHandler(cityStreetSuggestSvc, startStreetSuggestOracle, startCitySuggestBox));
+		destCitySuggestBox.getTextBox().addKeyUpHandler(new CitySuggestionKeyUpHandler(cityStreetSuggestSvc, destCitySuggestOracle));
+		destStreetSuggestBox.getTextBox().addKeyUpHandler(new StreetSuggestionKeyUpHandler(cityStreetSuggestSvc, destStreetSuggestOracle, destCitySuggestBox));
+
 		startPanel1.add(startLabel);
-		startPanel1.add(startCityTextBox);
-		startPanel2.add(startStreetTextBox);
+		startPanel1.add(startCitySuggestBox);
+		startPanel2.add(startStreetSuggestBox);
 		endPanel1.add(destLabel);
-		endPanel1.add(destCityTextBox);
-		endPanel2.add(destStreetTextBox);
+		endPanel1.add(destCitySuggestBox);
+		endPanel2.add(destStreetSuggestBox);
 		startPanel1.setSize("200px", "10px");
-		startPanel1.setCellHorizontalAlignment(startCityTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
+		startPanel1.setCellHorizontalAlignment(startCitySuggestBox, HasHorizontalAlignment.ALIGN_RIGHT);
 		startPanel2.setSize("200px", "10px");
-		startPanel2.setCellHorizontalAlignment(startStreetTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
+		startPanel2.setCellHorizontalAlignment(startStreetSuggestBox, HasHorizontalAlignment.ALIGN_RIGHT);
 		endPanel1.setSize("200px", "10px");
-		endPanel1.setCellHorizontalAlignment(destCityTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
+		endPanel1.setCellHorizontalAlignment(destCitySuggestBox, HasHorizontalAlignment.ALIGN_RIGHT);
 		endPanel2.setSize("200px", "10px");
-		endPanel2.setCellHorizontalAlignment(destStreetTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
+		endPanel2.setCellHorizontalAlignment(destStreetSuggestBox, HasHorizontalAlignment.ALIGN_RIGHT);
+		
 		add(startPanel1);
 		add(startPanel2);
 		add(endPanel1);
 		add(endPanel2);
 	}
 
-	public TextBox getStartCityTextBox() {
-		return startCityTextBox;
+	public SuggestBox getStartCityTextBox() {
+		return startCitySuggestBox;
 	}
 
-	public TextBox getStartStreetTextBox() {
-		return startStreetTextBox;
+	public SuggestBox getStartStreetTextBox() {
+		return startStreetSuggestBox;
 	}
 
-	public TextBox getDestCityTextBox() {
-		return destCityTextBox;
+	public SuggestBox getDestCityTextBox() {
+		return destCitySuggestBox;
 	}
 
-	public TextBox getDestStreetTextBox() {
-		return destStreetTextBox;
+	public SuggestBox getDestStreetTextBox() {
+		return destStreetSuggestBox;
 	}
 
 

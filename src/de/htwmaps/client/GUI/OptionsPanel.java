@@ -44,18 +44,18 @@ public class OptionsPanel extends VerticalPanel {
 		//Speed
 		speedAutobPanel.setSize("250px", "10px");
 		motorwaySpeedTextBox.setSize("40px", "10px");
-		motorwaySpeedTextBox.setText("130");
+		motorwaySpeedTextBox.setText("100");
 		speedAutobPanel.add(motorwaySpeedLabel);
 		speedAutobPanel.add(motorwaySpeedTextBox);
 		speedAutobPanel.setCellHorizontalAlignment(motorwaySpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
 		speedLandPanel.setSize("250px", "10px");
 		primarySpeedTextBox.setSize("40px", "10px");
-		primarySpeedTextBox.setText("80");
+		primarySpeedTextBox.setText("60");
 		speedLandPanel.add(primarySpeedLabel);
 		speedLandPanel.add(primarySpeedTextBox);
 		speedLandPanel.setCellHorizontalAlignment(primarySpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
 		residentialSpeedTextBox.setSize("40px", "10px");
-		residentialSpeedTextBox.setText("50");
+		residentialSpeedTextBox.setText("40");
 		residentialSpeedPanel.setSize("250px", "10px");
 		residentialSpeedPanel.add(residentialSpeedLabel);
 		residentialSpeedPanel.add(residentialSpeedTextBox);
@@ -103,8 +103,5 @@ public class OptionsPanel extends VerticalPanel {
 
 	public TextBox getResidentialSpeedTextBox() {
 		return residentialSpeedTextBox;
-	}
-	
-	
-	
+	}	
 }
