@@ -83,16 +83,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 					}
 				}
 			}
-			float[] nodeLats = new float[result.length];
-			float[] nodeLons = new float[result.length];
-			for(int i=0; i<nodeLats.length;i++){
-				nodeLats[i] = result[i].getLat();
-				nodeLons[i] = result[i].getLon();
-			}
-			PathData pd = new PathData();
-			pd.setNodeLats(nodeLats);
-			pd.setNodeLons(nodeLons);
-			return pd;
+			return buildPathData(result);
 		}catch(java.sql.SQLException e){
 			throw new SQLException();
 		}
@@ -124,18 +115,22 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 					}
 				}
 			}
-			float[] nodeLats = new float[result.length];
-			float[] nodeLons = new float[result.length];
-			for(int i=0; i<nodeLats.length;i++){
-				nodeLats[i] = result[i].getLat();
-				nodeLons[i] = result[i].getLon();
-			}
-			PathData pd = new PathData();
-			pd.setNodeLats(nodeLats);
-			pd.setNodeLons(nodeLons);
-			return pd;
+			return buildPathData(result);
 		}catch(java.sql.SQLException e){
 			throw new SQLException();
 		}
+	}
+	
+	private PathData buildPathData(Node[] nodes){
+		float[] nodeLats = new float[nodes.length];
+		float[] nodeLons = new float[nodes.length];
+		for(int i=0; i<nodeLats.length;i++){
+			nodeLats[i] = nodes[i].getLat();
+			nodeLons[i] = nodes[i].getLon();
+		}
+		PathData pd = new PathData();
+		pd.setNodeLats(nodeLats);
+		pd.setNodeLons(nodeLons);
+		return pd;
 	}
 }
