@@ -26,13 +26,45 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public PathData findShortestPathAStar(String startCity, String startStreet,
 			String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
-		
+		GraphData gd = new GraphData();
+		ShortestPathAlgorithm spa = new AStar(gd);
+		return executeShortestSearch(spa, gd, startCity, startStreet, destCity, destStreet);
+	}
+
+	@Override
+	public PathData findFastestPathAStar(String startCity, String startStreet,
+			String destCity, String destStreet, int motorwaySpeed,
+			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
+		GraphData gd = new GraphData();
+		ShortestPathAlgorithm spa = new AStar(gd);
+		return executeFastestSearch(spa, gd, startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed);
+	}
+
+	@Override
+	public PathData findShortestPathAStarBi(String startCity,
+			String startStreet, String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
+		GraphData gd = new GraphData();
+		ShortestPathAlgorithm spa = new AStarBidirectionalStarter(gd);
+		return executeShortestSearch(spa, gd, startCity, startStreet, destCity, destStreet);
+	}
+
+	@Override
+	public PathData findFastestPathAStarBi(String startCity,
+			String startStreet, String destCity, String destStreet,
+			int motorwaySpeed, int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
+		GraphData gd = new GraphData();
+		ShortestPathAlgorithm spa = new AStarBidirectionalStarter(gd);
+		return executeFastestSearch(spa, gd, startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed);
+	}
+
+	
+	private PathData executeShortestSearch(ShortestPathAlgorithm spa, GraphData gd,
+			String startCity, String startStreet, String destCity,
+			String destStreet) throws NodeNotFoundException, MySQLException, PathNotFoundException, SQLException {
 		try{
 			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
 			int goalNodeID = DBUtils.getNodeId(destCity, destStreet);
-			GraphData gd = new GraphData();
-			ShortestPathAlgorithm as = new AStar(gd);
-			float a = 0.9f;
+			float a = 0.8f;
 			float h = 0.01f;
 			DBAdapterParabel dbap;
 			dbap = new DBAdapterParabel(gd);
@@ -40,10 +72,10 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			while(true) {
 				dbap.fillGraphData(startNodeID, goalNodeID, a, h);
 				try {
-					result = as.findShortestPath(startNodeID, goalNodeID);
+					result = spa.findShortestPath(startNodeID, goalNodeID);
 					break;
 				} catch (PathNotFoundException e) {
-					a *= 0.5f;
+					a *= 0.3f;
 					h += 0.01f;
 					System.out.println(a);
 					if (a <= 0.01) {
@@ -65,17 +97,14 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			throw new SQLException();
 		}
 	}
-
-	@Override
-	public PathData findFastestPathAStar(String startCity, String startStreet,
+	
+	private PathData executeFastestSearch(ShortestPathAlgorithm spa,
+			GraphData gd, String startCity, String startStreet,
 			String destCity, String destStreet, int motorwaySpeed,
-			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
-
+			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, MySQLException, PathNotFoundException, SQLException {
 		try{
 			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
 			int goalNodeID = DBUtils.getNodeId(destCity, destStreet);
-			GraphData gd = new GraphData();
-			ShortestPathAlgorithm as = new AStar(gd);
 			float a = 0.8f;
 			float h = 0.01f;
 			DBAdapterParabel dbap;
@@ -84,11 +113,11 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			while(true) {
 				dbap.fillGraphData(startNodeID, goalNodeID, a, h);
 				try {
-					result = as.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed);
+					result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed);
 					break;
 				} catch (PathNotFoundException e) {
-					a *= 0.5f;
-					h += 0.001f;
+					a *= 0.3f;
+					h += 0.01f;
 					System.out.println(a);
 					if (a <= 0.01) {
 						throw new PathNotFoundException();
@@ -109,91 +138,4 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			throw new SQLException();
 		}
 	}
-
-	@Override
-	public PathData findShortestPathAStarBi(String startCity,
-			String startStreet, String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
-		try{
-			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
-			int goalNodeID = DBUtils.getNodeId(destCity, destStreet);
-			GraphData gd = new GraphData();
-			ShortestPathAlgorithm as = new AStarBidirectionalStarter(gd);
-			float a = 0.8f;
-			float h = 0.01f;
-			DBAdapterParabel dbap;
-			dbap = new DBAdapterParabel(gd);
-			Node[] result;
-			while(true) {
-				dbap.fillGraphData(startNodeID, goalNodeID, a, h);
-				try {
-					result = as.findShortestPath(startNodeID, goalNodeID);
-					break;
-				} catch (PathNotFoundException e) {
-					a *= 0.5f;
-					h += 0.001f;
-					System.out.println(a);
-					if (a <= 0.01) {
-						throw new PathNotFoundException();
-					}
-				}
-			}
-			float[] nodeLats = new float[result.length];
-			float[] nodeLons = new float[result.length];
-			for(int i=0; i<nodeLats.length;i++){
-				nodeLats[i] = result[i].getLat();
-				nodeLons[i] = result[i].getLon();
-			}
-			PathData pd = new PathData();
-			pd.setNodeLats(nodeLats);
-			pd.setNodeLons(nodeLons);
-			return pd;
-		}catch(java.sql.SQLException e){
-			throw new SQLException();
-		}
-	}
-
-	@Override
-	public PathData findFastestPathAStarBi(String startCity,
-			String startStreet, String destCity, String destStreet,
-			int motorwaySpeed, int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
-		
-		try{
-			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
-			int goalNodeID = DBUtils.getNodeId(destCity, destStreet);
-			GraphData gd = new GraphData();
-			ShortestPathAlgorithm as = new AStarBidirectionalStarter(gd);
-			float a = 0.8f;
-			float h = 0.01f;
-			DBAdapterParabel dbap;
-			dbap = new DBAdapterParabel(gd);
-			Node[] result;
-			while(true) {
-				dbap.fillGraphData(startNodeID, goalNodeID, a, h);
-				try {
-					result = as.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed);
-					break;
-				} catch (PathNotFoundException e) {
-					a *= 0.5f;
-					h += 0.001f;
-					System.out.println(a);
-					if (a <= 0.01) {
-						throw new PathNotFoundException();
-					}
-				}
-			}
-			float[] nodeLats = new float[result.length];
-			float[] nodeLons = new float[result.length];
-			for(int i=0; i<nodeLats.length;i++){
-				nodeLats[i] = result[i].getLat();
-				nodeLons[i] = result[i].getLon();
-			}
-			PathData pd = new PathData();
-			pd.setNodeLats(nodeLats);
-			pd.setNodeLons(nodeLons);
-			return pd;
-		}catch(java.sql.SQLException e){
-			throw new SQLException();
-		}
-	}
-
 }
