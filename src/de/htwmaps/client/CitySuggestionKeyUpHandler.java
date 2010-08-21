@@ -16,14 +16,21 @@ public class CitySuggestionKeyUpHandler implements KeyUpHandler {
 		this.cityStreetSuggestSvc = cityStreetSuggestSvc;
 		this.oracle = oracle;
 	}
-	
+
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
-		TextBox tb = (TextBox)event.getSource();
-		if(tb.getText().length() > 1){
-			if(this.cityStreetSuggestSvc == null)
+		TextBox tb = (TextBox) event.getSource();
+		
+		System.out.println(event.getNativeKeyCode());
+
+		if (event.getNativeKeyCode() == 8 || event.getNativeKeyCode() == 46) {
+			oracle.clear();
+		}
+		
+		if (tb.getText().length() > 1) {
+			if (this.cityStreetSuggestSvc == null)
 				this.cityStreetSuggestSvc = GWT.create(CityStreetSuggestService.class);
-			
+
 			AsyncCallback<String[]> callback = new AsyncCallback<String[]>() {
 
 				@Override
@@ -34,14 +41,16 @@ public class CitySuggestionKeyUpHandler implements KeyUpHandler {
 
 				@Override
 				public void onSuccess(String[] result) {
-					for(String s: result)
+					for (String s : result)
 						oracle.add(s);
 				}
 			};
-			
+
 			this.cityStreetSuggestSvc.getCitySuggestions(tb.getText(), callback);
 		}
-
 	}
 
+	public void clearContent() {
+		this.oracle.clear();
+	}
 }

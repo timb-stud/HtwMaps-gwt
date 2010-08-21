@@ -23,6 +23,11 @@ public class StreetSuggestionKeyUpHandler implements KeyUpHandler {
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
 		TextBox tb = (TextBox)event.getSource();
+		
+		if (event.getNativeKeyCode() == 8 || event.getNativeKeyCode() == 46) {
+			oracle.clear();
+		}
+		
 		if(tb.getText().length() > 1){
 			if(this.cityStreetSuggestSvc == null)
 				this.cityStreetSuggestSvc = GWT.create(CityStreetSuggestService.class);
@@ -44,6 +49,10 @@ public class StreetSuggestionKeyUpHandler implements KeyUpHandler {
 			this.cityStreetSuggestSvc.getStreetSuggestions(citySuggestBox.getText(), tb.getText(), callback);
 		}
 
+	}
+	
+	public void clearContent() {
+		this.oracle.clear();
 	}
 
 }
