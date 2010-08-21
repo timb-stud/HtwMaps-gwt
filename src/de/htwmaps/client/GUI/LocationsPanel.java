@@ -29,6 +29,10 @@ public class LocationsPanel extends VerticalPanel {
 	SuggestBox startStreetSuggestBox = new SuggestBox(startStreetSuggestOracle);
 	SuggestBox destCitySuggestBox = new SuggestBox(destCitySuggestOracle);
 	SuggestBox destStreetSuggestBox = new SuggestBox(destStreetSuggestOracle);
+	CitySuggestionKeyUpHandler startCity = null;
+	StreetSuggestionKeyUpHandler startStreet = null;
+	CitySuggestionKeyUpHandler destCity = null;
+	StreetSuggestionKeyUpHandler destStreet = null;
 	
 	CityStreetSuggestServiceAsync cityStreetSuggestSvc = GWT.create(CityStreetSuggestService.class);
 
@@ -39,10 +43,14 @@ public class LocationsPanel extends VerticalPanel {
 		destCitySuggestBox.setText("Saarburg");
 		destStreetSuggestBox.setText("Bachweg");
 		
-		startCitySuggestBox.getTextBox().addKeyUpHandler(new CitySuggestionKeyUpHandler(cityStreetSuggestSvc, startCitySuggestOracle));
-		startStreetSuggestBox.getTextBox().addKeyUpHandler(new StreetSuggestionKeyUpHandler(cityStreetSuggestSvc, startStreetSuggestOracle, startCitySuggestBox));
-		destCitySuggestBox.getTextBox().addKeyUpHandler(new CitySuggestionKeyUpHandler(cityStreetSuggestSvc, destCitySuggestOracle));
-		destStreetSuggestBox.getTextBox().addKeyUpHandler(new StreetSuggestionKeyUpHandler(cityStreetSuggestSvc, destStreetSuggestOracle, destCitySuggestBox));
+		startCity = new CitySuggestionKeyUpHandler(cityStreetSuggestSvc, startCitySuggestOracle);
+		startStreet = new StreetSuggestionKeyUpHandler(cityStreetSuggestSvc, startStreetSuggestOracle, startCitySuggestBox);
+		destCity = new CitySuggestionKeyUpHandler(cityStreetSuggestSvc, destCitySuggestOracle);
+		destStreet = new StreetSuggestionKeyUpHandler(cityStreetSuggestSvc, destStreetSuggestOracle, destCitySuggestBox);
+		startCitySuggestBox.getTextBox().addKeyUpHandler(startCity);
+		startStreetSuggestBox.getTextBox().addKeyUpHandler(startStreet);
+		destCitySuggestBox.getTextBox().addKeyUpHandler(destCity);
+		destStreetSuggestBox.getTextBox().addKeyUpHandler(destStreet);
 
 		startPanel1.add(startLabel);
 		startPanel1.add(startCitySuggestBox);
@@ -63,6 +71,22 @@ public class LocationsPanel extends VerticalPanel {
 		add(startPanel2);
 		add(endPanel1);
 		add(endPanel2);
+	}
+
+	public CitySuggestionKeyUpHandler getStartCity() {
+		return startCity;
+	}
+
+	public StreetSuggestionKeyUpHandler getStartStreet() {
+		return startStreet;
+	}
+
+	public CitySuggestionKeyUpHandler getDestCity() {
+		return destCity;
+	}
+
+	public StreetSuggestionKeyUpHandler getDestStreet() {
+		return destStreet;
 	}
 
 	public SuggestBox getStartCityTextBox() {

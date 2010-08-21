@@ -39,6 +39,11 @@ public class HtwMaps implements EntryPoint {
 				statusLabel.setText("Status: Calculate route!");
 				removePolyline();
 				removeMarker();
+				controlsPanel.getLocationsPanel().getStartCity().clearContent();
+				controlsPanel.getLocationsPanel().getStartStreet().clearContent();
+				controlsPanel.getLocationsPanel().getDestCity().clearContent();
+				controlsPanel.getLocationsPanel().getDestStreet().clearContent();
+				
 				if(findPathSvc == null){
 					findPathSvc = GWT.create(FindPathService.class);
 				}
