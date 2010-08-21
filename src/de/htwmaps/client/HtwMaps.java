@@ -96,7 +96,7 @@ public class HtwMaps implements EntryPoint {
 				} else {
 					int motorwaySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim());
 					int primarySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
-					int residentialSpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
+					int residentialSpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getResidentialSpeedTextBox().getText().trim());
 					if (aStarBi) {
 						findPathSvc.findFastestPathAStarBi(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
 					} else {
