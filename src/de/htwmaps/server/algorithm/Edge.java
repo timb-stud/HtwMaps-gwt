@@ -1,6 +1,7 @@
 package de.htwmaps.server.algorithm;
 
 
+
 /**
  * 
  * @author Stanislaw Tartakowski, Tim Bartsch
@@ -8,11 +9,12 @@ package de.htwmaps.server.algorithm;
  */
 public class Edge {
 	private Node successor, predecessor;
-	private double lenght;
+	private double length;
 	private int highwayType;
 	private boolean isOneway;
 	private int wayID;
 	private int speed;
+	private int id;
 
 	/**
 	 * 
@@ -20,12 +22,13 @@ public class Edge {
 	 * @param length laenge der Kante
 	 * @param speed 
 	 */
-	public Edge(Node successor, double length, int highwayType, int wayID, int speed) {
+	public Edge(Node successor, double length, int highwayType, int wayID, int speed, int id) {
 		this.successor = successor;
-		this.lenght = length;
+		this.length = length;
 		this.highwayType = highwayType;
 		this.wayID = wayID;
 		this.speed = speed;
+		this.id = id;
 	}
 	
 	public int getSpeed() {
@@ -71,19 +74,23 @@ public class Edge {
 	 * @return Laenge der Kante
 	 */
 	public double getLenght() {
-		return lenght;
+		return length;
 	}
 
 	@Override
 	public String toString() {
-		return "[" + successor + "; " + lenght + "]";
+		return "[" + successor + "; " + length + "]";
 	}
 
 	public double getPrioLength() {
-		return lenght / speed;
+		return length / speed;
 	}
 
 	public boolean isOneway() {
 		return isOneway;
+	}
+	
+	public int getID() {
+		return id;
 	}
 }
