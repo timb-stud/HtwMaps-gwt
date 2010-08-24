@@ -1,7 +1,5 @@
 package de.htwmaps.server.algorithm;
 
-import java.util.LinkedList;
-
 import de.htwmaps.shared.exceptions.PathNotFoundException;
 
 
@@ -51,16 +49,17 @@ public abstract class ShortestPathAlgorithm {
 									int primarySpeed,
 									int residentialSpeed) throws PathNotFoundException;
 
-	public static LinkedList<Edge> getResultEdges(Node[] result) {
-		 LinkedList<Edge> edgeList = new LinkedList<Edge>();
-		 for(int i=result.length -1; i>0; i--){
+	public static Edge[] getResultEdges(Node[] result) {
+		 Edge[] edges = new Edge[result.length - 1];
+		 loop:for(int i=result.length -1; i>0; i--){
 			 for(Edge e: result[i].getEdgeList()){
 				 if(e.getSuccessor().equals(result[i-1])){
-					 edgeList.add(e);
+					 edges[i - 1] = e;
+					 continue loop;
 				 }
 			 }
 		 }
-		return edgeList;
+		return edges;
 	}
 	
 	public int getMotorwaySpeed() {
