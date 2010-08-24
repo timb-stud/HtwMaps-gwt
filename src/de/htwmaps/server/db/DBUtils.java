@@ -78,17 +78,15 @@ public class DBUtils {
 		return result;
 	}
 
-	public float[][] getAllNodeLatLons(Node[] nodes, Edge[] edges) throws SQLException,
+	public static float[][] getAllNodeLatLons(Node[] nodes, Edge[] edges) throws SQLException,
 			MySQLException {
 		String sql1 = "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5";
 		String sql2 = "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5 DESC";
 		String sql3 = "SELECT COUNT(*) FROM edges_opt WHERE node1ID = ? AND node2ID = ?";
 
 		PreparedStatement ps1, ps2, ps3;
-		// LinkedList<Coordinate> coordList;
 		LinkedList<float[]> latLonList;
 		Connection con = DBConnector.getConnection();
-		// Coordinate c;
 
 		int myEdgeID = 0;
 		int rsCounter = 0;
