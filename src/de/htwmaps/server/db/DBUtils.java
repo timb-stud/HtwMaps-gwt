@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
+import de.htwmaps.server.algorithm.Edge;
+import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
 
@@ -75,7 +78,7 @@ public class DBUtils {
 		return result;
 	}
 
-	public float[][] getAllNodeLatLons(Node[] nodes) throws SQLException,
+	public float[][] getAllNodeLatLons(Node[] nodes, Edge[] edges) throws SQLException,
 			MySQLException {
 		String sql1 = "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5";
 		String sql2 = "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5 DESC";
@@ -106,7 +109,7 @@ public class DBUtils {
 		ResultSet rs1 = null;
 		ResultSet rs2 = null;
 		System.out.println("Size Opt: " + nodes.length);
-		for (int i = 0; i <= nodes.length - 2; i++) {
+		for (int i = 0; i < nodes.length - 1; i++) {
 			ps3.setInt(1, nodes[i].getId());
 			ps3.setInt(2, nodes[i + 1].getId());
 			time = System.currentTimeMillis();
@@ -119,12 +122,7 @@ public class DBUtils {
 					inOrder = false;
 				}
 			}
-			for (Edge e : nodes[i].getEdgeList()) {
-				if ((e.getSuccessor()).equals(nodes[i + 1])
-						|| (e.getPredecessor()).equals(nodes[i + 1])) {
-					myEdgeID = e.getID();
-				}
-			}
+			myEdgeID = edges[i].getID();
 			ps1.setInt(1, myEdgeID);
 			ps2.setInt(1, myEdgeID);
 			time = System.currentTimeMillis();
