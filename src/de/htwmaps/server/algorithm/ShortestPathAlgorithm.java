@@ -53,21 +53,14 @@ public abstract class ShortestPathAlgorithm {
 
 	public static LinkedList<Edge> getResultEdges(Node[] result) {
 		 LinkedList<Edge> edgeList = new LinkedList<Edge>();
-		 int j=0;
 		 for(int i=result.length -1; i>0; i--){
 			 for(Edge e: result[i].getEdgeList()){
 				 if(e.getSuccessor().equals(result[i-1])){
-					 if(j == i){
-						 System.out.println("i: " + i);
-						 System.out.println(e);
-					 }
-					 j = i;
 					 edgeList.add(e);
-
 				 }
 			 }
 		 }
-		return null;
+		return edgeList;
 	}
 	
 	public int getMotorwaySpeed() {
