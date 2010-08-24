@@ -58,6 +58,14 @@ public abstract class ShortestPathAlgorithm {
 					 continue loop;
 				 }
 			 }
+			 if (edges[i - 1] == null) {
+				 for(Edge e: result[i - 1].getEdgeList()){
+					 if(e.getSuccessor().equals(result[i])){
+						 edges[i - 1] = e;
+						 continue loop;
+					 }
+				 }
+			 }
 		 }
 		return edges;
 	}

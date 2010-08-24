@@ -68,13 +68,11 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		}
 		if (start.getPredecessor() != null) {
 			Node[] result = nodesContainer.toArray(new Node[0]);
-			int middle = (result.length - 1) / 2;
-			for (int i = 0; i <= middle; i++) {
-				Node tmp2 = result[i];
-				result[i] = result[result.length - 1 - i];
-				result[result.length - 1 - i] = tmp2;
+			Node[] tmp2 = new Node[result.length];
+			for (int i = 0; i < result.length; i++) {
+				tmp2[i] = result[result.length - i - 1];
 			}
-			return result;
+			return tmp2;
 		}
 		return nodesContainer.toArray(new Node[0]);
 	}
