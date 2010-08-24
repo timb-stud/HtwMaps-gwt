@@ -1,5 +1,7 @@
 package de.htwmaps.server.algorithm;
 
+import java.util.LinkedList;
+
 
 /**
  * @author Stanislaw Tartakowski
@@ -11,6 +13,7 @@ public class AStarBidirectionalNode extends Node {
 	private double dist;								
 	private volatile AStarBidirectionalNode predecessor; 					
 	private volatile boolean removed, touchedByTh1, touchedByTh2;	
+	private LinkedList<AStarBiEdge> edgeList;
 
 	/**
 	 * @param id unique node on earth
@@ -20,8 +23,25 @@ public class AStarBidirectionalNode extends Node {
 	public AStarBidirectionalNode(float x, float y, int id) {
 		super(x, y, id);
 		setDist(Double.MAX_VALUE);
+		edgeList = new LinkedList<AStarBiEdge>();
 	}
 	
+	
+	/**
+	 * 
+	 * @param e Kante die auf den Knoten gesetzt wird
+	 * @return false: fehler beim setzen
+	 */
+	public boolean addEdge(AStarBiEdge e){
+		return edgeList.add(e);
+	}
+	
+	/**
+	 * @return liefert alle Kanten die von diesem Knoten ausgehen
+	 */
+	public LinkedList<AStarBiEdge> getEdgeList(){
+		return edgeList;
+	}
 	/**
 	 * 
 	 * @return removed flag. Algorithm depending feature to optimize running time.

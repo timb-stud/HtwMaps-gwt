@@ -1,6 +1,5 @@
 package de.htwmaps.server.algorithm;
 
-import java.util.LinkedList;
 
 
 /**
@@ -11,29 +10,12 @@ import java.util.LinkedList;
 public abstract class Node {
 	float lon, lat;
 	int id;
-	LinkedList<Edge> edgeList;
+
 	
 	Node(float lon, float lat, int id) {
-		edgeList = new LinkedList<Edge>();
 		this.lon = lon;
 		this.lat = lat;
 		this.id = id;
-	}
-	
-	/**
-	 * 
-	 * @param e Kante die auf den Knoten gesetzt wird
-	 * @return false: fehler beim setzen
-	 */
-	public boolean addEdge(Edge e){
-		return edgeList.add(e);
-	}
-	
-	/**
-	 * @return liefert alle Kanten die von diesem Knoten ausgehen
-	 */
-	public LinkedList<Edge> getEdgeList(){
-		return edgeList;
 	}
 	
 	/**

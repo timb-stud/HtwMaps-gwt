@@ -66,8 +66,8 @@ public class AStarBidirectional extends Thread {
 				return;
 			}
 			currentNode.setRemovedFromQ(true);
-			LinkedList<Edge> edges = currentNode.getEdgeList();
-			for (Edge edge : edges) {
+			LinkedList<AStarBiEdge> edges = currentNode.getEdgeList();
+			for (AStarBiEdge edge : edges) {
 				AStarBidirectionalNode successor = (AStarBidirectionalNode) edge.getSuccessor();
 				if (!thread && successor == currentNode || thread && successor != currentNode || !edge.isOneway()) {
 					if (successor == currentNode) {

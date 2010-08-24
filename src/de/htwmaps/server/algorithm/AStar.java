@@ -56,7 +56,7 @@ public class AStar extends ShortestPathAlgorithm {
 				return reconstructPath(goal);
 			}
 			closedSet.put(current.getId(), current);
-			for (Edge edge : current.getEdgeList()) {
+			for (AStarEdge edge : current.getEdgeList()) {
 				AStarNode successor = (AStarNode)edge.getSuccessor();
 				if (closedSet.containsKey(successor.id))
 					continue;
@@ -128,34 +128,34 @@ public class AStar extends ShortestPathAlgorithm {
 			
 			switch (highwayTypes[i]) {
 			case ShortestPathAlgorithm.MOTORWAY:
-				fromNode.addEdge(new Edge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], motorwaySpeed, edgeIDs[i]));
+				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], motorwaySpeed, edgeIDs[i]));
 				if(!oneways[i])
-					toNode.addEdge(new Edge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], motorwaySpeed, edgeIDs[i]));
+					toNode.addEdge(new AStarEdge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], motorwaySpeed, edgeIDs[i]));
 				break;
 			case ShortestPathAlgorithm.PRIMARY:
-				fromNode.addEdge(new Edge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], primarySpeed, edgeIDs[i]));
+				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], primarySpeed, edgeIDs[i]));
 				if(!oneways[i])
-					toNode.addEdge(new Edge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], primarySpeed, edgeIDs[i]));
+					toNode.addEdge(new AStarEdge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], primarySpeed, edgeIDs[i]));
 				break;
 			case ShortestPathAlgorithm.SECONDARY:
-				fromNode.addEdge(new Edge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], secondarySpeed, edgeIDs[i]));
+				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], secondarySpeed, edgeIDs[i]));
 				if(!oneways[i])
-					toNode.addEdge(new Edge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], secondarySpeed, edgeIDs[i]));
+					toNode.addEdge(new AStarEdge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], secondarySpeed, edgeIDs[i]));
 				break;
 			case ShortestPathAlgorithm.RESIDENTIAL:
-				fromNode.addEdge(new Edge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], residentialSpeed, edgeIDs[i]));
+				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], residentialSpeed, edgeIDs[i]));
 				if(!oneways[i])
-					toNode.addEdge(new Edge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], residentialSpeed, edgeIDs[i]));
+					toNode.addEdge(new AStarEdge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], residentialSpeed, edgeIDs[i]));
 				break;
 			case ShortestPathAlgorithm.ROAD:
-				fromNode.addEdge(new Edge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], roadSpeed, edgeIDs[i]));
+				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], roadSpeed, edgeIDs[i]));
 				if(!oneways[i])
-					toNode.addEdge(new Edge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], roadSpeed, edgeIDs[i]));
+					toNode.addEdge(new AStarEdge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], roadSpeed, edgeIDs[i]));
 				break;
 			case ShortestPathAlgorithm.LIVING_STREET:
-				fromNode.addEdge(new Edge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], livingStreetSpeed, edgeIDs[i]));
+				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], livingStreetSpeed, edgeIDs[i]));
 				if(!oneways[i])
-					toNode.addEdge(new Edge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], livingStreetSpeed, edgeIDs[i]));
+					toNode.addEdge(new AStarEdge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], livingStreetSpeed, edgeIDs[i]));
 				break;
 			default:
 				throw new IllegalArgumentException();
@@ -177,9 +177,9 @@ public class AStar extends ShortestPathAlgorithm {
 		for (int i = 0; i < edgeStartNodeIDs.length; i++) {
 			AStarNode fromNode = allNodes.get(edgeStartNodeIDs[i]);
 			AStarNode toNode = allNodes.get(edgeEndNodeIDs[i]);
-			fromNode.addEdge(new Edge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], 1, edgeIDs[i]));
+			fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], 1, edgeIDs[i]));
 				if(!oneways[i])
-					toNode.addEdge(new Edge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], 1, edgeIDs[i]));
+					toNode.addEdge(new AStarEdge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], 1, edgeIDs[i]));
 		}
 	}
 	

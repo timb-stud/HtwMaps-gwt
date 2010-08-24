@@ -27,14 +27,14 @@ public class AStarBidirectionalStarter extends ShortestPathAlgorithm {
 	private void generateReferences(HashMap<Integer, AStarBidirectionalNode> Q, int[] edgeStartNodeIDs, int[] edgeEndNodeIDs, boolean[] oneways, double[] edgeLengths, int[] highwayTypes, int[] wayIDs, int[] edgeIDs) {
 		for (int i = 0 ; i < edgeStartNodeIDs.length; i++) {
 			AStarBidirectionalNode fromNode = Q.get(edgeStartNodeIDs[i]), toNode = Q.get(edgeEndNodeIDs[i]);
-			Edge edge = null;
+			AStarBiEdge edge = null;
 			switch (highwayTypes[i]) {
-			case MOTORWAY: edge = new Edge(toNode, edgeLengths[i], MOTORWAY, wayIDs[i], getMotorwaySpeed(), edgeIDs[i]); break;
-			case PRIMARY: edge = new Edge(toNode, edgeLengths[i], PRIMARY, wayIDs[i], getPrimarySpeed(), edgeIDs[i]); break;
-			case SECONDARY: edge = new Edge(toNode, edgeLengths[i], SECONDARY, wayIDs[i], getSecondarySpeed(), edgeIDs[i]); break;
-			case ROAD: edge = new Edge(toNode, edgeLengths[i], ROAD, wayIDs[i], getRoadSpeed(), edgeIDs[i]); break;
-			case RESIDENTIAL: edge = new Edge(toNode, edgeLengths[i], RESIDENTIAL, wayIDs[i], getResidentialSpeed(), edgeIDs[i]); break;
-			case LIVING_STREET: edge = new Edge(toNode, edgeLengths[i], LIVING_STREET, wayIDs[i], getLivingStreetSpeed(), edgeIDs[i]); break;
+			case MOTORWAY: edge = new AStarBiEdge(toNode, edgeLengths[i], MOTORWAY, wayIDs[i], getMotorwaySpeed(), edgeIDs[i]); break;
+			case PRIMARY: edge = new AStarBiEdge(toNode, edgeLengths[i], PRIMARY, wayIDs[i], getPrimarySpeed(), edgeIDs[i]); break;
+			case SECONDARY: edge = new AStarBiEdge(toNode, edgeLengths[i], SECONDARY, wayIDs[i], getSecondarySpeed(), edgeIDs[i]); break;
+			case ROAD: edge = new AStarBiEdge(toNode, edgeLengths[i], ROAD, wayIDs[i], getRoadSpeed(), edgeIDs[i]); break;
+			case RESIDENTIAL: edge = new AStarBiEdge(toNode, edgeLengths[i], RESIDENTIAL, wayIDs[i], getResidentialSpeed(), edgeIDs[i]); break;
+			case LIVING_STREET: edge = new AStarBiEdge(toNode, edgeLengths[i], LIVING_STREET, wayIDs[i], getLivingStreetSpeed(), edgeIDs[i]); break;
 			default: throw new IllegalArgumentException();
 			}
 			edge.setPredecessor(fromNode);

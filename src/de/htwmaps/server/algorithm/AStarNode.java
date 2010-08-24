@@ -1,5 +1,7 @@
 package de.htwmaps.server.algorithm;
 
+import java.util.LinkedList;
+
 
 /**
  * Node representation used by A Star
@@ -10,6 +12,8 @@ public class AStarNode extends Node{
 	private double f; // h + g
 	private double g; // length from start Node to this node
 	private AStarNode predeccessor;
+	private LinkedList<AStarEdge> edgeList;
+
 
 	/**
 	 * Constructs a Node with the given parameters.
@@ -21,6 +25,23 @@ public class AStarNode extends Node{
 		super(lon, lat, id);
 		this.f = -1;
 		this.g = -1;
+		edgeList = new LinkedList<AStarEdge>();
+	}
+	
+	/**
+	 * 
+	 * @param e Kante die auf den Knoten gesetzt wird
+	 * @return false: fehler beim setzen
+	 */
+	public boolean addEdge(AStarEdge e){
+		return edgeList.add(e);
+	}
+	
+	/**
+	 * @return liefert alle Kanten die von diesem Knoten ausgehen
+	 */
+	public LinkedList<AStarEdge> getEdgeList(){
+		return edgeList;
 	}
 
 	public double getF() {
