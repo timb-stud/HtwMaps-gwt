@@ -67,7 +67,13 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, MySQLException, PathNotFoundException, SQLException {
 		try{
 			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
+			if (startNodeID == -1) {
+				throw new NodeNotFoundException("Flasche Startdaten");
+			}
 			int goalNodeID = DBUtils.getNodeId(destCity, destStreet);
+			if (goalNodeID == -1) {
+				throw new NodeNotFoundException("Flasche Zieldaten");
+			}
 			float a = 0.8f;
 			float h = 0.01f;
 			DBAdapterParabel dbap;

@@ -62,8 +62,8 @@ public class OptionsPanel extends VerticalPanel {
 		residentialSpeedPanel.setCellHorizontalAlignment(residentialSpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
 
 		add(speedLabel);
-		add(speedLandPanel);
 		add(speedAutobPanel);
+		add(speedLandPanel);
 		add(residentialSpeedPanel);
 		
 		//Algo

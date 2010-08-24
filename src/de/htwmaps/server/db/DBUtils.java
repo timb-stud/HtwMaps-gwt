@@ -28,8 +28,8 @@ public class DBUtils {
 		select.setString(2, "%" + city + "%");
 		select.setString(3, street);
 		ResultSet rs = select.executeQuery();
-		if (!rs.next()) {
-			throw new NodeNotFoundException();
+		if(!rs.next()) {
+			return -1;
 		}
 		return rs.getInt(1);
 	}

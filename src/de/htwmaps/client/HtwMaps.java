@@ -46,7 +46,7 @@ public class HtwMaps implements EntryPoint {
 					@Override
 					public void onFailure(Throwable caught) {
 						controlsPanel.setCalcRouteButton(true);
-						statusLabel.setText("Status: an error occoured:" + caught.getMessage());
+						statusLabel.setText("WARNUNG:" + caught.getMessage());
 					}
 
 					@Override
@@ -78,7 +78,7 @@ public class HtwMaps implements EntryPoint {
 				String destCity = controlsPanel.getLocationsPanel().getDestCityTextBox().getText();
 				String destStreet = controlsPanel.getLocationsPanel().getDestStreetTextBox().getText();
 				
-				if (checkInput(startCity, startStreet, destCity, destStreet)) {
+				if (checkInputLocation(startCity, startStreet, destCity, destStreet)) {
 					controlsPanel.setCalcRouteButton(true);
 				} else {
 					if (startStreet.indexOf(",") != -1) {
@@ -98,13 +98,30 @@ public class HtwMaps implements EntryPoint {
 							findPathSvc.findShortestPathAStar(startCity, startStreet, destCity, destStreet,	callback);
 						}
 					} else {
-						int motorwaySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim());
-						int primarySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
-						int residentialSpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getResidentialSpeedTextBox().getText().trim());
-						if (aStarBi) {
-							findPathSvc.findFastestPathAStarBi(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
+						boolean checkSpeed = true;
+						int motorwaySpeed = leseIntZahl(controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim());
+						if (motorwaySpeed <= 0) {
+							statusLabel.setText("WARNUNG: Falsche Geschwindigkeitsangabe bei Autobahn!");
+							checkSpeed = false;
+						}
+						int primarySpeed = leseIntZahl(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
+						if (primarySpeed <= 0 && checkSpeed) {
+							statusLabel.setText("WARNUNG: Falsche Geschwindigkeitsange bei Landstrasse!");
+							checkSpeed = false;
+						}
+						int residentialSpeed = leseIntZahl(controlsPanel.getOptionsPanel().getResidentialSpeedTextBox().getText().trim());
+						if (residentialSpeed <= 0 && checkSpeed) {
+							statusLabel.setText("WARNUNG: Falsche Geschwindigkeitsange bei Innerorts!");
+							checkSpeed = false;
+						}
+						if (checkSpeed) {
+							if (aStarBi) {
+								findPathSvc.findFastestPathAStarBi(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
+							} else {
+								findPathSvc.findFastestPathAStar(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
+							}
 						} else {
-							findPathSvc.findFastestPathAStar(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
+							controlsPanel.setCalcRouteButton(true);
 						}
 					}
 				}
@@ -123,23 +140,33 @@ public class HtwMaps implements EntryPoint {
 		controlsPanel.getLocationsPanel().getDestStreet().clearContent();
 	}
 	
-	private boolean checkInput (String startCity, String startStreet, String destCity, String destStreet) {
+	private boolean checkInputLocation (String startCity, String startStreet, String destCity, String destStreet) {
 		boolean check = false;
 		if (startCity.equals("") || startCity == null) {
-			statusLabel.setText("Status: Bitte geben Sie einen Startort ein.");
+			statusLabel.setText("WARNUNG: Bitte geben Sie einen Startort ein.");
 			check = true;
 		} else if (startStreet.equals("") || startStreet == null) {
-			statusLabel.setText("Status: Bitte geben Sie eine Startstrasse ein.");
+			statusLabel.setText("WARNUNG: Bitte geben Sie eine Startstrasse ein.");
 			check = true;
 		} else if (destCity.equals("") || destCity == null) {
-			statusLabel.setText("Status: Bitte geben Sie einen Zielort ein.");
+			statusLabel.setText("WARNUNG: Bitte geben Sie einen Zielort ein.");
 			check = true;
 		} else if (destStreet.equals("") || destStreet == null) {
-			statusLabel.setText("Status: Bitte geben Sie eine Zielstrasse ein.");
+			statusLabel.setText("WARNUNG: Bitte geben Sie eine Zielstrasse ein.");
 			check = true;
 		}
 		return check;
 	}
+	
+    private int leseIntZahl(String inData) {
+        int eingabe = 0;
+        try {
+            eingabe = Integer.parseInt(inData);
+        } catch (NumberFormatException fehler) {
+            return -1;
+        }
+        return eingabe;
+    }
 	
 	native void alert(String s)/*-{
 		$wnd.alert(s);
