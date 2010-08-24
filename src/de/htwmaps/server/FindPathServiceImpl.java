@@ -5,7 +5,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.htwmaps.client.FindPathService;
 import de.htwmaps.server.algorithm.AStar;
-import de.htwmaps.server.algorithm.AStarBidirectionalStarter;
+import de.htwmaps.server.algorithm.AStarBiStarter;
 import de.htwmaps.server.algorithm.GraphData;
 import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.server.algorithm.ShortestPathAlgorithm;
@@ -46,7 +46,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	public PathData findShortestPathAStarBi(String startCity,
 			String startStreet, String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
-		ShortestPathAlgorithm spa = new AStarBidirectionalStarter(gd);
+		ShortestPathAlgorithm spa = new AStarBiStarter(gd);
 		return executeSearch(spa, gd, SHORTEST, startCity, startStreet, destCity, destStreet, 0, 0, 0);
 	}
 
@@ -55,7 +55,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			String startStreet, String destCity, String destStreet,
 			int motorwaySpeed, int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
-		ShortestPathAlgorithm spa = new AStarBidirectionalStarter(gd);
+		ShortestPathAlgorithm spa = new AStarBiStarter(gd);
 		return executeSearch(spa, gd, FASTEST, startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed);
 	}
 
