@@ -69,17 +69,24 @@
 			function addMarker(latStart, lonStart, latEnde, lonEnde){
 				markerStart = new Marker(new LatLonPoint(latStart, lonStart));
 				maps.addMarkerWithData(markerStart,{
-					infoBubble : "Start"
+					infoBubble : "Ziel"
 			    });
 				markerZiel = new Marker(new LatLonPoint(latEnde, lonEnde));
 				maps.addMarkerWithData(markerZiel,{
-					infoBubble : "Ziel"
+					infoBubble : "Start"
 			    });
+				maps.autoCenterAndZoom();
 			}
 
 			function removeMarker(){
 				maps.removeMarker(markerStart);
 				maps.removeMarker(markerZiel);
+				var myPoint = new LatLonPoint(51.1632400, 10.4451736);
+                maps.setCenterAndZoom(myPoint, 6);
+			}
+
+			function autoCenterAndZoom(){
+				maps.autoCenterAndZoom();
 			}
 	</script>
     <style type="text/css">

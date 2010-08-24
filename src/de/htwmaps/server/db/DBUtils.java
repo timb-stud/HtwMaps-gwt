@@ -24,7 +24,7 @@ public class DBUtils {
 		select.setString(3, street);
 		ResultSet rs = select.executeQuery();
 		if(!rs.next()) {
-			throw new NodeNotFoundException();
+			return -1;
 		}
 		return rs.getInt(1);
 	}
