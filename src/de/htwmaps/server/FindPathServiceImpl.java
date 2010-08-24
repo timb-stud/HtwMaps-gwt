@@ -106,8 +106,6 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		Edge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
 		float [][] latLons = DBUtils.getAllNodeLatLons(nodes, edges);
 		PathData pd = new PathData();
-		System.out.println(latLons[0].length);
-		System.out.println(latLons[1].length);
 		pd.setNodeLats(latLons[0]);
 		pd.setNodeLons(latLons[1]);
 		pd.setAlorithmTime(spa.getAlorithmTime());
