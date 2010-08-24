@@ -22,8 +22,8 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		FindPathService {
 
 	private static final long serialVersionUID = 1L;
-	private static final int SHORTEST = 0;
-	private static final int FASTEST = 1;
+	public static final int SHORTEST = 0;
+	public static final int FASTEST = 1;
 
 	
 	@Override
@@ -80,7 +80,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			dbap = new DBAdapterParabel(gd);
 			Node[] result = null;
 			while(true) {
-				dbap.fillGraphData(startNodeID, goalNodeID, a, h);
+				dbap.fillGraphData(startNodeID, goalNodeID, a, h, option);
 				try {
 					switch (option) {
 					case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;

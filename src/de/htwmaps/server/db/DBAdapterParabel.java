@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import de.htwmaps.server.FindPathServiceImpl;
 import de.htwmaps.server.algorithm.GraphData;
 import de.htwmaps.shared.exceptions.MySQLException;
 
@@ -13,7 +14,7 @@ import de.htwmaps.shared.exceptions.MySQLException;
  * @author Stanislaw Tartakowski
  * 
  * Diese Klasse stellt dem Suchalgorithmus Knoten aus der Datenbank bereit, 
- * die in einer von 2 Parabeln begrenzter Fläche liegen. Die Form aehnelt einer Ellipse, die Implementierung
+ * die in einer von 2 Parabeln begrenzter Flï¿½che liegen. Die Form aehnelt einer Ellipse, die Implementierung
  * ist jedoch performanter 
  *
  */
@@ -52,6 +53,8 @@ public class DBAdapterParabel{
 	
 	private boolean printNodeCoords;
 	
+	private int option;
+	
 	public DBAdapterParabel(GraphData gd) {
 		if (gd == null) {
 			throw new IllegalArgumentException("Graph data must not be null");
@@ -59,9 +62,10 @@ public class DBAdapterParabel{
 		this.gd = gd;
 	}
 	
-	public void fillGraphData(int startID, int goalID, float a, float h) throws SQLException, MySQLException{
+	public void fillGraphData(int startID, int goalID, float a, float h, int option) throws SQLException, MySQLException{
 		this.a = a;
 		this.h = h;
+		this.option = option;
 		Connection con = DBConnector.getConnection();
 		ResultSet resultSet = con.createStatement().executeQuery(buildCoordSelectStatement(startID, goalID));
 		resultSet.next();
@@ -183,14 +187,18 @@ public class DBAdapterParabel{
 	}
 
 	private void setParabel() {
+		String speedID = "";
+		if (option == FindPathServiceImpl.FASTEST) {
+			speedID = "  or speedID < 6 ";
+		}
 		if(startNodeLat < endNodeLat){
-			//ps(x) = a (ey - sy) / (ex - sx)² (x - sx)² + sy - h
-			//pe(x) = a (sy - ey) / (sx - ex)² (x - ex)² + ey + h
+			//ps(x) = a (ey - sy) / (ex - sx)ï¿½ (x - sx)ï¿½ + sy - h
+			//pe(x) = a (sy - ey) / (sx - ex)ï¿½ (x - ex)ï¿½ + ey + h
 			NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
 				+ " where "
 				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ?  - ? <= varNodes.lat "
 				+ " and "
-				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? + ? >= varNodes.lat or speedID < 6";
+				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? + ? >= varNodes.lat" + speedID;
 			EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 				+ " where" 
 				+ " ?*((?)/POW((?),2))*POW((node1lon - ?),2) + ?  - ? <= node1lat"
@@ -199,15 +207,15 @@ public class DBAdapterParabel{
 				+ " and"
 				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ?  - ? <= node2lat"
 				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? + ? >= node2lat  or speedID < 6";
+				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? + ? >= node2lat" + speedID;
 		} else {
-			//ps(x) = a (ey - sy) / (ex - sx)² (x - sx)² + sy + h
-			//pe(x) = a (sy - ey) / (sx - ex)² (x - ex)² + ey - h
+			//ps(x) = a (ey - sy) / (ex - sx)ï¿½ (x - sx)ï¿½ + sy + h
+			//pe(x) = a (sy - ey) / (sx - ex)ï¿½ (x - ex)ï¿½ + ey - h
 			NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
 				+ " where "
 				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ?  + ? >= varNodes.lat "
 				+ " and "
-				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? - ? <= varNodes.lat or speedID < 6";
+				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? - ? <= varNodes.lat" + speedID;
 			EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 				+ " where" 
 				+ " ?*((?)/POW((?),2))*POW((node1lon - ?),2) + ?  + ? >= node1lat"
@@ -216,7 +224,7 @@ public class DBAdapterParabel{
 				+ " and"
 				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ?  + ? >= node2lat"
 				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? - ? <= node2lat or speedID < 6";
+				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? - ? <= node2lat" + speedID;
 		}
 	}
 	
