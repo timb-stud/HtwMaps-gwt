@@ -153,7 +153,9 @@ public class DBUtils {
 		System.out.println("DB-Abfragen Richtung " + timesum2 + "ms");
 		System.out.println("DB-Abfragen Daten " + timesum + "ms");
 		// System.out.println("Size All CoordList: " + coordList.size());
-
+		ps1.close();
+		ps2.close();
+		ps3.close();
 		con.close();
 		// return coordList;
 		float[][] latLonArray = new float[2][latLonList.size()];
