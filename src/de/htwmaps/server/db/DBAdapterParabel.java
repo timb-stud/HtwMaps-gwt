@@ -13,7 +13,7 @@ import de.htwmaps.shared.exceptions.MySQLException;
  * @author Stanislaw Tartakowski
  * 
  * Diese Klasse stellt dem Suchalgorithmus Knoten aus der Datenbank bereit, 
- * die in einer von 2 Parabeln begrenzter Fl√§che liegen. Die Form aehnelt einer Ellipse, die Implementierung
+ * die in einer von 2 Parabeln begrenzter Fl‰che liegen. Die Form aehnelt einer Ellipse, die Implementierung
  * ist jedoch performanter 
  *
  */
@@ -93,7 +93,6 @@ public class DBAdapterParabel{
 
 	private void initNodes() throws SQLException, MySQLException{
 		int tableLength;
-		float aFactor = 0.3f, hSum = 0.5f;
 		Connection con = DBConnector.getConnection();
 		PreparedStatement pStmt = con.prepareStatement(NODE_SELECT);
 		pStmt.setFloat(1, a);
@@ -108,21 +107,6 @@ public class DBAdapterParabel{
 		pStmt.setFloat(10, endNodeLon);
 		pStmt.setFloat(11, endNodeLat);
 		pStmt.setFloat(12, h);
-		
-		//or
-		
-		pStmt.setFloat(13, aFactor*a);
-		pStmt.setFloat(14, (endNodeLat - startNodeLat));
-		pStmt.setFloat(15, endNodeLon - startNodeLon);
-		pStmt.setFloat(16, startNodeLon);
-		pStmt.setFloat(17, startNodeLat);
-		pStmt.setFloat(18, hSum + h);
-		pStmt.setFloat(19, aFactor*a);
-		pStmt.setFloat(20, (startNodeLat - endNodeLat));
-		pStmt.setFloat(21, startNodeLon - endNodeLon);
-		pStmt.setFloat(22, endNodeLon);
-		pStmt.setFloat(23, endNodeLat);
-		pStmt.setFloat(24, hSum + h);
 		
 		
 		
@@ -148,7 +132,6 @@ public class DBAdapterParabel{
 
 	private void initEdges() throws SQLException, MySQLException{
 		int tableLength;
-		float aFactor = 0.3f, hSum = 0.5f;
 		Connection con = DBConnector.getConnection();
 		PreparedStatement pStmt =con.prepareStatement(EDGE_SELECT);
 		pStmt.setFloat(1, a);
@@ -175,33 +158,6 @@ public class DBAdapterParabel{
 		pStmt.setFloat(22, endNodeLon);
 		pStmt.setFloat(23, endNodeLat);
 		pStmt.setFloat(24, h);
-		
-		//or
-		
-		pStmt.setFloat(25, aFactor*a);
-		pStmt.setFloat(26, (endNodeLat - startNodeLat));
-		pStmt.setFloat(27, endNodeLon - startNodeLon);
-		pStmt.setFloat(28, startNodeLon);
-		pStmt.setFloat(29, startNodeLat);
-		pStmt.setFloat(30, hSum+h);
-		pStmt.setFloat(31, aFactor*a);
-		pStmt.setFloat(32, (startNodeLat - endNodeLat));
-		pStmt.setFloat(33, startNodeLon - endNodeLon);
-		pStmt.setFloat(34, endNodeLon);
-		pStmt.setFloat(35, endNodeLat);
-		pStmt.setFloat(36, hSum+h);
-		pStmt.setFloat(37, aFactor*a);
-		pStmt.setFloat(38, (endNodeLat - startNodeLat));
-		pStmt.setFloat(39, endNodeLon - startNodeLon);
-		pStmt.setFloat(40, startNodeLon);
-		pStmt.setFloat(41, startNodeLat);
-		pStmt.setFloat(42, hSum+h);
-		pStmt.setFloat(43, aFactor*a);
-		pStmt.setFloat(44, (startNodeLat - endNodeLat));
-		pStmt.setFloat(45, startNodeLon - endNodeLon);
-		pStmt.setFloat(46, endNodeLon);
-		pStmt.setFloat(47, endNodeLat);
-		pStmt.setFloat(48, hSum+h);
 		ResultSet resultSet = pStmt.executeQuery();
 		pStmt = null;
 		resultSet.last();
@@ -228,63 +184,39 @@ public class DBAdapterParabel{
 
 	private void setParabel() {
 		if(startNodeLat < endNodeLat){
-			//ps(x) = a (ey - sy) / (ex - sx)¬≤ (x - sx)¬≤ + sy - h
-			//pe(x) = a (sy - ey) / (sx - ex)¬≤ (x - ex)¬≤ + ey + h
+			//ps(x) = a (ey - sy) / (ex - sx)≤ (x - sx)≤ + sy - h
+			//pe(x) = a (sy - ey) / (sx - ex)≤ (x - ex)≤ + ey + h
 			NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
 				+ " where "
-				+ " (? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ?  - ? <= varNodes.lat "
-				+ " and "
-				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? + ? >= varNodes.lat "
-				+ ") or ("
 				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ?  - ? <= varNodes.lat "
 				+ " and "
-				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? + ? >= varNodes.lat and speedID = 1)";
+				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? + ? >= varNodes.lat or speedID < 6";
 			EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 				+ " where" 
-				+ " (?*((?)/POW((?),2))*POW((node1lon - ?),2) + ?  - ? <= node1lat"
-				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node1lon - ?),2) + ? + ? >= node1lat"
-				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ?  - ? <= node2lat"
-				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? + ? >= node2lat "
-				+ ") or ("
 				+ " ?*((?)/POW((?),2))*POW((node1lon - ?),2) + ?  - ? <= node1lat"
 				+ " and"
 				+ " ?*((?)/POW((?),2))*POW((node1lon - ?),2) + ? + ? >= node1lat"
 				+ " and"
 				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ?  - ? <= node2lat"
 				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? + ? >= node2lat and speedID = 1)";
+				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? + ? >= node2lat  or speedID < 6";
 		} else {
-			//ps(x) = a (ey - sy) / (ex - sx)¬≤ (x - sx)¬≤ + sy + h
-			//pe(x) = a (sy - ey) / (sx - ex)¬≤ (x - ex)¬≤ + ey - h
+			//ps(x) = a (ey - sy) / (ex - sx)≤ (x - sx)≤ + sy + h
+			//pe(x) = a (sy - ey) / (sx - ex)≤ (x - ex)≤ + ey - h
 			NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
 				+ " where "
-				+ " (? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ?  + ? >= varNodes.lat "
-				+ " and "
-				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? - ? <= varNodes.lat "
-				+ ") or ("
 				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ?  + ? >= varNodes.lat "
 				+ " and "
-				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? - ? <= varNodes.lat and speedID = 1)";
+				+ " ? *(?/POW((?),2))*POW((varNodes.lon - ?),2) + ? - ? <= varNodes.lat or speedID < 6";
 			EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 				+ " where" 
-				+ " (?*((?)/POW((?),2))*POW((node1lon - ?),2) + ?  + ? >= node1lat"
-				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node1lon - ?),2) + ? - ? <= node1lat"
-				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ?  + ? >= node2lat"
-				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? - ? <= node2lat"
-				+ ") or ("
 				+ " ?*((?)/POW((?),2))*POW((node1lon - ?),2) + ?  + ? >= node1lat"
 				+ " and"
 				+ " ?*((?)/POW((?),2))*POW((node1lon - ?),2) + ? - ? <= node1lat"
 				+ " and"
 				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ?  + ? >= node2lat"
 				+ " and"
-				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? - ? <= node2lat and speedID = 1)";
+				+ " ?*((?)/POW((?),2))*POW((node2lon - ?),2) + ? - ? <= node2lat or speedID < 6";
 		}
 	}
 	
