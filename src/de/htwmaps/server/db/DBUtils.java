@@ -119,6 +119,7 @@ public class DBUtils {
 					inOrder = false;
 				}
 			}
+			if(edges[i] == null) continue;
 			myEdgeID = edges[i].getID();
 			ps1.setInt(1, myEdgeID);
 			ps2.setInt(1, myEdgeID);
