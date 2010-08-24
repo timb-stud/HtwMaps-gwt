@@ -8,10 +8,9 @@ package de.htwmaps.server.algorithm;
  *	Diese Klasse ist eine Kante zwischen 2 Knoten im Graphen
  */
 public class Edge {
-	private Node successor, predecessor;
+	private Node successor;
 	private double length;
 	private int highwayType;
-	private boolean isOneway;
 	private int wayID;
 	private int speed;
 	private int id;
@@ -43,25 +42,6 @@ public class Edge {
 		return highwayType;
 	}
 	
-	public void setOneway(boolean oneway) {
-		this.isOneway = oneway;
-	}
-
-	/**
-	 * @return der Knoten, vom dem aus die Kante ausgeht. Ein Indiz fuer beidseitiges Betreten der Kante
-	 */
-	public Node getPredecessor() {
-		return predecessor;
-	}
-	
-	/**
-	 * 
-	 * @param predecessor der Knoten, vom dem aus die Kante ausgeht. Ein Indiz fuer beidseitiges Betreten der Kante
-	 */
-	public void setPredecessor(Node predecessor) {
-		this.predecessor = predecessor;
-	}
-	
 	/**
 	 * @return der Knoten, auf den die Kante zeigt
 	 */
@@ -86,9 +66,6 @@ public class Edge {
 		return length / speed;
 	}
 
-	public boolean isOneway() {
-		return isOneway;
-	}
 	
 	public int getID() {
 		return id;
