@@ -1,5 +1,7 @@
 package de.htwmaps.server.algorithm;
 
+import java.util.LinkedList;
+
 
 
 /**
@@ -18,6 +20,7 @@ public abstract class Node {
 		this.id = id;
 	}
 	
+	public abstract LinkedList<Edge> getEdgeList();
 	/**
 	 * 
 	 * @return id des Knotens

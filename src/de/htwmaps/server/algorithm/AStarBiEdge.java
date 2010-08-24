@@ -1,6 +1,6 @@
 package de.htwmaps.server.algorithm;
 
-public class AStarBiEdge extends AStarEdge {
+public class AStarBiEdge extends Edge {
 	private Node predecessor;
 	private boolean isOneway;
 	

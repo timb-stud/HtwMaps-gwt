@@ -12,7 +12,7 @@ public class AStarNode extends Node{
 	private double f; // h + g
 	private double g; // length from start Node to this node
 	private AStarNode predeccessor;
-	private LinkedList<AStarEdge> edgeList;
+	private LinkedList<Edge> edgeList;
 
 
 	/**
@@ -25,7 +25,7 @@ public class AStarNode extends Node{
 		super(lon, lat, id);
 		this.f = -1;
 		this.g = -1;
-		edgeList = new LinkedList<AStarEdge>();
+		edgeList = new LinkedList<Edge>();
 	}
 	
 	/**
@@ -33,14 +33,14 @@ public class AStarNode extends Node{
 	 * @param e Kante die auf den Knoten gesetzt wird
 	 * @return false: fehler beim setzen
 	 */
-	public boolean addEdge(AStarEdge e){
+	public boolean addEdge(Edge e){
 		return edgeList.add(e);
 	}
 	
 	/**
 	 * @return liefert alle Kanten die von diesem Knoten ausgehen
 	 */
-	public LinkedList<AStarEdge> getEdgeList(){
+	public LinkedList<Edge> getEdgeList(){
 		return edgeList;
 	}
 

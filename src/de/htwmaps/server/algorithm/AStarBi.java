@@ -66,12 +66,12 @@ public class AStarBi extends Thread {
 				return;
 			}
 			currentNode.setRemovedFromQ(true);
-			LinkedList<AStarBiEdge> edges = currentNode.getEdgeList();
-			for (AStarBiEdge edge : edges) {
+			LinkedList<Edge> edges = currentNode.getEdgeList();
+			for (Edge edge : edges) {
 				AStarBiNode successor = (AStarBiNode) edge.getSuccessor();
-				if (!thread && successor == currentNode || thread && successor != currentNode || !edge.isOneway()) {
+				if (!thread && successor == currentNode || thread && successor != currentNode || !((AStarBiEdge) edge).isOneway()) {
 					if (successor == currentNode) {
-						successor = (AStarBiNode) edge.getPredecessor();
+						successor = (AStarBiNode) ((AStarBiEdge) edge).getPredecessor();
 					}
 					if (!thread && successor.isTouchedByTh1() || thread && successor.isTouchedByTh2() || !successor.isRemovedFromQ() || finished || isInterrupted()) {
 						synchronized (getClass()) {
