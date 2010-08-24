@@ -89,13 +89,13 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 					}
 				}
 			}
-			return buildPathData(result);
+			return buildPathData(result, spa, dbap);
 		}catch(java.sql.SQLException e){
 			throw new SQLException();
 		}
 	}
 	
-	private PathData buildPathData(Node[] nodes){
+	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterParabel dbap){
 		float[] nodeLats = new float[nodes.length];
 		float[] nodeLons = new float[nodes.length];
 		for(int i=0; i<nodeLats.length;i++){
@@ -105,6 +105,13 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		PathData pd = new PathData();
 		pd.setNodeLats(nodeLats);
 		pd.setNodeLons(nodeLons);
+		pd.setAlorithmTime(spa.getAlorithmTime());
+		pd.setBuildEdgesTime(spa.getBuildEdgesTime());
+		pd.setBuildNodesTime(spa.getBuildNodesTime());
+		pd.setEdgesCount(dbap.getEdgesCount());
+		pd.setNodesCount(dbap.getNodesCount());
+		pd.setReceiveEdgesTime(dbap.getReceiveEdgesTime());
+		pd.setReceiveNodesTime(dbap.getReceiveNodesTime());
 		return pd;
 	}
 }

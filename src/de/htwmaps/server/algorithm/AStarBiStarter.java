@@ -83,9 +83,12 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	public Node[] aStar(int startNodeID, int goalNodeID) throws PathNotFoundException {
 		HashMap<Integer, AStarBiNode> Q = new HashMap<Integer, AStarBiNode>(graphData.getAllNodeIDs().length);
 
+		long time = System.currentTimeMillis();
 		generateNodes(Q, graphData.getAllNodeIDs(), graphData.getAllNodeLons(), graphData.getAllNodeLats());
+		setBuildNodesTime(System.currentTimeMillis() - time);
+		time = System.currentTimeMillis();
 		generateReferences(Q, graphData.getEdgeStartNodeIDs(), graphData.getEdgeEndNodeIDs(), graphData.getOneways(), graphData.getEdgeLengths(), graphData.getHighwayTypes(), graphData.getWayIDs(), graphData.getEdgeIDs());
-
+		setBuildEdgesTime(System.currentTimeMillis() - time);
 		
 		AStarBiNode start = Q.get(startNodeID); 
 		AStarBiNode goal = Q.get(goalNodeID);
@@ -95,6 +98,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		
 		d0.setDijkstra(d1);
 		d1.setDijkstra(d0);
+		time = System.currentTimeMillis();
 		d0.start();
 		d1.start();
 		
@@ -109,6 +113,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		}
 		d0.interrupt();
 		d1.interrupt();
+		setAlorithmTime(System.currentTimeMillis() - time);
 		Node[] result = nodeToArray(start, goal);
 		AStarBi.count.set(0);
 		AStarBi.finished = false;

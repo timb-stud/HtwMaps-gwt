@@ -40,6 +40,7 @@ public class AStar extends ShortestPathAlgorithm {
 	 *             thrown.
 	 */
 	private ArrayList<AStarNode> aStar(int startNodeID, int goalNodeID, int maxSpeed) throws PathNotFoundException {
+		long time = System.currentTimeMillis();
 		AStarNode start = allNodes.get(startNodeID);
 		AStarNode goal = allNodes.get(goalNodeID);
 		HashMap<Integer, AStarNode> closedSet = new HashMap<Integer, AStarNode>(
@@ -53,6 +54,7 @@ public class AStar extends ShortestPathAlgorithm {
 		while (openSet.size() > 0) {
 			current = (AStarNode) openSet.popMin();
 			if (current == goal) {
+				setAlorithmTime(System.currentTimeMillis() - time);
 				return reconstructPath(goal);
 			}
 			closedSet.put(current.getId(), current);
@@ -100,6 +102,7 @@ public class AStar extends ShortestPathAlgorithm {
  * @return
  */
 	private void buildNodes(){
+		long time = System.currentTimeMillis();
 		int[] allNodeIDs = graphData.getAllNodeIDs();
 		float[] allNodeLats = graphData.getAllNodeLats();
 		float[] allNodeLons = graphData.getAllNodeLons();
@@ -107,6 +110,7 @@ public class AStar extends ShortestPathAlgorithm {
 		for (int i = 0; i < allNodeIDs.length; i++) {
 			allNodes.put(allNodeIDs[i], new AStarNode(allNodeIDs[i], allNodeLons[i], allNodeLats[i]));
 		}
+		setBuildNodesTime(System.currentTimeMillis() - time);
 	}
 	
 
@@ -114,6 +118,7 @@ public class AStar extends ShortestPathAlgorithm {
 	 * 
 	 */
 	private void buildEdges(int motorwaySpeed, int primarySpeed, int secondarySpeed, int residentialSpeed, int roadSpeed, int livingStreetSpeed){
+		long time = System.currentTimeMillis();
 		int[] edgeStartNodeIDs = graphData.getEdgeStartNodeIDs();
 		int[] edgeEndNodeIDs = graphData.getEdgeEndNodeIDs();
 		double[] edgeLenghts = graphData.getEdgeLengths();
@@ -161,12 +166,14 @@ public class AStar extends ShortestPathAlgorithm {
 				throw new IllegalArgumentException();
 			}
 		}
+		setBuildEdgesTime(System.currentTimeMillis() - time);
 	}
 	
 	/**
 	 * 
 	 */
 	private void buildEdges() {
+		long time = System.currentTimeMillis();
 		int[] edgeStartNodeIDs = graphData.getEdgeStartNodeIDs();
 		int[] edgeEndNodeIDs = graphData.getEdgeEndNodeIDs();
 		double[] edgeLenghts = graphData.getEdgeLengths();
@@ -181,6 +188,7 @@ public class AStar extends ShortestPathAlgorithm {
 				if(!oneways[i])
 					toNode.addEdge(new AStarEdge(fromNode, edgeLenghts[i], highwayTypes[i], wayIDs[i], 1, edgeIDs[i]));
 		}
+		setBuildEdgesTime(System.currentTimeMillis() - time);
 	}
 	
 	/**

@@ -8,11 +8,18 @@ public class PathData implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	float[] nodeLats;
-	float[] nodeLons;
+	private float[] nodeLats;
+	private float[] nodeLons;
+	private long receiveNodesTime;
+	private long receiveEdgesTime;
+	private long buildNodesTime;
+	private long buildEdgesTime;
+	private long alorithmTime;
+	private int edgesCount;
+	private int nodesCount;
 	
-	public PathData() {
-	}
+	
+	public PathData() {}
 
 	public void setNodeLats(float[] nodeLats) {
 		this.nodeLats = nodeLats;
@@ -29,5 +36,60 @@ public class PathData implements Serializable{
 	public float[] getNodeLons() {
 		return nodeLons;
 	}
+
+	public long getReceiveNodesTime() {
+		return receiveNodesTime;
+	}
+
+	public void setReceiveNodesTime(long receiveNodesTime) {
+		this.receiveNodesTime = receiveNodesTime;
+	}
+
+	public long getReceiveEdgesTime() {
+		return receiveEdgesTime;
+	}
+
+	public void setReceiveEdgesTime(long receiveEdgesTime) {
+		this.receiveEdgesTime = receiveEdgesTime;
+	}
+
+	public long getBuildNodesTime() {
+		return buildNodesTime;
+	}
+
+	public void setBuildNodesTime(long buildNodesTime) {
+		this.buildNodesTime = buildNodesTime;
+	}
+
+	public long getBuildEdgesTime() {
+		return buildEdgesTime;
+	}
+
+	public void setBuildEdgesTime(long buildEdgesTime) {
+		this.buildEdgesTime = buildEdgesTime;
+	}
+
+	public int getEdgesCount() {
+		return edgesCount;
+	}
+
+	public void setEdgesCount(int edgesCount) {
+		this.edgesCount = edgesCount;
+	}
+
+	public int getNodesCount() {
+		return nodesCount;
+	}
+
+	public void setNodesCount(int nodesCount) {
+		this.nodesCount = nodesCount;
+	}
 	
+	public long getAlorithmTime() {
+		return alorithmTime;
+	}
+	
+	public void setAlorithmTime(long alorithmTime) {
+		this.alorithmTime = alorithmTime;
+	}
 }

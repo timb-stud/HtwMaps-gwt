@@ -12,12 +12,16 @@ public abstract class ShortestPathAlgorithm {
 	public static final int RESIDENTIAL = 10;
 	public static final int ROAD = 11;
 	public static final int LIVING_STREET = 13;
-	public int motorwaySpeed = 130; //Autobahn
-	public int primarySpeed = 80; //Landstraﬂe
-	public int secondarySpeed = 60; //Ortsverbindung
-	public int residentialSpeed = 45; //Innerorts
-	public int roadSpeed = 50; //unclassified
-	public int livingStreetSpeed = 5; //Spielstrasse
+	private int motorwaySpeed = 130; //Autobahn
+	private int primarySpeed = 80; //Landstraﬂe
+	private int secondarySpeed = 60; //Ortsverbindung
+	private int residentialSpeed = 45; //Innerorts
+	private int roadSpeed = 50; //unclassified
+	private int livingStreetSpeed = 5; //Spielstrasse
+	
+	private long buildNodesTime;
+	private long buildEdgesTime;
+	private long alorithmTime;
 	
 	
 	public ShortestPathAlgorithm(GraphData gd) {
@@ -91,6 +95,30 @@ public abstract class ShortestPathAlgorithm {
 
 	public void setLivingStreetSpeed(int livingStreetSpeed) {
 		this.livingStreetSpeed = livingStreetSpeed;
+	}
+
+	public long getBuildNodesTime() {
+		return buildNodesTime;
+	}
+
+	public void setBuildNodesTime(long buildNodesTime) {
+		this.buildNodesTime = buildNodesTime;
+	}
+
+	public long getBuildEdgesTime() {
+		return buildEdgesTime;
+	}
+
+	public void setBuildEdgesTime(long buildEdgesTime) {
+		this.buildEdgesTime = buildEdgesTime;
+	}
+
+	public long getAlorithmTime() {
+		return alorithmTime;
+	}
+
+	public void setAlorithmTime(long alorithmTime) {
+		this.alorithmTime = alorithmTime;
 	}
 
 	

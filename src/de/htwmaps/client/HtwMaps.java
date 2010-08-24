@@ -58,8 +58,17 @@ public class HtwMaps implements EntryPoint {
 
 					@Override
 					public void onSuccess(PathData result) {
+						String status = "Status: A route was found."
+										+ "  Nodes: " + result.getNodesCount()
+										+ "  Edges: " + result.getEdgesCount()
+										+ "  Select Nodes: " + result.getReceiveNodesTime()
+										+ "ms  Select Edges time: " + result.getReceiveEdgesTime()
+										+ "ms  Build Nodes: " + result.getBuildNodesTime()
+										+ "ms  Build Edges: " + result.getBuildEdgesTime()
+										+ "ms  Algorithm: " + result.getAlorithmTime()
+										+ "ms";
+						statusLabel.setText(status);
 						controlsPanel.setCalcRouteButton(true);
-						statusLabel.setText("Status: A route was found.");
 						float[] nodeLats = result.getNodeLats();
 						float[] nodeLons = result.getNodeLons();
 						int i = 0;

@@ -17,6 +17,10 @@ import de.htwmaps.shared.exceptions.MySQLException;
  * ist jedoch performanter 
  *
  */
+/**
+ * @author bline
+ *
+ */
 public class DBAdapterParabel{
 	private float startNodeLon, startNodeLat, endNodeLon, endNodeLat;
 	private float h;
@@ -33,6 +37,11 @@ public class DBAdapterParabel{
 	private int[] highwayTypes;
 	private int[] wayIDs;
 	private int[] edgeIDs;
+	
+	private int edgesCount;
+	private int nodesCount;
+	private long receiveNodesTime;
+	private long receiveEdgesTime;
 	
 	private String NODE_SELECT;
 	private String EDGE_SELECT;
@@ -63,8 +72,14 @@ public class DBAdapterParabel{
 		endNodeLon = resultSet.getFloat(2);
 
 		setParabel();
+		long time = System.currentTimeMillis();
 		initNodes();
+		receiveNodesTime = System.currentTimeMillis() - time;
+		time = System.currentTimeMillis();
 		initEdges();
+		receiveEdgesTime = System.currentTimeMillis() - time;
+		nodesCount = nodeIDs.length;
+		edgesCount = edgeStartNodeIDs.length;
 		gd.build(nodeIDs, nodeLats, nodeLons, wayIDs, edgeStartNodeIDs, edgeEndNodeIDs, edgeLengths, oneways, highwayTypes, edgeIDs);
 	}
 
@@ -207,5 +222,37 @@ public class DBAdapterParabel{
 	
 	public void printNodes() {
 		this.printNodeCoords = true;
+	}
+
+	public int getEdgesCount() {
+		return edgesCount;
+	}
+
+	public void setEdgesCount(int edgesCount) {
+		this.edgesCount = edgesCount;
+	}
+
+	public int getNodesCount() {
+		return nodesCount;
+	}
+
+	public void setNodesCount(int nodesCount) {
+		this.nodesCount = nodesCount;
+	}
+
+	public long getReceiveNodesTime() {
+		return receiveNodesTime;
+	}
+
+	public void setReceiveNodesTime(long receiveNodesTime) {
+		this.receiveNodesTime = receiveNodesTime;
+	}
+
+	public long getReceiveEdgesTime() {
+		return receiveEdgesTime;
+	}
+
+	public void setReceiveEdgesTime(long receiveEdgesTime) {
+		this.receiveEdgesTime = receiveEdgesTime;
 	}
 }
