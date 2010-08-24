@@ -35,14 +35,7 @@ public class HtwMaps implements EntryPoint {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				controlsPanel.setCalcRouteButton(false);
-				statusLabel.setText("Status: Calculate route!");
-				removePolyline();
-				removeMarker();
-				controlsPanel.getLocationsPanel().getStartCity().clearContent();
-				controlsPanel.getLocationsPanel().getStartStreet().clearContent();
-				controlsPanel.getLocationsPanel().getDestCity().clearContent();
-				controlsPanel.getLocationsPanel().getDestStreet().clearContent();
+				resetFields();
 				
 				if(findPathSvc == null){
 					findPathSvc = GWT.create(FindPathService.class);
@@ -85,36 +78,67 @@ public class HtwMaps implements EntryPoint {
 				String destCity = controlsPanel.getLocationsPanel().getDestCityTextBox().getText();
 				String destStreet = controlsPanel.getLocationsPanel().getDestStreetTextBox().getText();
 				
-				if (startStreet.indexOf(",") != -1) {
-					startStreet = startStreet.substring(0, startStreet.indexOf(","));
-				}
-				if (destStreet.indexOf(",") != -1) {
-					destStreet = destStreet.substring(0, destStreet.indexOf(","));
-				}
-				
-				boolean shortestPath = controlsPanel.getOptionsPanel().getShortestRadioButton().getValue();
-				boolean aStarBi = controlsPanel.getOptionsPanel().getaStarBiRadioButton().getValue();
-				
-				
-				if (shortestPath) {
-					if (aStarBi) {
-						findPathSvc.findShortestPathAStarBi(startCity, startStreet, destCity, destStreet, callback);
-					} else {
-						findPathSvc.findShortestPathAStar(startCity, startStreet, destCity, destStreet, callback);
-					}
+				if (checkInput(startCity, startStreet, destCity, destStreet)) {
+					controlsPanel.setCalcRouteButton(true);
 				} else {
-					int motorwaySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim());
-					int primarySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
-					int residentialSpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getResidentialSpeedTextBox().getText().trim());
-					if (aStarBi) {
-						findPathSvc.findFastestPathAStarBi(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
+					if (startStreet.indexOf(",") != -1) {
+						startStreet = startStreet.substring(0, startStreet.indexOf(","));
+					}
+					if (destStreet.indexOf(",") != -1) {
+						destStreet = destStreet.substring(0, destStreet.indexOf(","));
+					}
+
+					boolean shortestPath = controlsPanel.getOptionsPanel().getShortestRadioButton().getValue();
+					boolean aStarBi = controlsPanel.getOptionsPanel().getaStarBiRadioButton().getValue();
+
+					if (shortestPath) {
+						if (aStarBi) {
+							findPathSvc.findShortestPathAStarBi(startCity, startStreet, destCity, destStreet, callback);
+						} else {
+							findPathSvc.findShortestPathAStar(startCity, startStreet, destCity, destStreet,	callback);
+						}
 					} else {
-						findPathSvc.findFastestPathAStar(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
+						int motorwaySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim());
+						int primarySpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
+						int residentialSpeed = Integer.parseInt(controlsPanel.getOptionsPanel().getResidentialSpeedTextBox().getText().trim());
+						if (aStarBi) {
+							findPathSvc.findFastestPathAStarBi(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
+						} else {
+							findPathSvc.findFastestPathAStar(startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed, callback);
+						}
 					}
 				}
-				
 			}
 		});
+	}
+	
+	private void resetFields() {
+		controlsPanel.setCalcRouteButton(false);
+		statusLabel.setText("Status: Calculate route!");
+		removePolyline();
+		removeMarker();
+		controlsPanel.getLocationsPanel().getStartCity().clearContent();
+		controlsPanel.getLocationsPanel().getStartStreet().clearContent();
+		controlsPanel.getLocationsPanel().getDestCity().clearContent();
+		controlsPanel.getLocationsPanel().getDestStreet().clearContent();
+	}
+	
+	private boolean checkInput (String startCity, String startStreet, String destCity, String destStreet) {
+		boolean check = false;
+		if (startCity.equals("") || startCity == null) {
+			statusLabel.setText("Status: Bitte geben Sie einen Startort ein.");
+			check = true;
+		} else if (startStreet.equals("") || startStreet == null) {
+			statusLabel.setText("Status: Bitte geben Sie eine Startstrasse ein.");
+			check = true;
+		} else if (destCity.equals("") || destCity == null) {
+			statusLabel.setText("Status: Bitte geben Sie einen Zielort ein.");
+			check = true;
+		} else if (destStreet.equals("") || destStreet == null) {
+			statusLabel.setText("Status: Bitte geben Sie eine Zielstrasse ein.");
+			check = true;
+		}
+		return check;
 	}
 	
 	native void alert(String s)/*-{

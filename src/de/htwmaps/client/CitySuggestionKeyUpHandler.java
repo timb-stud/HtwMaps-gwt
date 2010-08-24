@@ -20,8 +20,6 @@ public class CitySuggestionKeyUpHandler implements KeyUpHandler {
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
 		TextBox tb = (TextBox) event.getSource();
-		
-		System.out.println(event.getNativeKeyCode());
 
 		if (event.getNativeKeyCode() == 8 || event.getNativeKeyCode() == 46) {
 			oracle.clear();
