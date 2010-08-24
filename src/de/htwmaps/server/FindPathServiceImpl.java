@@ -6,6 +6,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.htwmaps.client.FindPathService;
 import de.htwmaps.server.algorithm.AStar;
 import de.htwmaps.server.algorithm.AStarBiStarter;
+import de.htwmaps.server.algorithm.Edge;
 import de.htwmaps.server.algorithm.GraphData;
 import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.server.algorithm.ShortestPathAlgorithm;
@@ -95,16 +96,14 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 	
-	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterParabel dbap){
-		float[] nodeLats = new float[nodes.length];
-		float[] nodeLons = new float[nodes.length];
-		for(int i=0; i<nodeLats.length;i++){
-			nodeLats[i] = nodes[i].getLat();
-			nodeLons[i] = nodes[i].getLon();
-		}
+	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterParabel dbap) throws java.sql.SQLException, MySQLException{
+		Edge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
+		float [][] latLons = DBUtils.getAllNodeLatLons(nodes, edges);
 		PathData pd = new PathData();
-		pd.setNodeLats(nodeLats);
-		pd.setNodeLons(nodeLons);
+		System.out.println(latLons[0].length);
+		System.out.println(latLons[1].length);
+		pd.setNodeLats(latLons[0]);
+		pd.setNodeLons(latLons[1]);
 		pd.setAlorithmTime(spa.getAlorithmTime());
 		pd.setBuildEdgesTime(spa.getBuildEdgesTime());
 		pd.setBuildNodesTime(spa.getBuildNodesTime());

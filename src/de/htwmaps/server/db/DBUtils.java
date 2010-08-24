@@ -161,6 +161,7 @@ public class DBUtils {
 		for (float[] latLon : latLonList) {
 			latLonArray[0][listCount] = latLon[0];
 			latLonArray[1][listCount] = latLon[1];
+			listCount++;
 		}
 		System.out.println("Size All latLonList: " + latLonList.size());
 		System.out
