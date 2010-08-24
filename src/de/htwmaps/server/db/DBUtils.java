@@ -101,7 +101,6 @@ public class DBUtils {
 		ps1 = con.prepareStatement(sql1);
 		ps2 = con.prepareStatement(sql2);
 		ps3 = con.prepareStatement(sql3);
-		// coordList = new LinkedList<Coordinate>();
 		latLonList = new LinkedList<float[]>();
 
 		ResultSet rs1 = null;
@@ -136,15 +135,11 @@ public class DBUtils {
 				latLon[0] = rs1.getFloat(1);
 				latLon[1] = rs1.getFloat(2);
 				latLonList.add(latLon);
-				// c = new Coordinate(rs1.getFloat(1), rs1.getFloat(2));
-				// coordList.add(c);
 				if (rs1.isLast() && rsCounter >= 1) {
 					float[] latLon2 = new float[2];
 					latLon2[0] = rs1.getFloat(3);
 					latLon2[1] = rs1.getFloat(4);
 					latLonList.add(latLon2);
-					// c = new Coordinate(rs1.getFloat(3), rs1.getFloat(4));
-					// coordList.add(c);
 				}
 				rsCounter++;
 			}
@@ -152,12 +147,10 @@ public class DBUtils {
 		}
 		System.out.println("DB-Abfragen Richtung " + timesum2 + "ms");
 		System.out.println("DB-Abfragen Daten " + timesum + "ms");
-		// System.out.println("Size All CoordList: " + coordList.size());
 		ps1.close();
 		ps2.close();
 		ps3.close();
 		con.close();
-		// return coordList;
 		float[][] latLonArray = new float[2][latLonList.size()];
 		int listCount = 0;
 		for (float[] latLon : latLonList) {
@@ -165,11 +158,7 @@ public class DBUtils {
 			latLonArray[1][listCount] = latLon[1];
 			listCount++;
 		}
-		System.out.println("Size All latLonList: " + latLonList.size());
-		System.out
-				.println("Size All latLonArray lat: " + latLonArray[0].length);
-		System.out
-				.println("Size All latLonArray lon: " + latLonArray[1].length);
+		System.out.println("Size All: " + latLonArray[1].length);
 
 		return latLonArray;
 	}
