@@ -108,8 +108,8 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		long optAllTime = System.currentTimeMillis();
 		float [][] latLons = DBUtils.getAllNodeLatLons(nodes, edges);
 		pd.setOptToAllTime(System.currentTimeMillis() - optAllTime);
-		pd.setAllNodesResultCount(nodes.length);
-		pd.setOptNodesResultCount(latLons[0].length);
+		pd.setOptNodesResultCount(nodes.length);
+		pd.setAllNodesResultCount(latLons[0].length);
 		pd.setNodeLats(latLons[0]);
 		pd.setNodeLons(latLons[1]);
 		pd.setAlorithmTime(spa.getAlorithmTime());

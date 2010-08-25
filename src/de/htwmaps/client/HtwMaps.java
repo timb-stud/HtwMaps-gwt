@@ -5,6 +5,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -17,6 +18,7 @@ import de.htwmaps.shared.PathData;
  */
 public class HtwMaps implements EntryPoint {
 	Label statusLabel = new Label("Status: Ready");
+	HTML informationHTML = new HTML();
 	AboutAnchor aboutAnchor = new AboutAnchor("About");
 	ControlsPanel controlsPanel = new ControlsPanel();
 
@@ -30,6 +32,7 @@ public class HtwMaps implements EntryPoint {
 		RootPanel.get("controlsPanel").add(controlsPanel);
 		RootPanel.get("statusLabelContainer").add(statusLabel);
 		RootPanel.get("aboutAnchorContainer").add(aboutAnchor);
+		RootPanel.get("informationHTMLContainer").add(informationHTML);
 		
 		controlsPanel.getCalcRouteButton().addClickHandler(new ClickHandler() {
 			
@@ -52,19 +55,20 @@ public class HtwMaps implements EntryPoint {
 
 					@Override
 					public void onSuccess(PathData result) {
-						String status = "Status: A route was found."
-										+ "  Nodes: " + result.getNodesCount()
-										+ "  Edges: " + result.getEdgesCount()
-										+ "  Select Nodes: " + result.getReceiveNodesTime()
-										+ "ms  Select Edges time: " + result.getReceiveEdgesTime()
-										+ "ms  Build Nodes: " + result.getBuildNodesTime()
-										+ "ms  Build Edges: " + result.getBuildEdgesTime()
-										+ "ms  Algorithm: " + result.getAlorithmTime()
-										+ "ms  OptToAll: " + result.getOptToAllTime()
-										+ "ms  optNodesResult: " + result.getOptToAllTime()
-										+ "  allNodesResult: " + result.getOptToAllTime();
-						statusLabel.setText(status);
+						String statusText = "Status: A route was found.";
+						String informationText = "<table border=\"1\"><tr><td>Nodes:</td><td>" + result.getNodesCount() + "</td></tr>"
+											+ "<tr><td>Edges:</td><td>" + result.getEdgesCount() + "</td></tr>"
+											+ "<tr><td>Select Nodes:</td><td>" + result.getReceiveNodesTime() + "ms</td></tr>"
+											+ "<tr><td>Select Edges:</td><td>" + result.getReceiveEdgesTime() + "ms</td></tr>"
+											+ "<tr><td>Build Nodes:</td><td>" + result.getBuildNodesTime() + "ms</td></tr>"
+											+ "<tr><td>Build Edges:</td><td>" + result.getBuildEdgesTime() + "ms</td></tr>"
+											+ "<tr><td>Algorithm:</td><td>" + result.getAlorithmTime() + "ms</td></tr>"
+											+ "<tr><td>OptToAll:</td><td>" + result.getOptToAllTime() + "ms</td></tr>"
+											+ "<tr><td>optNodesResult:</td><td>" + result.getOptNodesResultCount() + "</td></tr>"
+											+ "<tr><td>allNodesResult:</td><td>" + result.getAllNodesResultCount() + "</td></tr></table>";
+						statusLabel.setText(statusText);
 						statusLabel.setStyleName("statusLabelNormal");
+						informationHTML.setHTML(informationText);
 						controlsPanel.setCalcRouteButton(true);
 						float[] nodeLats = result.getNodeLats();
 						float[] nodeLons = result.getNodeLons();
