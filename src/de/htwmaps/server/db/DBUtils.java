@@ -31,7 +31,10 @@ public class DBUtils {
 		if(!rs.next()) {
 			return -1;
 		}
-		return rs.getInt(1);
+		int nodeID = rs.getInt(1);
+		select.close();
+		con.close();
+		return nodeID;
 	}
 
 	public static String[] getCitiesStartsWith(String s) throws SQLException,
@@ -51,6 +54,7 @@ public class DBUtils {
 			result[i] = rs.getString(1);
 		}
 		select.close();
+		con.close();
 		return result;
 	}
 
@@ -78,6 +82,7 @@ public class DBUtils {
 			select.setString(1, s + "%");
 		}
 		select.close();
+		con.close();
 		return result;
 	}
 

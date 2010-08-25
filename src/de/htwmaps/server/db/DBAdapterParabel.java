@@ -74,7 +74,8 @@ public class DBAdapterParabel{
 		resultSet.next();
 		endNodeLat = resultSet.getFloat(1);
 		endNodeLon = resultSet.getFloat(2);
-
+		con.close();
+		
 		setParabel();
 		long time = System.currentTimeMillis();
 		initNodes();
@@ -132,6 +133,8 @@ public class DBAdapterParabel{
 			nodeLons[i] = resultSet.getFloat(2);
 			nodeLats[i] = resultSet.getFloat(3);
 		}
+		pStmt.close();
+		con.close();
 	}
 
 	private void initEdges() throws SQLException, MySQLException{
@@ -163,7 +166,7 @@ public class DBAdapterParabel{
 		pStmt.setFloat(23, endNodeLat);
 		pStmt.setFloat(24, h);
 		ResultSet resultSet = pStmt.executeQuery();
-		pStmt = null;
+//		pStmt = null;
 		resultSet.last();
 		tableLength = resultSet.getRow();
 		resultSet.beforeFirst();
@@ -184,6 +187,8 @@ public class DBAdapterParabel{
 			wayIDs[i] = resultSet.getInt(6);	
 			edgeIDs[i] = resultSet.getInt(7);
 		}
+		pStmt.close();
+		con.close();
 	}
 
 	private void setParabel() {
