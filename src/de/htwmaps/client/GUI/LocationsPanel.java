@@ -58,13 +58,13 @@ public class LocationsPanel extends VerticalPanel {
 		endPanel1.add(destLabel);
 		endPanel1.add(destCitySuggestBox);
 		endPanel2.add(destStreetSuggestBox);
-		startPanel1.setSize("200px", "10px");
+		startPanel1.setSize("205px", "10px");
 		startPanel1.setCellHorizontalAlignment(startCitySuggestBox, HasHorizontalAlignment.ALIGN_RIGHT);
-		startPanel2.setSize("200px", "10px");
+		startPanel2.setSize("205px", "10px");
 		startPanel2.setCellHorizontalAlignment(startStreetSuggestBox, HasHorizontalAlignment.ALIGN_RIGHT);
-		endPanel1.setSize("200px", "10px");
+		endPanel1.setSize("205px", "10px");
 		endPanel1.setCellHorizontalAlignment(destCitySuggestBox, HasHorizontalAlignment.ALIGN_RIGHT);
-		endPanel2.setSize("200px", "10px");
+		endPanel2.setSize("205px", "10px");
 		endPanel2.setCellHorizontalAlignment(destStreetSuggestBox, HasHorizontalAlignment.ALIGN_RIGHT);
 		
 		add(startPanel1);

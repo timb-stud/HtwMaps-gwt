@@ -9,7 +9,7 @@ public class WayDescriptionPanel extends VerticalPanel {
 	
 	public WayDescriptionPanel() {
 		setVisible(false);
-		wegbeschreibungLabel.setSize("300px", "10px");
+		wegbeschreibungLabel.setSize("280px", "10px");
 		add(wegbeschreibungLabel);
 	}
 }

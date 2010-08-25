@@ -1,39 +1,56 @@
-/** Add css rules here for your application. */
+/** css rules */
 
-
-/** Example rules used by the template application (remove for your app) */
-h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+.gwt-Label {
+	font-family: Verdana;
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
-.sendButton {
-  display: block;
-  font-size: 16pt;
+.gwt-Button {
+	font-family: Verdana;
 }
 
-/** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
-  width: 400px;
+.gwt-Anchor { 
+	font-family: Verdana;
+	text-decoration: none;
 }
 
-.dialogVPanel {
-  margin: 5px;
+.gwt-TextBox{
+	font-family: Verdana;
+}
+	
+.gwt-SuggestBox {
+	font-family: Verdana;
+	margin-top: 1px;
+	margin-bottom: 1px;
 }
 
-.serverResponseLabelError {
-  color: red;
+.gwt-SuggestBoxPopup {
+	font-family: Verdana;
 }
 
-/** Set ids using widget.getElement().setId("idOfElement") */
-#closeButton {
-  margin: 15px 6px 6px;
-}
-
-.controlsPanel{
+.controlsPanel {
 	float: left; 
-	border: 1px dashed silver;
 }
+
+.summaryAndWayDescriptorPanel {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;		
+}
+
+.statusLabelNormal{
+	font-family: Verdana;
+	color: black;
+	font-weight: normal ;
+}
+
+.statusLabelError{
+	font-family: Verdana;
+	color: red;
+	font-weight: bold;
+}
+
+
+	

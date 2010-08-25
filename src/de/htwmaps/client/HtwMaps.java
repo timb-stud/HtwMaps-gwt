@@ -47,6 +47,7 @@ public class HtwMaps implements EntryPoint {
 					public void onFailure(Throwable caught) {
 						controlsPanel.setCalcRouteButton(true);
 						statusLabel.setText("WARNUNG:" + caught.getMessage());
+						statusLabel.setStyleName("statusLabelError");
 					}
 
 					@Override
@@ -61,6 +62,7 @@ public class HtwMaps implements EntryPoint {
 										+ "ms  Algorithm: " + result.getAlorithmTime()
 										+ "ms";
 						statusLabel.setText(status);
+						statusLabel.setStyleName("statusLabelNormal");
 						controlsPanel.setCalcRouteButton(true);
 						float[] nodeLats = result.getNodeLats();
 						float[] nodeLons = result.getNodeLons();
@@ -102,16 +104,18 @@ public class HtwMaps implements EntryPoint {
 						int motorwaySpeed = leseIntZahl(controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim());
 						if (motorwaySpeed <= 0) {
 							statusLabel.setText("WARNUNG: Falsche Geschwindigkeitsangabe bei Autobahn!");
-							checkSpeed = false;
-						}
+							statusLabel.setStyleName("statusLabelError");
+							checkSpeed = false;						}
 						int primarySpeed = leseIntZahl(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
 						if (primarySpeed <= 0 && checkSpeed) {
 							statusLabel.setText("WARNUNG: Falsche Geschwindigkeitsange bei Landstrasse!");
+							statusLabel.setStyleName("statusLabelError");
 							checkSpeed = false;
 						}
 						int residentialSpeed = leseIntZahl(controlsPanel.getOptionsPanel().getResidentialSpeedTextBox().getText().trim());
 						if (residentialSpeed <= 0 && checkSpeed) {
 							statusLabel.setText("WARNUNG: Falsche Geschwindigkeitsange bei Innerorts!");
+							statusLabel.setStyleName("statusLabelError");
 							checkSpeed = false;
 						}
 						if (checkSpeed) {
@@ -132,6 +136,7 @@ public class HtwMaps implements EntryPoint {
 	private void resetFields() {
 		controlsPanel.setCalcRouteButton(false);
 		statusLabel.setText("Status: Calculate route!");
+		statusLabel.setStyleName("statusLabelNormal");
 		removePolyline();
 		removeMarker();
 		controlsPanel.getLocationsPanel().getStartCity().clearContent();
@@ -144,15 +149,19 @@ public class HtwMaps implements EntryPoint {
 		boolean check = false;
 		if (startCity.equals("") || startCity == null) {
 			statusLabel.setText("WARNUNG: Bitte geben Sie einen Startort ein.");
+			statusLabel.setStyleName("statusLabelError");
 			check = true;
 		} else if (startStreet.equals("") || startStreet == null) {
 			statusLabel.setText("WARNUNG: Bitte geben Sie eine Startstrasse ein.");
+			statusLabel.setStyleName("statusLabelError");
 			check = true;
 		} else if (destCity.equals("") || destCity == null) {
 			statusLabel.setText("WARNUNG: Bitte geben Sie einen Zielort ein.");
+			statusLabel.setStyleName("statusLabelError");
 			check = true;
 		} else if (destStreet.equals("") || destStreet == null) {
 			statusLabel.setText("WARNUNG: Bitte geben Sie eine Zielstrasse ein.");
+			statusLabel.setStyleName("statusLabelError");
 			check = true;
 		}
 		return check;

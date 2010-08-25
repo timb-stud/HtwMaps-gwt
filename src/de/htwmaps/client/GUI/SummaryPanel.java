@@ -24,26 +24,27 @@ public class SummaryPanel extends VerticalPanel {
 	Label innerortsResultLabel = new Label("5,7 km");
 	
 	public SummaryPanel() {
+		fahrzeitLabel.addStyleName("labelStyle");
 		setVisible(false);
 		fahrzeitPanel.add(fahrzeitLabel);
 		fahrzeitPanel.add(fahrzeitResultLabel);
-		fahrzeitPanel.setSize("300px", "10px");
+		fahrzeitPanel.setSize("280px", "10px");
 		fahrzeitPanel.setCellHorizontalAlignment(fahrzeitResultLabel, HasHorizontalAlignment.ALIGN_RIGHT);
 		weglaengePanel.add(weglaengeLabel);
 		weglaengePanel.add(weglaengeResultLabel);
-		weglaengePanel.setSize("300px", "10px");
+		weglaengePanel.setSize("280px", "10px");
 		weglaengePanel.setCellHorizontalAlignment(weglaengeResultLabel, HasHorizontalAlignment.ALIGN_RIGHT);
 		autobahnPanel.add(autobahnLabel);
 		autobahnPanel.add(autobahnResultLabel);
-		autobahnPanel.setSize("300px", "10px");
+		autobahnPanel.setSize("280px", "10px");
 		autobahnPanel.setCellHorizontalAlignment(autobahnResultLabel, HasHorizontalAlignment.ALIGN_RIGHT);
 		landstrassePanel.add(landstrasseLabel);
 		landstrassePanel.add(landstrasseResultLabel);
-		landstrassePanel.setSize("300px", "10px");
+		landstrassePanel.setSize("280px", "10px");
 		landstrassePanel.setCellHorizontalAlignment(landstrasseResultLabel, HasHorizontalAlignment.ALIGN_RIGHT);
 		innerortsPanel.add(innerortsLabel);
 		innerortsPanel.add(innerortsResultLabel);
-		innerortsPanel.setSize("300px", "10px");
+		innerortsPanel.setSize("280px", "10px");
 		innerortsPanel.setCellHorizontalAlignment(innerortsResultLabel, HasHorizontalAlignment.ALIGN_RIGHT);
 		add(fahrzeitPanel);
 		add(weglaengePanel);
