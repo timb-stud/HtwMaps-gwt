@@ -39,8 +39,11 @@ public class CitySuggestionKeyUpHandler implements KeyUpHandler {
 
 				@Override
 				public void onSuccess(String[] result) {
-					for (String s : result)
-						oracle.add(s);
+					if (result != null) {
+						for (String s : result) {
+							oracle.add(s);
+						}
+					}
 				}
 			};
 
