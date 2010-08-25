@@ -59,6 +59,7 @@ public class HtwMaps implements EntryPoint {
 										+ "ms  Build Nodes: " + result.getBuildNodesTime()
 										+ "ms  Build Edges: " + result.getBuildEdgesTime()
 										+ "ms  Algorithm: " + result.getAlorithmTime()
+										+ "ms  OptToAll: " + result.getOptToAllTime()
 										+ "ms";
 						statusLabel.setText(status);
 						controlsPanel.setCalcRouteButton(true);

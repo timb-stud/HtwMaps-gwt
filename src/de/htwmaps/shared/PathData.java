@@ -15,6 +15,7 @@ public class PathData implements Serializable{
 	private long buildNodesTime;
 	private long buildEdgesTime;
 	private long alorithmTime;
+	private long optToAllTime;
 	private int edgesCount;
 	private int nodesCount;
 	
@@ -91,5 +92,13 @@ public class PathData implements Serializable{
 	
 	public void setAlorithmTime(long alorithmTime) {
 		this.alorithmTime = alorithmTime;
+	}
+
+	public void setOptToAllTime(long optToAllTime) {
+		this.optToAllTime = optToAllTime;
+	}
+
+	public long getOptToAllTime() {
+		return optToAllTime;
 	}
 }
