@@ -97,6 +97,7 @@ public class DBUtils {
 		long time = 0;
 		long timesum = 0;
 		long timesum2 = 0;
+		long runtime = System.currentTimeMillis();
 		// Variable die speichert ob Strasse vorwaerts oder rueckwaerts
 		// durchfahren wird
 		boolean inOrder = true;
@@ -150,6 +151,7 @@ public class DBUtils {
 		}
 		System.out.println("DB-Abfragen Richtung " + timesum2 + "ms");
 		System.out.println("DB-Abfragen Daten " + timesum + "ms");
+		System.out.println("Methodenlaufzeit: " + (System.currentTimeMillis() - runtime) + "ms");
 		ps1.close();
 		ps2.close();
 		ps3.close();
@@ -162,7 +164,6 @@ public class DBUtils {
 			listCount++;
 		}
 		System.out.println("Size All: " + latLonArray[1].length);
-
 		return latLonArray;
 	}
 
