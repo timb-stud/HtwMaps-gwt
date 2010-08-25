@@ -103,12 +103,13 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	}
 	
 	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterParabel dbap) throws java.sql.SQLException, MySQLException{
+		PathData pd = new PathData();
 		Edge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
 		long optAllTime = System.currentTimeMillis();
 		float [][] latLons = DBUtils.getAllNodeLatLons(nodes, edges);
-		optAllTime = System.currentTimeMillis() - optAllTime;
-		PathData pd = new PathData();
-		pd.setOptToAllTime(optAllTime);
+		pd.setOptToAllTime(System.currentTimeMillis() - optAllTime);
+		pd.setAllNodesResultCount(nodes.length);
+		pd.setOptNodesResultCount(latLons[0].length);
 		pd.setNodeLats(latLons[0]);
 		pd.setNodeLons(latLons[1]);
 		pd.setAlorithmTime(spa.getAlorithmTime());

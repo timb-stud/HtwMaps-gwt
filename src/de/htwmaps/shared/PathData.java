@@ -18,6 +18,8 @@ public class PathData implements Serializable{
 	private long optToAllTime;
 	private int edgesCount;
 	private int nodesCount;
+	private int optNodesResultCount;
+	private int allNodesResultCount;
 	
 	
 	public PathData() {}
@@ -100,5 +102,21 @@ public class PathData implements Serializable{
 
 	public long getOptToAllTime() {
 		return optToAllTime;
+	}
+
+	public void setOptNodesResultCount(int optNodesResultCount) {
+		this.optNodesResultCount = optNodesResultCount;
+	}
+
+	public int getOptNodesResultCount() {
+		return optNodesResultCount;
+	}
+
+	public void setAllNodesResultCount(int allNodesResultCount) {
+		this.allNodesResultCount = allNodesResultCount;
+	}
+
+	public int getAllNodesResultCount() {
+		return allNodesResultCount;
 	}
 }
