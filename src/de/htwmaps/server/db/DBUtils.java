@@ -93,10 +93,9 @@ public class DBUtils {
 
 		int myEdgeID = 0;
 		int rsCounter = 0;
-
 		long time = 0;
-		long timesum = 0;
-		long timesum2 = 0;
+		long timeData = 0;
+		long timeDir = 0;
 		// Variable die speichert ob Strasse vorwaerts oder rueckwaerts
 		// durchfahren wird
 		boolean inOrder = true;
@@ -114,7 +113,7 @@ public class DBUtils {
 			ps3.setInt(2, nodes[i + 1].getId());
 			time = System.currentTimeMillis();
 			rs2 = ps3.executeQuery();
-			timesum2 = timesum2 + (System.currentTimeMillis() - time);
+			timeDir = timeDir + (System.currentTimeMillis() - time);
 			while (rs2.next()) {
 				if (rs2.getInt(1) == 1) {
 					inOrder = true;
@@ -131,7 +130,7 @@ public class DBUtils {
 			} else {
 				rs1 = ps2.executeQuery();
 			}
-			timesum = timesum + (System.currentTimeMillis() - time);
+			timeData = timeData + (System.currentTimeMillis() - time);
 			rsCounter = 0;
 			while (rs1.next()) {
 				float[] latLon = new float[2];
@@ -148,8 +147,8 @@ public class DBUtils {
 			}
 
 		}
-		System.out.println("DB-Abfragen Richtung " + timesum2 + "ms");
-		System.out.println("DB-Abfragen Daten " + timesum + "ms");
+		System.out.println("DB-Abfragen Richtung " + timeDir + "ms");
+		System.out.println("DB-Abfragen Daten " + timeData + "ms");
 		ps1.close();
 		ps2.close();
 		ps3.close();
@@ -162,7 +161,6 @@ public class DBUtils {
 			listCount++;
 		}
 		System.out.println("Size All: " + latLonArray[1].length);
-
 		return latLonArray;
 	}
 
