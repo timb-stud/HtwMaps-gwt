@@ -56,6 +56,9 @@ public class DBUtils {
 
 	public static String[] getStreetsStartsWith(String city, String s)
 			throws SQLException, MySQLException {
+		if (city.equals("") || city == null) {
+			return null;
+		}
 		Connection con = DBConnector.getConnection();
 		PreparedStatement select = con
 				.prepareStatement(GETSTREETSSTARTWITH_SELECT);
