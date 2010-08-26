@@ -33,7 +33,7 @@
 	float: left; 
 }
 
-.summaryAndWayDescriptorPanel {
+.controlsPanel {
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 5px;
@@ -51,6 +51,4 @@
 	color: red;
 	font-weight: bold;
 }
-
-
 	

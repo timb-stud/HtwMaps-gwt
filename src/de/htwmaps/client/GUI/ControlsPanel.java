@@ -33,6 +33,7 @@ public class ControlsPanel extends VerticalPanel{
 		add(wayDescriptionAnchor);
 		add(wayDescriptionPanel);
 		
+		optionsPanel.addStyleName("controlsPanel");
 		optionsAnchor.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -48,7 +49,7 @@ public class ControlsPanel extends VerticalPanel{
 			}
 		});
 		
-		summaryPanel.addStyleName("summaryAndWayDescriptorPanel");
+		summaryPanel.addStyleName("controlsPanel");
 		summaryAnchor.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -63,7 +64,7 @@ public class ControlsPanel extends VerticalPanel{
 			}
 		});
 
-		wayDescriptionPanel.addStyleName("summaryAndWayDescriptorPanel");
+		wayDescriptionPanel.addStyleName("controlsPanel");
 		wayDescriptionAnchor.addClickHandler(new ClickHandler() {
 			
 			@Override
