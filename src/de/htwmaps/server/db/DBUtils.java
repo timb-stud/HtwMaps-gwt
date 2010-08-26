@@ -88,64 +88,76 @@ public class DBUtils {
 
 	public static float[][] getAllNodeLatLons(Node[] nodes, Edge[] edges) throws SQLException,
 			MySQLException {
-		String sql1 = "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5";
-		String sql2 = "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5 DESC";
-		String sql3 = "SELECT COUNT(*) FROM edges_opt WHERE node1ID = ? AND node2ID = ?";
+		String sqlLatLonsAsc 	= "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5";
+		String sqlLatLonsDesc 	= "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5 DESC";
+		String sqlDirection 	= "SELECT COUNT(*) FROM edges_opt WHERE node1ID = ? AND node2ID = ?";
 
-		PreparedStatement ps1, ps2, ps3;
-		LinkedList<float[]> latLonList;
 		Connection con = DBConnector.getConnection();
+		PreparedStatement psLatLonsAsc, psLatLonsDesc, psDirection;
+		psLatLonsAsc 	= con.prepareStatement(sqlLatLonsAsc);
+		psLatLonsDesc 	= con.prepareStatement(sqlLatLonsDesc);
+		psDirection = con.prepareStatement(sqlDirection);
+		ResultSet rsLatLons = null;
+		ResultSet rsDirection = null;
+		
+		LinkedList<float[]> latLonList;
+		latLonList = new LinkedList<float[]>();
 
 		int myEdgeID = 0;
 		int rsCounter = 0;
+		int edgeTreffer = 0;
+		int dbTreffer = 0;
 		long time = 0;
 		long timeData = 0;
 		long timeDir = 0;
+		
 		// Variable die speichert ob Strasse vorwaerts oder rueckwaerts
 		// durchfahren wird
-		boolean inOrder = true;
+		boolean inOrder;
 
-		ps1 = con.prepareStatement(sql1);
-		ps2 = con.prepareStatement(sql2);
-		ps3 = con.prepareStatement(sql3);
-		latLonList = new LinkedList<float[]>();
-
-		ResultSet rs1 = null;
-		ResultSet rs2 = null;
 		System.out.println("Size Opt: " + nodes.length);
 		for (int i = 0; i < nodes.length - 1; i++) {
-			ps3.setInt(1, nodes[i].getId());
-			ps3.setInt(2, nodes[i + 1].getId());
-			time = System.currentTimeMillis();
-			rs2 = ps3.executeQuery();
-			timeDir = timeDir + (System.currentTimeMillis() - time);
-			while (rs2.next()) {
-				if (rs2.getInt(1) == 1) {
-					inOrder = true;
-				} else {
+			inOrder = true;
+			if ((i < edges.length - 2) && (edges[i].getWayID() == edges[i+1].getWayID())) {
+				if (edges[i].getID() > edges[i+1].getID()) {
 					inOrder = false;
 				}
+				edgeTreffer++;
+			} else {
+				psDirection.setInt(1, nodes[i].getId());
+				psDirection.setInt(2, nodes[i + 1].getId());
+				time = System.currentTimeMillis();
+				rsDirection = psDirection.executeQuery();
+				timeDir = timeDir + (System.currentTimeMillis() - time);
+				while (rsDirection.next()) {
+					if (rsDirection.getInt(1) == 1) {
+						inOrder = true;
+					} else {
+						inOrder = false;
+					}
+				}
+				dbTreffer++;
 			}
 			myEdgeID = edges[i].getID();
-			ps1.setInt(1, myEdgeID);
-			ps2.setInt(1, myEdgeID);
+			psLatLonsAsc.setInt(1, myEdgeID);
+			psLatLonsDesc.setInt(1, myEdgeID);
 			time = System.currentTimeMillis();
 			if (inOrder) {
-				rs1 = ps1.executeQuery();
+				rsLatLons = psLatLonsAsc.executeQuery();
 			} else {
-				rs1 = ps2.executeQuery();
+				rsLatLons = psLatLonsDesc.executeQuery();
 			}
 			timeData = timeData + (System.currentTimeMillis() - time);
 			rsCounter = 0;
-			while (rs1.next()) {
+			while (rsLatLons.next()) {
 				float[] latLon = new float[2];
-				latLon[0] = rs1.getFloat(1);
-				latLon[1] = rs1.getFloat(2);
+				latLon[0] = rsLatLons.getFloat(1);
+				latLon[1] = rsLatLons.getFloat(2);
 				latLonList.add(latLon);
-				if (rs1.isLast() && rsCounter >= 1) {
+				if (rsLatLons.isLast() && rsCounter >= 1) {
 					float[] latLon2 = new float[2];
-					latLon2[0] = rs1.getFloat(3);
-					latLon2[1] = rs1.getFloat(4);
+					latLon2[0] = rsLatLons.getFloat(3);
+					latLon2[1] = rsLatLons.getFloat(4);
 					latLonList.add(latLon2);
 				}
 				rsCounter++;
@@ -154,9 +166,10 @@ public class DBUtils {
 		}
 		System.out.println("DB-Abfragen Richtung " + timeDir + "ms");
 		System.out.println("DB-Abfragen Daten " + timeData + "ms");
-		ps1.close();
-		ps2.close();
-		ps3.close();
+		System.out.println("Edgetreffer " + edgeTreffer + " DBTreffer " + dbTreffer);
+		psLatLonsAsc.close();
+		psLatLonsDesc.close();
+		psDirection.close();
 		con.close();
 		float[][] latLonArray = new float[2][latLonList.size()];
 		int listCount = 0;
