@@ -97,6 +97,9 @@ public class DBAdapterParabel{
 	private void initNodes() throws SQLException, MySQLException{
 		int tableLength;
 		float bigh = 0.5f;
+		if (option == FindPathServiceImpl.SHORTEST) {
+			bigh = h;
+		};
 		Connection con = DBConnector.getConnection();
 		PreparedStatement pStmt = con.prepareStatement(NODE_SELECT);
 		float m = (startNodeLat - endNodeLat)/(startNodeLon - endNodeLon);
@@ -181,6 +184,9 @@ public class DBAdapterParabel{
 		float m = (startNodeLat - endNodeLat)/(startNodeLon - endNodeLon);
 		float mReversed = (startNodeLon - endNodeLon)/(startNodeLat - endNodeLat);
 		float bigh = 0.5f;
+		if (option == FindPathServiceImpl.SHORTEST) {
+			bigh = h;
+		};
 		
 		Connection con = DBConnector.getConnection();
 		PreparedStatement pStmt = con.prepareStatement(EDGE_SELECT);
@@ -311,10 +317,6 @@ public class DBAdapterParabel{
 	}
 
 	private void setParabel() {
-		String speedID = "";
-		if (option == FindPathServiceImpl.FASTEST) {
-			speedID = "  and speedID = 1 ";
-		}
 		if (startNodeLat>endNodeLat && startNodeLon >endNodeLon) {
 			NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
 				+ " where "
@@ -333,7 +335,7 @@ public class DBAdapterParabel{
 				+ " and "
 				+ " -varNodes.lon*?+?+?*(?+?)+? > varNodes.lat "
 				+ " and "
-				+ " -varNodes.lon*?+?+?*(?-?)-? < varNodes.lat " + speedID + ")";
+				+ " -varNodes.lon*?+?+?*(?-?)-? < varNodes.lat and speedID = 1)";
 				
 			EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 				+ " where " 
@@ -368,7 +370,7 @@ public class DBAdapterParabel{
 				+ " and "
 				+ " -node2lon*?+?+?*(?+?)+? > node2lat "
 				+ " and "
-				+ " -node2lon*?+?+?*(?-?)-? < node2lat " + speedID + ")";
+				+ " -node2lon*?+?+?*(?-?)-? < node2lat and speedID = 1) ";
 		} else {
 			if (startNodeLat < endNodeLat && startNodeLon < endNodeLon) {
 				NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
@@ -388,7 +390,7 @@ public class DBAdapterParabel{
 					+ " and "
 					+ " -varNodes.lon*?+?+?*(?-?)-? < varNodes.lat "
 					+ " and "
-					+ " -varNodes.lon*?+?+?*(?+?)+? > varNodes.lat " + speedID + ")";
+					+ " -varNodes.lon*?+?+?*(?+?)+? > varNodes.lat and speedID = 1)";
 					
 				EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 					+ " where " 
@@ -423,7 +425,7 @@ public class DBAdapterParabel{
 					+ " and "
 					+ " -node2lon*?+?+?*(?-?)-? < node2lat "
 					+ " and "
-					+ " -node2lon*?+?+?*(?+?)+? > node2lat " + speedID + ")";
+					+ " -node2lon*?+?+?*(?+?)+? > node2lat and speedID = 1)";
 			} else {
 				if (startNodeLat>endNodeLat && startNodeLon < endNodeLon) {
 					NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
@@ -443,7 +445,7 @@ public class DBAdapterParabel{
 						+ " and "
 						+ " -varNodes.lon*?+?+?*(?-?)+? > varNodes.lat "
 						+ " and "
-						+ " -varNodes.lon*?+?+?*(?+?)-? < varNodes.lat " + speedID + ")";
+						+ " -varNodes.lon*?+?+?*(?+?)-? < varNodes.lat and speedID = 1)";
 						
 					EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 						+ " where " 
@@ -478,7 +480,7 @@ public class DBAdapterParabel{
 						+ " and "
 						+ " -node2lon*?+?+?*(?-?)+? > node2lat "
 						+ " and "
-						+ " -node2lon*?+?+?*(?+?)-? < node2lat " + speedID + ")";
+						+ " -node2lon*?+?+?*(?+?)-? < node2lat and speedID = 1)";
 				} else {
 					if (startNodeLat<endNodeLat&&startNodeLon>endNodeLon) {
 						NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
@@ -498,7 +500,7 @@ public class DBAdapterParabel{
 							+ " and "
 							+ " -varNodes.lon*?+?+?*(?+?)-? < varNodes.lat "
 							+ " and "
-							+ " -varNodes.lon*?+?+?*(?-?)+? > varNodes.lat " + speedID + ")";
+							+ " -varNodes.lon*?+?+?*(?-?)+? > varNodes.lat and speedID = 1)";
 							
 						EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 							+ " where " 
@@ -533,7 +535,7 @@ public class DBAdapterParabel{
 							+ " and "
 							+ " -node2lon*?+?+?*(?+?)-? < node2lat "
 							+ " and "
-							+ " -node2lon*?+?+?*(?-?)+? > node2lat " + speedID + ")";
+							+ " -node2lon*?+?+?*(?-?)+? > node2lat and speedID = 1)";
 					}
 				}
 			}
