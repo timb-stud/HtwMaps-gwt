@@ -25,7 +25,7 @@ public class CitySuggestionKeyUpHandler implements KeyUpHandler {
 			oracle.clear();
 		}
 		
-		if (tb.getText().length() > 1) {
+		if (tb.getText().length() > 0) {
 			if (this.cityStreetSuggestSvc == null)
 				this.cityStreetSuggestSvc = GWT.create(CityStreetSuggestService.class);
 

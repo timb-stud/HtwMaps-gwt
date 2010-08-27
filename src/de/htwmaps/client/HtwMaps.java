@@ -21,6 +21,8 @@ public class HtwMaps implements EntryPoint {
 	HTML informationHTML = new HTML();
 	AboutAnchor aboutAnchor = new AboutAnchor("About");
 	ControlsPanel controlsPanel = new ControlsPanel();
+	long startZeit = -1;
+	long endeZeit = -1;
 
 	private FindPathServiceAsync findPathSvc = GWT.create(FindPathService.class);
 
@@ -39,6 +41,7 @@ public class HtwMaps implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				resetFields();
+				startZeit = System.currentTimeMillis();
 				
 				if(findPathSvc == null){
 					findPathSvc = GWT.create(FindPathService.class);
@@ -55,6 +58,8 @@ public class HtwMaps implements EntryPoint {
 
 					@Override
 					public void onSuccess(PathData result) {
+						endeZeit = System.currentTimeMillis();
+						
 						String statusText = "Status: A route was found.";
 						String informationText = "<table border=\"1\"><tr><td>Nodes:</td><td>" + result.getNodesCount() + "</td></tr>"
 											+ "<tr><td>Edges:</td><td>" + result.getEdgesCount() + "</td></tr>"
@@ -65,7 +70,8 @@ public class HtwMaps implements EntryPoint {
 											+ "<tr><td>Algorithm:</td><td>" + result.getAlorithmTime() + "ms</td></tr>"
 											+ "<tr><td>OptToAll:</td><td>" + result.getOptToAllTime() + "ms</td></tr>"
 											+ "<tr><td>optNodesResult:</td><td>" + result.getOptNodesResultCount() + "</td></tr>"
-											+ "<tr><td>allNodesResult:</td><td>" + result.getAllNodesResultCount() + "</td></tr></table>";
+											+ "<tr><td>allNodesResult:</td><td>" + result.getAllNodesResultCount() + "</td></tr>"
+											+ "<tr><td>Zeit insgesamt:</td><td>" + ((endeZeit - startZeit)/1000)  + "sec</td></tr></table>";
 						statusLabel.setText(statusText);
 						statusLabel.setStyleName("statusLabelNormal");
 						informationHTML.setHTML(informationText);

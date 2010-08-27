@@ -14,8 +14,8 @@ import de.htwmaps.shared.exceptions.NodeNotFoundException;
 public class DBUtils {
 
 	private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE (cityName = ? OR is_in LIKE ?) AND nameValue = ?";
-	private final static String GETCITIESSTARTWITH_SELECT = "SELECT DISTINCT cityName FROM ways WHERE cityName LIKE ?";
-	private final static String GETSTREETSSTARTWITH_SELECT = "SELECT DISTINCT nameValue, cityName FROM ways WHERE (cityName = ? OR is_in LIKE ?) AND nameValue LIKE ?";
+	private final static String GETCITIESSTARTWITH_SELECT = "SELECT DISTINCT cityName FROM ways WHERE cityName LIKE ? ORDER BY cityName LIMIT 15";
+	private final static String GETSTREETSSTARTWITH_SELECT = "SELECT DISTINCT nameValue, cityName FROM ways WHERE (cityName = ? OR is_in LIKE ?) AND nameValue LIKE ? ORDER BY nameValue LIMIT 15";
 
 	private DBUtils() {
 	}
@@ -77,9 +77,7 @@ public class DBUtils {
 		rs.beforeFirst();
 		String[] result = new String[tableLength];
 		for (int i = 0; rs.next(); i++) {
-			result[i] = rs.getString("nameValue") + ","
-					+ rs.getString("cityName");
-			select.setString(1, s + "%");
+			result[i] = rs.getString("nameValue") + "," + rs.getString("cityName");
 		}
 		select.close();
 		con.close();
