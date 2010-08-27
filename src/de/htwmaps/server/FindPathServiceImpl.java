@@ -94,7 +94,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 					}
 				} catch (PathNotFoundException ex) {
 					System.out.println(" fehlgeschlagen");
-					throw new PathNotFoundException();
+					throw new PathNotFoundException("Es tut uns Leid. Dieser Weg kann nicht erfasst werden.");
 				}
 			}
 			return buildPathData(result, spa, dbap);
