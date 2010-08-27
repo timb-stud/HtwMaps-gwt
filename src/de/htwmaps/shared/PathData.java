@@ -20,6 +20,7 @@ public class PathData implements Serializable{
 	private int nodesCount;
 	private int optNodesResultCount;
 	private int allNodesResultCount;
+	private String description;
 	
 	
 	public PathData() {}
@@ -118,5 +119,13 @@ public class PathData implements Serializable{
 
 	public int getAllNodesResultCount() {
 		return allNodesResultCount;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 }

@@ -75,6 +75,7 @@ public class HtwMaps implements EntryPoint {
 						statusLabel.setText(statusText);
 						statusLabel.setStyleName("statusLabelNormal");
 						informationHTML.setHTML(informationText);
+						controlsPanel.getWayDescriptionPanel().getWayDescriptionLabel().setText(result.getDescription());
 						controlsPanel.setCalcRouteButton(true);
 						float[] nodeLats = result.getNodeLats();
 						float[] nodeLons = result.getNodeLons();
