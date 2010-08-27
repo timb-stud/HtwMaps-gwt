@@ -96,7 +96,7 @@ public class DBAdapterParabel{
 
 	private void initNodes() throws SQLException, MySQLException{
 		int tableLength;
-		float bigh = 0.5f;
+		float bigh = 0.8f;
 		if (option == FindPathServiceImpl.SHORTEST) {
 			bigh = h;
 		};
@@ -183,7 +183,7 @@ public class DBAdapterParabel{
 		int tableLength;
 		float m = (startNodeLat - endNodeLat)/(startNodeLon - endNodeLon);
 		float mReversed = (startNodeLon - endNodeLon)/(startNodeLat - endNodeLat);
-		float bigh = 0.5f;
+		float bigh = 0.8f;
 		if (option == FindPathServiceImpl.SHORTEST) {
 			bigh = h;
 		};

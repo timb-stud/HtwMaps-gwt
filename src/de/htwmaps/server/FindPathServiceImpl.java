@@ -74,7 +74,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			if (goalNodeID == -1) {
 				throw new NodeNotFoundException("Flasche Zieldaten");
 			}
-			float h = 0.1f; //20 km dicke min. 30km max.
+			float h = 0.1f; //20 km dicke
 			DBAdapterParabel dbap;
 			dbap = new DBAdapterParabel(gd);
 			Node[] result = null;
@@ -84,7 +84,19 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
 				case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
 				}
-			} catch (PathNotFoundException e) {}
+			} catch (PathNotFoundException e) {
+				System.out.print("2. versuch");
+				dbap.fillGraphData(startNodeID, goalNodeID, h + 1.4f, option);
+				try {
+					switch (option) {
+					case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
+					case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
+					}
+				} catch (PathNotFoundException ex) {
+					System.out.println(" fehlgeschlagen");
+					throw new PathNotFoundException();
+				}
+			}
 			return buildPathData(result, spa, dbap);
 		}catch(java.sql.SQLException e){
 			throw new SQLException();
