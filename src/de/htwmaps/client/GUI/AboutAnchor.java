@@ -11,18 +11,18 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class AboutAnchor extends Anchor {
 	
 	final DialogBox dialogBox = new DialogBox();
-	final Button closeButton = new Button("Close");
-	
+	final Button closeButton = new Button(StringConstant.SCHLIESSEN);
+
 	public AboutAnchor(String text) {
 		super(text);
 		init();
 	}
 	
 	private void init(){
-		dialogBox.setText("HTW");
+		dialogBox.setText(StringConstant.UEBER);
 		dialogBox.setAnimationEnabled(true);
 		VerticalPanel dialogVPanel = new VerticalPanel();
-		dialogVPanel.add(new HTML("Software Project HTW PI 2008 <br> Version 09.08.2010"));
+		dialogVPanel.add(new HTML(StringConstant.ABOUT_TEXT));
 		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
 		dialogVPanel.add(closeButton);
 		dialogBox.setWidget(dialogVPanel);
@@ -33,13 +33,12 @@ public class AboutAnchor extends Anchor {
 			}
 		});
 		
-		
 		addClickHandler(new ClickHandler() {
-			
 			@Override
 			public void onClick(ClickEvent event) {
 				dialogBox.show();
-				
+				dialogBox.center();
+				closeButton.setFocus(true);
 			}
 		});
 	}

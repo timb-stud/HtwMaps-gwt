@@ -27,76 +27,7 @@
     <script type="text/javascript" language="javascript" src="htwmaps/htwmaps.nocache.js"></script>
     <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAqGF_NAgYkc2b1O9qPw9CWBSwhE_DrHErwaWsyaBxkoBI89GeShRoILo6PlV9BQZ_pEkyNgB9072Ugw" type="text/javascript"></script>    
 	<script type="text/javascript" src="mapstraction.js"></script>
-    <script type="text/javascript"> 
-    		var maps;
-			var points;
-			var pointCount;
-			var polyline;
-			var markerStart;
-			var markerZiel;
-			function init(){
-	            maps = new Mapstraction('map','openstreetmap');
-				points = [];
-				pointCount = 0;
-                var myPoint = new LatLonPoint(51.1632400, 10.4451736);
-                maps.setCenterAndZoom(myPoint, 6);
-                maps.enableScrollWheelZoom();
- 	            maps.addControls({
-     	           pan: true, 
-     	           zoom: 'large',
-     	           map_type: true 
-     	       });
-            }
-            
-			function addPoint(lat, lon){
-				points[pointCount++] = new LatLonPoint(lat, lon);
-			}
-			
-			function drawPolyLine(){
-				polyline = new Polyline(points);
-				polyline.setColor("#FF0000");
-				polyline.setOpacity(1);
-				polyline.setWidth(5);
-				maps.addPolyline(polyline);
-				points = [];
-				pointCount = 0;
-			}
-
-			function removePolyline(){
-				maps.removePolyline(polyline);
-			}
-			
-			function addMarker(latStart, lonStart, latEnde, lonEnde){
-				markerStart = new Marker(new LatLonPoint(latStart, lonStart));
-				maps.addMarkerWithData(markerStart,{
-					infoBubble : "Ziel"
-			    });
-				markerZiel = new Marker(new LatLonPoint(latEnde, lonEnde));
-				maps.addMarkerWithData(markerZiel,{
-					infoBubble : "Start"
-			    });
-				maps.autoCenterAndZoom();
-			}
-
-			function removeMarker(){
-				maps.removeMarker(markerStart);
-				maps.removeMarker(markerZiel);
-				var myPoint = new LatLonPoint(51.1632400, 10.4451736);
-                maps.setCenterAndZoom(myPoint, 6);
-			}
-
-			function autoCenterAndZoom(){
-				maps.autoCenterAndZoom();
-			}
-	</script>
-    <style type="text/css">
-		div#map {
-		  margin-left: 24em;
-		  border: 1px dashed silver;
-		  min-width: 500px;
-		  height: 600px;
-		}
-  	</style>
+    <script type="text/javascript" src="map.js"></script>
   </head>
 
   <!--                                           -->
@@ -127,13 +58,16 @@
 			<tr>
 				<td><a href="HtwMaps.html"><img src="htwMapsLOGOsmall.png"></img></a></td>
 				<td><span id="statusLabelContainer"></span></td>
-				<td><span id="aboutAnchorContainer"></span></td>
+				<td>
+					<span id="aboutAnchorContainer"></span>
+					<span id="infoAnchorContainer"></span>
+				</td>
 			</tr>
 		</table>
 	</div>
 	
 	<div id="controlsPanel"></div>
 	<div id="map"></div>
-	<div id="informationHTMLContainer"></div>
+	<img id="htwMapsLoad" src="htwmaps_load.gif"></img>
   </body>
 </html>

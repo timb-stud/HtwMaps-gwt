@@ -12,10 +12,10 @@ public class ControlsPanel extends VerticalPanel{
 	OptionsPanel optionsPanel = new OptionsPanel();
 	SummaryPanel summaryPanel = new SummaryPanel();
 	WayDescriptionPanel wayDescriptionPanel = new WayDescriptionPanel();
-	Button calcRouteButton = new Button("Route berechnen");
-	final Anchor optionsAnchor = new Anchor("Optionen anzeigen");
-	final Anchor summaryAnchor = new Anchor("Zusammenfassung anzeigen");
-	final Anchor wayDescriptionAnchor = new Anchor("Wegbeschreibung anzeigen");
+	Button calcRouteButton = new Button(StringConstant.ROUTE_BERECHNEN);
+	final Anchor optionsAnchor = new Anchor(StringConstant.OPTIONEN_ANZEIGEN);
+	final Anchor summaryAnchor = new Anchor(StringConstant.ZUSAMMENFASSUNG_ANZEIGEN);
+	final Anchor wayDescriptionAnchor = new Anchor(StringConstant.WEGBESCHREIBUNG_ANZEIGEN);
 	
 	public ControlsPanel() {
 		init();
@@ -39,13 +39,12 @@ public class ControlsPanel extends VerticalPanel{
 			@Override
 			public void onClick(ClickEvent event) {
 				if(optionsPanel.isVisible()){
-					optionsAnchor.setText("Optionen anzeigen");
+					optionsAnchor.setText(StringConstant.OPTIONEN_ANZEIGEN);
 					optionsPanel.setVisible(false);
 				}else{
-					optionsAnchor.setText("Optionen ausblenden");
+					optionsAnchor.setText(StringConstant.OPTIONEN_AUSBLENDEN);
 					optionsPanel.setVisible(true);
 				}
-				
 			}
 		});
 		
@@ -55,10 +54,10 @@ public class ControlsPanel extends VerticalPanel{
 			@Override
 			public void onClick(ClickEvent event) {
 				if (summaryPanel.isVisible()) {
-					summaryAnchor.setText("Routenzusammenfassung anzeigen");
+					summaryAnchor.setText(StringConstant.ZUSAMMENFASSUNG_ANZEIGEN);
 					summaryPanel.setVisible(false);
 				} else {
-					summaryAnchor.setText("Routenzusammenfassung ausblenden");
+					summaryAnchor.setText(StringConstant.ZUSAMMENFASSUNG_AUSBLENDEN);
 					summaryPanel.setVisible(true);
 				}
 			}
@@ -70,10 +69,10 @@ public class ControlsPanel extends VerticalPanel{
 			@Override
 			public void onClick(ClickEvent event) {
 				if (wayDescriptionPanel.isVisible()) {
-					wayDescriptionAnchor.setText("Wegbeschreibung anzeigen");
+					wayDescriptionAnchor.setText(StringConstant.WEGBESCHREIBUNG_ANZEIGEN);
 					wayDescriptionPanel.setVisible(false);
 				} else {
-					wayDescriptionAnchor.setText("Wegbeschreibung ausblenden");
+					wayDescriptionAnchor.setText(StringConstant.WEGBESCHREIBUNG_AUSBLENDEN);
 					wayDescriptionPanel.setVisible(true);
 				}
 			}

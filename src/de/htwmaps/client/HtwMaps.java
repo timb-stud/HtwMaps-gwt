@@ -5,21 +5,22 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import de.htwmaps.client.GUI.AboutAnchor;
 import de.htwmaps.client.GUI.ControlsPanel;
+import de.htwmaps.client.GUI.InfoAnchor;
+import de.htwmaps.client.GUI.StringConstant;
 import de.htwmaps.shared.PathData;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class HtwMaps implements EntryPoint {
-	Label statusLabel = new Label("Status: Ready");
-	HTML informationHTML = new HTML();
-	AboutAnchor aboutAnchor = new AboutAnchor("About");
+	Label statusLabel = new Label(StringConstant.BEREIT);
+	AboutAnchor aboutAnchor = new AboutAnchor(StringConstant.UEBER);
+	InfoAnchor infoAnchor = new InfoAnchor(StringConstant.BERECHNUNGSINFOS);
 	ControlsPanel controlsPanel = new ControlsPanel();
 	long startZeit = -1;
 	long endeZeit = -1;
@@ -34,14 +35,15 @@ public class HtwMaps implements EntryPoint {
 		RootPanel.get("controlsPanel").add(controlsPanel);
 		RootPanel.get("statusLabelContainer").add(statusLabel);
 		RootPanel.get("aboutAnchorContainer").add(aboutAnchor);
-		RootPanel.get("informationHTMLContainer").add(informationHTML);
+		RootPanel.get("infoAnchorContainer").add(infoAnchor);
 		
 		controlsPanel.getCalcRouteButton().addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				resetFields();
 				startZeit = System.currentTimeMillis();
+				resetFields();
+				loadImageOn();
 				
 				if(findPathSvc == null){
 					findPathSvc = GWT.create(FindPathService.class);
@@ -51,30 +53,17 @@ public class HtwMaps implements EntryPoint {
 
 					@Override
 					public void onFailure(Throwable caught) {
+						loadImageOff();
 						controlsPanel.setCalcRouteButton(true);
-						statusLabel.setText("WARNUNG:" + caught.getMessage());
-						statusLabel.setStyleName("statusLabelError");
+						setTextAndStyle(caught.getMessage(), "statusLabelError");
 					}
 
 					@Override
 					public void onSuccess(PathData result) {
 						endeZeit = System.currentTimeMillis();
-						
-						String statusText = "Status: A route was found.";
-						String informationText = "<table border=\"1\"><tr><td>Nodes:</td><td>" + result.getNodesCount() + "</td></tr>"
-											+ "<tr><td>Edges:</td><td>" + result.getEdgesCount() + "</td></tr>"
-											+ "<tr><td>Select Nodes:</td><td>" + result.getReceiveNodesTime() + "ms</td></tr>"
-											+ "<tr><td>Select Edges:</td><td>" + result.getReceiveEdgesTime() + "ms</td></tr>"
-											+ "<tr><td>Build Nodes:</td><td>" + result.getBuildNodesTime() + "ms</td></tr>"
-											+ "<tr><td>Build Edges:</td><td>" + result.getBuildEdgesTime() + "ms</td></tr>"
-											+ "<tr><td>Algorithm:</td><td>" + result.getAlorithmTime() + "ms</td></tr>"
-											+ "<tr><td>OptToAll:</td><td>" + result.getOptToAllTime() + "ms</td></tr>"
-											+ "<tr><td>optNodesResult:</td><td>" + result.getOptNodesResultCount() + "</td></tr>"
-											+ "<tr><td>allNodesResult:</td><td>" + result.getAllNodesResultCount() + "</td></tr>"
-											+ "<tr><td>Zeit insgesamt:</td><td>" + ((endeZeit - startZeit)/1000)  + "sec</td></tr></table>";
-						statusLabel.setText(statusText);
-						statusLabel.setStyleName("statusLabelNormal");
-						informationHTML.setHTML(informationText);
+						loadImageOff();
+						setTextAndStyle(StringConstant.ROUTE_GEFUNDEN, "statusLabelNormal");
+						infoAnchor.setInfoResultText(result, ((endeZeit - startZeit)/1000));
 						controlsPanel.setCalcRouteButton(true);
 						float[] nodeLats = result.getNodeLats();
 						float[] nodeLons = result.getNodeLons();
@@ -115,19 +104,19 @@ public class HtwMaps implements EntryPoint {
 						boolean checkSpeed = true;
 						int motorwaySpeed = leseIntZahl(controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim());
 						if (motorwaySpeed <= 0) {
-							statusLabel.setText("WARNUNG: Falsche Geschwindigkeitsangabe bei Autobahn!");
-							statusLabel.setStyleName("statusLabelError");
+							loadImageOff();
+							setTextAndStyle(StringConstant.F_AUTOBAHN, "statusLabelError");
 							checkSpeed = false;						}
 						int primarySpeed = leseIntZahl(controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
 						if (primarySpeed <= 0 && checkSpeed) {
-							statusLabel.setText("WARNUNG: Falsche Geschwindigkeitsange bei Landstrasse!");
-							statusLabel.setStyleName("statusLabelError");
+							loadImageOff();
+							setTextAndStyle(StringConstant.F_LANDSTRASSE, "statusLabelError");
 							checkSpeed = false;
 						}
 						int residentialSpeed = leseIntZahl(controlsPanel.getOptionsPanel().getResidentialSpeedTextBox().getText().trim());
 						if (residentialSpeed <= 0 && checkSpeed) {
-							statusLabel.setText("WARNUNG: Falsche Geschwindigkeitsange bei Innerorts!");
-							statusLabel.setStyleName("statusLabelError");
+							loadImageOff();
+							setTextAndStyle(StringConstant.F_INNERORTS, "statusLabelError");
 							checkSpeed = false;
 						}
 						if (checkSpeed) {
@@ -147,8 +136,7 @@ public class HtwMaps implements EntryPoint {
 	
 	private void resetFields() {
 		controlsPanel.setCalcRouteButton(false);
-		statusLabel.setText("Status: Calculate route!");
-		statusLabel.setStyleName("statusLabelNormal");
+		setTextAndStyle(StringConstant.BERECHNE, "statusLabelNormal");
 		removePolyline();
 		removeMarker();
 		controlsPanel.getLocationsPanel().getStartCity().clearContent();
@@ -160,20 +148,20 @@ public class HtwMaps implements EntryPoint {
 	private boolean checkInputLocation (String startCity, String startStreet, String destCity, String destStreet) {
 		boolean check = false;
 		if (startCity.equals("") || startCity == null) {
-			statusLabel.setText("WARNUNG: Bitte geben Sie einen Startort ein.");
-			statusLabel.setStyleName("statusLabelError");
+			loadImageOff();
+			setTextAndStyle(StringConstant.STARTORT, "statusLabelError");
 			check = true;
 		} else if (startStreet.equals("") || startStreet == null) {
-			statusLabel.setText("WARNUNG: Bitte geben Sie eine Startstrasse ein.");
-			statusLabel.setStyleName("statusLabelError");
+			loadImageOff();
+			setTextAndStyle(StringConstant.STARTSTRASSE, "statusLabelError");
 			check = true;
 		} else if (destCity.equals("") || destCity == null) {
-			statusLabel.setText("WARNUNG: Bitte geben Sie einen Zielort ein.");
-			statusLabel.setStyleName("statusLabelError");
+			loadImageOff();
+			setTextAndStyle(StringConstant.ZIELORT, "statusLabelError");
 			check = true;
-		} else if (destStreet.equals("") || destStreet == null) {
-			statusLabel.setText("WARNUNG: Bitte geben Sie eine Zielstrasse ein.");
-			statusLabel.setStyleName("statusLabelError");
+		} else if (destStreet.equals("") || destStreet == null) {	
+			loadImageOff();
+			setTextAndStyle(StringConstant.ZIELSTRASSE, "statusLabelError");
 			check = true;
 		}
 		return check;
@@ -187,6 +175,11 @@ public class HtwMaps implements EntryPoint {
             return -1;
         }
         return eingabe;
+    }
+    
+    private void setTextAndStyle(String text, String style) {
+    	this.statusLabel.setText(text);
+    	this.statusLabel.setStyleName(style);
     }
 	
 	native void alert(String s)/*-{
@@ -211,5 +204,13 @@ public class HtwMaps implements EntryPoint {
 	
 	native void removeMarker() /*-{
 		$wnd.removeMarker();
+	}-*/;
+	
+	native void loadImageOn() /*-{
+		$wnd.loadImageOn();
+	}-*/;
+	
+	native void loadImageOff() /*-{
+		$wnd.loadImageOff();
 	}-*/;
 }

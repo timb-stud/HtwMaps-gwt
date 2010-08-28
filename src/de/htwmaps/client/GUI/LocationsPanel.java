@@ -19,8 +19,8 @@ public class LocationsPanel extends VerticalPanel {
 	HorizontalPanel startPanel2 = new HorizontalPanel();
 	HorizontalPanel endPanel1 = new HorizontalPanel();
 	HorizontalPanel endPanel2 = new HorizontalPanel();
-	Label startLabel = new Label("Start:");
-	Label destLabel = new Label("Ende:");
+	Label startLabel = new Label(StringConstant.START);
+	Label destLabel = new Label(StringConstant.ENDE);
 	MultiWordSuggestOracle startCitySuggestOracle = new MultiWordSuggestOracle();
 	MultiWordSuggestOracle startStreetSuggestOracle = new MultiWordSuggestOracle();
 	MultiWordSuggestOracle destCitySuggestOracle = new MultiWordSuggestOracle();
@@ -38,10 +38,10 @@ public class LocationsPanel extends VerticalPanel {
 
 	public LocationsPanel() {
 	
-		startCitySuggestBox.setText("Koblenz");
-		startStreetSuggestBox.setText("Paradies");
-		destCitySuggestBox.setText("Saarburg");
-		destStreetSuggestBox.setText("Bachweg");
+		startCitySuggestBox.setText("Flensburg");
+		startStreetSuggestBox.setText("Werftstraße,Flensburg");
+		destCitySuggestBox.setText("Lörrach");
+		destStreetSuggestBox.setText("Hauptstraße,Lörrach");
 		
 		startCity = new CitySuggestionKeyUpHandler(cityStreetSuggestSvc, startCitySuggestOracle);
 		startStreet = new StreetSuggestionKeyUpHandler(cityStreetSuggestSvc, startStreetSuggestOracle, startCitySuggestBox);

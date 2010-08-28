@@ -1,5 +1,4 @@
-/** css rules */
-
+/** Allgemeine Styles für gwt- Widgets **/
 .gwt-Label {
 	font-family: Verdana;
 	padding-top: 2px;
@@ -15,7 +14,7 @@
 	text-decoration: none;
 }
 
-.gwt-TextBox{
+.gwt-TextBox {
 	font-family: Verdana;
 }
 	
@@ -29,6 +28,45 @@
 	font-family: Verdana;
 }
 
+.gwt-DialogBox {
+	z-index: 2;
+}
+
+.gwt-DialogBox .Caption {
+	font-family: Verdana;
+}
+
+.gwt-HTML { 
+	font-family: Verdana;		
+}
+
+.gwt-RadioButton {
+	font-family: Verdana;		
+}
+
+/** Styles für HTML- Elemente **/
+div#map {
+	z-index: 1;
+	position: absolute;
+	margin-left: 24em;
+	border: 1px dashed silver;
+	width: 75%;
+	height: 85%;
+}
+
+img#htwMapsLoad {
+	z-index: 2;
+	position: absolute;
+	width: 250px;
+ 	height: 250px;
+ 	left: 50%;
+ 	top: 50%;
+ 	margin-left: -125px;
+ 	margin-top: -125px;
+	visibility: hidden;
+}
+
+/** Eigene Style**/
 .controlsPanel {
 	float: left; 
 }
@@ -51,4 +89,3 @@
 	color: red;
 	font-weight: bold;
 }
-	

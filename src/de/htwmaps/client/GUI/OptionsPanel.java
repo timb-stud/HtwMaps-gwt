@@ -9,24 +9,24 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class OptionsPanel extends VerticalPanel {
 	
-	Label wegLabel = new Label("Routenart waehlen:");
+	Label wegLabel = new Label(StringConstant.ROUTENART);
 	HorizontalPanel wegPanel = new HorizontalPanel();
-	RadioButton fastestRadioButton = new RadioButton("weg", "schnellste");
-	RadioButton shortestRadioButton = new RadioButton("weg", "kuerzeste");
-	Label speedLabel = new Label("Geschwindigkeit waehlen:");
+	RadioButton fastestRadioButton = new RadioButton(StringConstant.WEG, StringConstant.SCHNELLSTE);
+	RadioButton shortestRadioButton = new RadioButton(StringConstant.WEG, StringConstant.KUERZESTE);
+	Label speedLabel = new Label(StringConstant.SPEED);
 	HorizontalPanel speedLandPanel = new HorizontalPanel();
 	HorizontalPanel speedAutobPanel = new HorizontalPanel();
 	HorizontalPanel residentialSpeedPanel = new HorizontalPanel();
-	Label motorwaySpeedLabel = new Label("Autobahngeschwindigkeit:");
-	Label primarySpeedLabel = new Label("Landstrassengeschwindigkeit:");
-	Label residentialSpeedLabel = new Label("Innerorts:");
+	Label motorwaySpeedLabel = new Label(StringConstant.SPEED_AUTOBAHN);
+	Label primarySpeedLabel = new Label(StringConstant.SPEED_LANDSTRASSE);
+	Label residentialSpeedLabel = new Label(StringConstant.SPEED_INNERORTS);
 	TextBox motorwaySpeedTextBox = new TextBox();
 	TextBox primarySpeedTextBox = new TextBox();
 	TextBox residentialSpeedTextBox = new TextBox();
-	Label algoLabel = new Label("Routingalgorithmus waehlen:");
+	Label algoLabel = new Label(StringConstant.WAEHLE_ALGORITHMUS);
 	HorizontalPanel algoPanel = new HorizontalPanel();
-	RadioButton aStarRadioButton = new RadioButton("algo", "A*");
-	RadioButton aStarBiRadioButton = new RadioButton("algo", "A* Bidirektional");
+	RadioButton aStarRadioButton = new RadioButton(StringConstant.ALGORITHMUS, StringConstant.ASTERN);
+	RadioButton aStarBiRadioButton = new RadioButton(StringConstant.ALGORITHMUS, StringConstant.ASTERN_BIDIREKTIONAL);
 
 	public OptionsPanel() {
 		setVisible(false);		
