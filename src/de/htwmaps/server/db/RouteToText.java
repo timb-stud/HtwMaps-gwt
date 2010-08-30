@@ -9,6 +9,8 @@ package de.htwmaps.server.db;
 
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -18,6 +20,7 @@ import java.util.LinkedList;
 
 import de.htwmaps.server.algorithm.Edge;
 import de.htwmaps.server.algorithm.Node;
+import de.htwmaps.shared.exceptions.MySQLException;
 
 public class RouteToText {
 
@@ -43,13 +46,11 @@ public class RouteToText {
 	 *            Array mit Knoten welche besucht werden
 	 * @param edges
 	 *            Array mit Kanten welche besucht werden
+	 * @throws MySQLException 
+	 * @throws SQLException 
 	 */
-	public RouteToText(Node[] route, Edge[] edges) {
-		try {
+	public RouteToText(Node[] route, Edge[] edges) throws MySQLException, SQLException {
 			createInfo(route, edges);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -62,60 +63,65 @@ public class RouteToText {
 	 * @throws SQLException
 	 *             Moegliche Fehler beim beschaffen der Daten (Strassennamen
 	 *             etc.)
+	 * @throws MySQLException 
 	 */
-	private void createInfo(Node[] route, Edge[] edge) throws SQLException {
+	private void createInfo(Node[] route, Edge[] edge) throws SQLException, MySQLException {
+		PreparedStatement pStmt;
+		String streetQuery = "SELECT nameValue, cityname, is_in, ref FROM ways WHERE ID = ? ;";
 		LinkedList<Edge> edgeList = new LinkedList<Edge>();
 		info = new ArrayList<TextInfos>();
 		double dist = 0;
-		ResultSet streetRS = null;
+		ResultSet resultSet = null;
 		String preview = null, current = null;
 		String city = null, state = null, addition = null, selectedAdditon, direction = null;
 
 		for (int i = route.length - 1; i > 0; i--) {
-			totallength += edge[i].getLenght();
+			totallength += edge[i-1].getLenght();
 
-			streetRS = null;
-			streetRS = DBAdapterRouteToText.getStreetnameRS(edge[i].getWayID());
-			streetRS.first();
+			Connection con = DBConnector.getConnection();
+			pStmt = con.prepareStatement(streetQuery);
+			pStmt.setInt(1, edge[i-1].getWayID());
+			resultSet =  pStmt.executeQuery();
+			resultSet.first();
 
 			// Bestimmt ob Straßennamen oder Straßenbezeichnung (L123)
-			if (!(i == 1) && (!streetRS.getString(4).isEmpty())) {
-				current = streetRS.getString(4);
-				selectedAdditon = streetRS.getString(1);
+			if (!(i == 1) && (!resultSet.getString(4).isEmpty())) {
+				current = resultSet.getString(4);
+				selectedAdditon = resultSet.getString(1);
 			} else {
-				current = streetRS.getString(1);
-				selectedAdditon = streetRS.getString(4);
+				current = resultSet.getString(1);
+				selectedAdditon = resultSet.getString(4);
 			}
 
 			// erstellt Statistik
-			fillDriveOn(edge[i]);
+			fillDriveOn(edge[i-1]);
 
 			// nur beim ersten Durchlauf
 			if (i == route.length - 1) {
 				preview = current;
 				addition = selectedAdditon;
-				city = streetRS.getString(2);
-				state = streetRS.getString(3);
+				city = resultSet.getString(2);
+				state = resultSet.getString(3);
 			}
 
 			// prueft ob aktuelle Strasse noch selbe Strasse ist wie Durchlauf
 			// vorher
 			if (preview.equals(current)) {
-				edgeList.add(edge[i]);
-				dist += edge[i].getLenght();
+				edgeList.add(edge[i-1]);
+				dist += edge[i-1].getLenght();
 			} else {
 				direction = getNextDirectionByConditions(route[i + 1],route[i], route[i - 1]);
 				TextInfos ti = new TextInfos(preview, addition, city, state, dist, edgeList, direction);
 				info.add(ti);
 				ti = null;
 				edgeList.clear();
-				edgeList.add(edge[i]);
-				dist = edge[i].getLenght();
+				edgeList.add(edge[i-1]);
+				dist = edge[i-1].getLenght();
 			}
 
 			// nur bei letzten Durchlauf
 			if (i == 1) {
-				edgeList.add(edge[i]);
+				edgeList.add(edge[i-1]);
 				// direction = getNextDirectionByConditions(route[i+1], route[i], route[i-1]);
 				TextInfos ti = new TextInfos(current, selectedAdditon, city, state, dist, edgeList, direction);
 //				System.out.println("Ziel: " + ti);
@@ -126,8 +132,10 @@ public class RouteToText {
 
 			preview = current;
 			addition = selectedAdditon;
-			city = streetRS.getString(2);
-			state = streetRS.getString(3);
+			city = resultSet.getString(2);
+			state = resultSet.getString(3);
+			con.close();
+			pStmt.close();
 		}
 	}
 
