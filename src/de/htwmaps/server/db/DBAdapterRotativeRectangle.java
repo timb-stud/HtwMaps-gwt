@@ -21,7 +21,7 @@ import de.htwmaps.shared.exceptions.MySQLException;
  * @author bline
  *
  */
-public class DBAdapterParabel{
+public class DBAdapterRotativeRectangle{
 	private float startNodeLon, startNodeLat, endNodeLon, endNodeLat;
 	private float h;
 	//Nodes
@@ -53,7 +53,7 @@ public class DBAdapterParabel{
 	
 
 	
-	public DBAdapterParabel(GraphData gd) {
+	public DBAdapterRotativeRectangle(GraphData gd) {
 		if (gd == null) {
 			throw new IllegalArgumentException("Graph data must not be null");
 		}

@@ -10,7 +10,7 @@ import de.htwmaps.server.algorithm.AStarEdge;
 import de.htwmaps.server.algorithm.GraphData;
 import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.server.algorithm.ShortestPathAlgorithm;
-import de.htwmaps.server.db.DBAdapterParabel;
+import de.htwmaps.server.db.DBAdapterRotativeRectangle;
 import de.htwmaps.server.db.DBUtils;
 import de.htwmaps.shared.PathData;
 import de.htwmaps.shared.exceptions.MySQLException;
@@ -75,10 +75,10 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				throw new NodeNotFoundException("Flasche Zieldaten");
 			}
 			float h = 0.1f; //20 km dicke
-			DBAdapterParabel dbap;
-			dbap = new DBAdapterParabel(gd);
+			DBAdapterRotativeRectangle dbap;
+			dbap = new DBAdapterRotativeRectangle(gd);
 			Node[] result = null;
-			dbap.fillGraphData(startNodeID, goalNodeID, h, option);
+			dbap.fillGraphData(startNodeID, goalNodeID, h);
 			try {
 				switch (option) {
 				case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
@@ -86,7 +86,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				}
 			} catch (PathNotFoundException e) {
 				System.out.print("2. versuch");
-				dbap.fillGraphData(startNodeID, goalNodeID, h + 1.4f, option);
+				dbap.fillGraphData(startNodeID, goalNodeID, h + 1.4f);
 				try {
 					switch (option) {
 					case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
@@ -103,7 +103,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 	
-	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterParabel dbap) throws java.sql.SQLException, MySQLException{
+	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap) throws java.sql.SQLException, MySQLException{
 		PathData pd = new PathData();
 		AStarEdge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
 		long optAllTime = System.currentTimeMillis();
