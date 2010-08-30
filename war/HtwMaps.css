@@ -1,4 +1,4 @@
-/** Allgemeine Styles fŸr gwt- Widgets **/
+/** Allgemeine Styles fï¿½r gwt- Widgets **/
 .gwt-Label {
 	font-family: Verdana;
 	padding-top: 2px;
@@ -44,7 +44,7 @@
 	font-family: Verdana;		
 }
 
-/** Styles fŸr HTML- Elemente **/
+/** Styles fï¿½r HTML- Elemente **/
 div#map {
 	z-index: 1;
 	position: absolute;
@@ -64,6 +64,8 @@ img#htwMapsLoad {
  	margin-left: -125px;
  	margin-top: -125px;
 	visibility: hidden;
+	border-style:dashed;
+	border-color:#555555;
 }
 
 /** Eigene Style**/
