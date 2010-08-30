@@ -6,7 +6,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.htwmaps.client.FindPathService;
 import de.htwmaps.server.algorithm.AStar;
 import de.htwmaps.server.algorithm.AStarBiStarter;
-import de.htwmaps.server.algorithm.Edge;
+import de.htwmaps.server.algorithm.AStarEdge;
 import de.htwmaps.server.algorithm.GraphData;
 import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.server.algorithm.ShortestPathAlgorithm;
@@ -105,7 +105,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	
 	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterParabel dbap) throws java.sql.SQLException, MySQLException{
 		PathData pd = new PathData();
-		Edge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
+		AStarEdge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
 		long optAllTime = System.currentTimeMillis();
 		float [][] latLons = DBUtils.getAllNodeLatLons(nodes, edges);
 		pd.setOptToAllTime(System.currentTimeMillis() - optAllTime);

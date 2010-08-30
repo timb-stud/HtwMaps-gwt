@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import de.htwmaps.server.FindPathServiceImpl;
 import de.htwmaps.server.algorithm.GraphData;
 import de.htwmaps.shared.exceptions.MySQLException;
 
@@ -52,7 +51,7 @@ public class DBAdapterParabel{
 	
 	private boolean printNodeCoords;
 	
-	private int option;
+
 	
 	public DBAdapterParabel(GraphData gd) {
 		if (gd == null) {
@@ -63,7 +62,6 @@ public class DBAdapterParabel{
 	
 	public void fillGraphData(int startID, int goalID, float h, int option) throws SQLException, MySQLException{
 		this.h = h;
-		this.option = option;
 		Connection con = DBConnector.getConnection();
 		ResultSet resultSet = con.createStatement().executeQuery(buildCoordSelectStatement(startID, goalID));
 		resultSet.next();
@@ -128,32 +126,30 @@ public class DBAdapterParabel{
 		pStmt.setFloat(24, h);
 		
 		//or
-		if (option == FindPathServiceImpl.FASTEST) {
-			pStmt.setFloat(25, m);
-			pStmt.setFloat(26, startNodeLat);
-			pStmt.setFloat(27, m);
-			pStmt.setFloat(28, startNodeLon);
-			pStmt.setFloat(29, bigh);
-			pStmt.setFloat(30, bigh);		
-			pStmt.setFloat(31, m);
-			pStmt.setFloat(32, startNodeLat);
-			pStmt.setFloat(33, m);
-			pStmt.setFloat(34, startNodeLon);
-			pStmt.setFloat(35, bigh);
-			pStmt.setFloat(36, bigh);
-			pStmt.setFloat(37, mReversed);
-			pStmt.setFloat(38, startNodeLat);
-			pStmt.setFloat(39, mReversed);
-			pStmt.setFloat(40, startNodeLon);
-			pStmt.setFloat(41, bigh);
-			pStmt.setFloat(42, bigh);
-			pStmt.setFloat(43, mReversed);
-			pStmt.setFloat(44, endNodeLat);
-			pStmt.setFloat(45, mReversed);
-			pStmt.setFloat(46, endNodeLon);
-			pStmt.setFloat(47, bigh);
-			pStmt.setFloat(48, bigh);
-		}
+		pStmt.setFloat(25, m);
+		pStmt.setFloat(26, startNodeLat);
+		pStmt.setFloat(27, m);
+		pStmt.setFloat(28, startNodeLon);
+		pStmt.setFloat(29, bigh);
+		pStmt.setFloat(30, bigh);		
+		pStmt.setFloat(31, m);
+		pStmt.setFloat(32, startNodeLat);
+		pStmt.setFloat(33, m);
+		pStmt.setFloat(34, startNodeLon);
+		pStmt.setFloat(35, bigh);
+		pStmt.setFloat(36, bigh);
+		pStmt.setFloat(37, mReversed);
+		pStmt.setFloat(38, startNodeLat);
+		pStmt.setFloat(39, mReversed);
+		pStmt.setFloat(40, startNodeLon);
+		pStmt.setFloat(41, bigh);
+		pStmt.setFloat(42, bigh);
+		pStmt.setFloat(43, mReversed);
+		pStmt.setFloat(44, endNodeLat);
+		pStmt.setFloat(45, mReversed);
+		pStmt.setFloat(46, endNodeLon);
+		pStmt.setFloat(47, bigh);
+		pStmt.setFloat(48, bigh);
 		
 		ResultSet resultSet = pStmt.executeQuery();
 		if (printNodeCoords) {
@@ -235,59 +231,57 @@ public class DBAdapterParabel{
 		pStmt.setFloat(48, h);
 		
 		//or
-		if (option == FindPathServiceImpl.FASTEST) {
-			pStmt.setFloat(49, m);
-			pStmt.setFloat(50, startNodeLat);
-			pStmt.setFloat(51, m);
-			pStmt.setFloat(52, startNodeLon);
-			pStmt.setFloat(53, bigh);
-			pStmt.setFloat(54, bigh);		
-			pStmt.setFloat(55, m);
-			pStmt.setFloat(56, startNodeLat);
-			pStmt.setFloat(57, m);
-			pStmt.setFloat(58, startNodeLon);
-			pStmt.setFloat(59, bigh);
-			pStmt.setFloat(60, bigh);
-			pStmt.setFloat(61, mReversed);
-			pStmt.setFloat(62, startNodeLat);
-			pStmt.setFloat(63, mReversed);
-			pStmt.setFloat(64, startNodeLon);
-			pStmt.setFloat(65, bigh);
-			pStmt.setFloat(66, bigh);
-			pStmt.setFloat(67, mReversed);
-			pStmt.setFloat(68, endNodeLat);
-			pStmt.setFloat(69, mReversed);
-			pStmt.setFloat(70, endNodeLon);
-			pStmt.setFloat(71, bigh);
-			pStmt.setFloat(72, bigh);
-			pStmt.setFloat(73, m);
-			pStmt.setFloat(74, startNodeLat);
-			pStmt.setFloat(75, m);
-			pStmt.setFloat(76, startNodeLon);
-			pStmt.setFloat(77, bigh);
-			pStmt.setFloat(78, bigh);		
-			pStmt.setFloat(79, m);
-			pStmt.setFloat(80, startNodeLat);
-			pStmt.setFloat(81, m);
-			pStmt.setFloat(82, startNodeLon);
-			pStmt.setFloat(83, bigh);
-			pStmt.setFloat(84, bigh);
-			pStmt.setFloat(85, mReversed);
-			pStmt.setFloat(86, startNodeLat);
-			pStmt.setFloat(87, mReversed);
-			pStmt.setFloat(88, startNodeLon);
-			pStmt.setFloat(89, bigh);
-			pStmt.setFloat(90, bigh);
-			pStmt.setFloat(91, mReversed);
-			pStmt.setFloat(92, endNodeLat);
-			pStmt.setFloat(93, mReversed);
-			pStmt.setFloat(94, endNodeLon);
-			pStmt.setFloat(95, bigh);
-			pStmt.setFloat(96, bigh);
-		};
+		pStmt.setFloat(49, m);
+		pStmt.setFloat(50, startNodeLat);
+		pStmt.setFloat(51, m);
+		pStmt.setFloat(52, startNodeLon);
+		pStmt.setFloat(53, bigh);
+		pStmt.setFloat(54, bigh);		
+		pStmt.setFloat(55, m);
+		pStmt.setFloat(56, startNodeLat);
+		pStmt.setFloat(57, m);
+		pStmt.setFloat(58, startNodeLon);
+		pStmt.setFloat(59, bigh);
+		pStmt.setFloat(60, bigh);
+		pStmt.setFloat(61, mReversed);
+		pStmt.setFloat(62, startNodeLat);
+		pStmt.setFloat(63, mReversed);
+		pStmt.setFloat(64, startNodeLon);
+		pStmt.setFloat(65, bigh);
+		pStmt.setFloat(66, bigh);
+		pStmt.setFloat(67, mReversed);
+		pStmt.setFloat(68, endNodeLat);
+		pStmt.setFloat(69, mReversed);
+		pStmt.setFloat(70, endNodeLon);
+		pStmt.setFloat(71, bigh);
+		pStmt.setFloat(72, bigh);
+		pStmt.setFloat(73, m);
+		pStmt.setFloat(74, startNodeLat);
+		pStmt.setFloat(75, m);
+		pStmt.setFloat(76, startNodeLon);
+		pStmt.setFloat(77, bigh);
+		pStmt.setFloat(78, bigh);		
+		pStmt.setFloat(79, m);
+		pStmt.setFloat(80, startNodeLat);
+		pStmt.setFloat(81, m);
+		pStmt.setFloat(82, startNodeLon);
+		pStmt.setFloat(83, bigh);
+		pStmt.setFloat(84, bigh);
+		pStmt.setFloat(85, mReversed);
+		pStmt.setFloat(86, startNodeLat);
+		pStmt.setFloat(87, mReversed);
+		pStmt.setFloat(88, startNodeLon);
+		pStmt.setFloat(89, bigh);
+		pStmt.setFloat(90, bigh);
+		pStmt.setFloat(91, mReversed);
+		pStmt.setFloat(92, endNodeLat);
+		pStmt.setFloat(93, mReversed);
+		pStmt.setFloat(94, endNodeLon);
+		pStmt.setFloat(95, bigh);
+		pStmt.setFloat(96, bigh);
+
 		
 		ResultSet resultSet = pStmt.executeQuery();
-//		pStmt = null;
 		resultSet.last();
 		tableLength = resultSet.getRow();
 		resultSet.beforeFirst();
@@ -323,9 +317,8 @@ public class DBAdapterParabel{
 				+ " -varNodes.lon*?+?+?*(?+?)+? > varNodes.lat "
 				+ " and "
 				+ " -varNodes.lon*?+?+?*(?-?)-? < varNodes.lat "
-				+ " ) ";
-			if (option == FindPathServiceImpl.FASTEST) {
-				NODE_SELECT += " or ( "
+				+ " ) "
+				+ " or ( "
 				+ " varNodes.lon*?+?-?*(?+?)-? < varNodes.lat "
 				+ " and "
 				+ " varNodes.lon*?+?-?*(?-?)+? > varNodes.lat "
@@ -333,7 +326,7 @@ public class DBAdapterParabel{
 				+ " -varNodes.lon*?+?+?*(?+?)+? > varNodes.lat "
 				+ " and "
 				+ " -varNodes.lon*?+?+?*(?-?)-? < varNodes.lat and speedID = 1)";
-			}
+			
 
 				
 			EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
@@ -353,9 +346,8 @@ public class DBAdapterParabel{
 				+ " -node2lon*?+?+?*(?+?)+? > node2lat "
 				+ " and "
 				+ " -node2lon*?+?+?*(?-?)-? < node2lat "
-				+ " ) ";
-			if (option == FindPathServiceImpl.FASTEST) {
-				EDGE_SELECT += " or ( "
+				+ " ) "
+				+ " or ( "
 				+ " node1lon*?+?-?*(?+?)-? < node1lat "
 				+ " and "
 				+ " node1lon*?+?-?*(?-?)+? > node1lat "
@@ -371,7 +363,7 @@ public class DBAdapterParabel{
 				+ " -node2lon*?+?+?*(?+?)+? > node2lat "
 				+ " and "
 				+ " -node2lon*?+?+?*(?-?)-? < node2lat and speedID = 1) ";
-			}
+			
 		} else {
 			if (startNodeLat < endNodeLat && startNodeLon < endNodeLon) {
 				NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
@@ -383,9 +375,8 @@ public class DBAdapterParabel{
 					+ " -varNodes.lon*?+?+?*(?-?)-? < varNodes.lat "
 					+ " and "
 					+ " -varNodes.lon*?+?+?*(?+?)+? > varNodes.lat "
-					+ " )";
-				if (option == FindPathServiceImpl.FASTEST) {
-					NODE_SELECT += " or ( "
+					+ " )"
+					+ " or ( "
 					+ " varNodes.lon*?+?-?*(?-?)+? > varNodes.lat "
 					+ " and "
 					+ " varNodes.lon*?+?-?*(?+?)-? < varNodes.lat "
@@ -393,7 +384,7 @@ public class DBAdapterParabel{
 					+ " -varNodes.lon*?+?+?*(?-?)-? < varNodes.lat "
 					+ " and "
 					+ " -varNodes.lon*?+?+?*(?+?)+? > varNodes.lat and speedID = 1)";
-				}
+				
 					
 				EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 					+ " where " 
@@ -412,9 +403,8 @@ public class DBAdapterParabel{
 					+ " -node2lon*?+?+?*(?-?)-? < node2lat "
 					+ " and "
 					+ " -node2lon*?+?+?*(?+?)+? > node2lat "
-					+ " )";
-				if (option == FindPathServiceImpl.FASTEST) {
-					EDGE_SELECT += " or ( "
+					+ " )"
+					+ " or ( "
 					+ " node1lon*?+?-?*(?-?)+? > node1lat "
 					+ " and "
 					+ " node1lon*?+?-?*(?+?)-? < node1lat "
@@ -430,7 +420,7 @@ public class DBAdapterParabel{
 					+ " -node2lon*?+?+?*(?-?)-? < node2lat "
 					+ " and "
 					+ " -node2lon*?+?+?*(?+?)+? > node2lat and speedID = 1)";
-				}
+				
 			} else {
 				if (startNodeLat>endNodeLat && startNodeLon < endNodeLon) {
 					NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
@@ -442,9 +432,8 @@ public class DBAdapterParabel{
 						+ " -varNodes.lon*?+?+?*(?-?)+? > varNodes.lat "
 						+ " and "
 						+ " -varNodes.lon*?+?+?*(?+?)-? < varNodes.lat "
-						+ " )";
-					if (option == FindPathServiceImpl.FASTEST) {
-						NODE_SELECT += " or ( "
+						+ " )"
+						+ " or ( "
 						+ " varNodes.lon*?+?-?*(?-?)-? < varNodes.lat "
 						+ " and "
 						+ " varNodes.lon*?+?-?*(?+?)+? > varNodes.lat "
@@ -452,7 +441,7 @@ public class DBAdapterParabel{
 						+ " -varNodes.lon*?+?+?*(?-?)+? > varNodes.lat "
 						+ " and "
 						+ " -varNodes.lon*?+?+?*(?+?)-? < varNodes.lat and speedID = 1)";
-					}
+					
 						
 					EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 						+ " where " 
@@ -471,9 +460,8 @@ public class DBAdapterParabel{
 						+ " -node2lon*?+?+?*(?-?)+? > node2lat "
 						+ " and "
 						+ " -node2lon*?+?+?*(?+?)-? < node2lat "
-						+ " )";
-					if (option == FindPathServiceImpl.FASTEST) {
-						EDGE_SELECT += " or ( "
+						+ " )"
+						+ " or ( "
 						+ " node1lon*?+?-?*(?-?)-? < node1lat "
 						+ " and "
 						+ " node1lon*?+?-?*(?+?)+? > node1lat "
@@ -489,7 +477,7 @@ public class DBAdapterParabel{
 						+ " -node2lon*?+?+?*(?-?)+? > node2lat "
 						+ " and "
 						+ " -node2lon*?+?+?*(?+?)-? < node2lat and speedID = 1)";
-					}
+					
 				} else {
 					if (startNodeLat<endNodeLat&&startNodeLon>endNodeLon) {
 						NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
@@ -501,9 +489,8 @@ public class DBAdapterParabel{
 							+ " -varNodes.lon*?+?+?*(?+?)-? < varNodes.lat "
 							+ " and "
 							+ " -varNodes.lon*?+?+?*(?-?)+? > varNodes.lat "
-							+ " )";
-						if (option == FindPathServiceImpl.FASTEST) {
-							NODE_SELECT += " or ( "
+							+ " )"
+							+ " or ( "
 							+ " varNodes.lon*?+?-?*(?+?)+? > varNodes.lat "
 							+ " and "
 							+ " varNodes.lon*?+?-?*(?-?)-? < varNodes.lat "
@@ -511,7 +498,6 @@ public class DBAdapterParabel{
 							+ " -varNodes.lon*?+?+?*(?+?)-? < varNodes.lat "
 							+ " and "
 							+ " -varNodes.lon*?+?+?*(?-?)+? > varNodes.lat and speedID = 1)";
-						}
 							
 						EDGE_SELECT = "select node1ID, node2ID, isoneway, speedID, length, wayid, id from edges_opt"
 							+ " where " 
@@ -530,9 +516,8 @@ public class DBAdapterParabel{
 							+ " -node2lon*?+?+?*(?+?)-? < node2lat "
 							+ " and "
 							+ " -node2lon*?+?+?*(?-?)+? > node2lat "
-							+ " )";
-						if (option == FindPathServiceImpl.FASTEST) {
-							EDGE_SELECT += " or ( "
+							+ " )"
+							+ " or ( "
 							+ " node1lon*?+?-?*(?+?)+? > node1lat "
 							+ " and "
 							+ " node1lon*?+?-?*(?-?)-? < node1lat "
@@ -548,7 +533,7 @@ public class DBAdapterParabel{
 							+ " -node2lon*?+?+?*(?+?)-? < node2lat "
 							+ " and "
 							+ " -node2lon*?+?+?*(?-?)+? > node2lat and speedID = 1)";
-						}
+						
 					}
 				}
 			}

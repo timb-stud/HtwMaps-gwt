@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import de.htwmaps.server.algorithm.Edge;
+import de.htwmaps.server.algorithm.AStarEdge;
 import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
@@ -84,7 +84,7 @@ public class DBUtils {
 		return result;
 	}
 
-	public static float[][] getAllNodeLatLons(Node[] nodes, Edge[] edges) throws SQLException,
+	public static float[][] getAllNodeLatLons(Node[] nodes, AStarEdge[] edges) throws SQLException,
 			MySQLException {
 		String sqlLatLonsAsc 	= "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5";
 		String sqlLatLonsDesc 	= "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5 DESC";
