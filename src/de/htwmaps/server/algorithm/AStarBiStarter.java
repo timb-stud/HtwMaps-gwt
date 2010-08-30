@@ -156,13 +156,4 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		setResidentialSpeed(residentialSpeed);
 		return aStar(startNodeID, goalNodeID);
 	}
-	
-	public String generateTrack(Node[] result) {	
-		StringBuilder str = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n<gpx>\n<trk>\n <trkseg>\n");
-		for (Node tmp : result) {
-			str.append("  <trkpt lat=\"").append(tmp.getLat()).append("\" lon=\"").append(tmp.getLon()).append("\">\n").append("  </trkpt>\n");
-		}
-		str.append(" </trkseg>\n</trk>\n</gpx>");
-		return str.toString();
-	}
 }
