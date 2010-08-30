@@ -5,11 +5,15 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class WayDescriptionPanel extends VerticalPanel {
 	
-	Label wegbeschreibungLabel = new Label("Recht -> links geradeaus?");
+	Label wayDescriptionLabel = new Label();
 	
 	public WayDescriptionPanel() {
 		setVisible(false);
-		wegbeschreibungLabel.setSize("280px", "10px");
-		add(wegbeschreibungLabel);
+		wayDescriptionLabel.setSize("280px", "10px");
+		add(wayDescriptionLabel);
+	}
+	
+	public Label getWayDescriptionLabel() {
+		return wayDescriptionLabel;
 	}
 }

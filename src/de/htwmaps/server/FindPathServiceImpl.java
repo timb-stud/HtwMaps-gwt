@@ -12,6 +12,7 @@ import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.server.algorithm.ShortestPathAlgorithm;
 import de.htwmaps.server.db.DBAdapterParabel;
 import de.htwmaps.server.db.DBUtils;
+import de.htwmaps.server.db.RouteToText;
 import de.htwmaps.shared.PathData;
 import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
@@ -106,9 +107,14 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterParabel dbap) throws java.sql.SQLException, MySQLException{
 		PathData pd = new PathData();
 		Edge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
+		//optToAll
 		long optAllTime = System.currentTimeMillis();
 		float [][] latLons = DBUtils.getAllNodeLatLons(nodes, edges);
 		pd.setOptToAllTime(System.currentTimeMillis() - optAllTime);
+		//routToText
+		RouteToText rtt = new RouteToText(nodes, edges);
+		pd.setDescription(rtt.toString());
+		//rest
 		pd.setOptNodesResultCount(nodes.length);
 		pd.setAllNodesResultCount(latLons[0].length);
 		pd.setNodeLats(latLons[0]);
