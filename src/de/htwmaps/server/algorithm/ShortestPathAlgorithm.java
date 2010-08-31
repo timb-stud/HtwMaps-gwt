@@ -49,17 +49,17 @@ public abstract class ShortestPathAlgorithm {
 									int primarySpeed,
 									int residentialSpeed) throws PathNotFoundException;
 
-	public static Edge[] getResultEdges(Node[] result) {
-		 Edge[] edges = new Edge[result.length - 1];
+	public static AStarEdge[] getResultEdges(Node[] result) {
+		AStarEdge[] edges = new AStarEdge[result.length - 1];
 		 loop:for(int i=result.length -1; i>0; i--){
-			 for(Edge e: result[i].getEdgeList()){
+			 for(AStarEdge e: result[i].getEdgeList()){
 				 if(e.getSuccessor().equals(result[i-1])){
 					 edges[i - 1] = e;
 					 continue loop;
 				 }
 			 }
 			 if (edges[i - 1] == null) {
-				 for(Edge e: result[i - 1].getEdgeList()){
+				 for(AStarEdge e: result[i - 1].getEdgeList()){
 					 if(e.getSuccessor().equals(result[i])){
 						 edges[i - 1] = e;
 						 continue loop;

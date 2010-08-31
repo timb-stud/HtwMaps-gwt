@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import de.htwmaps.server.algorithm.Edge;
+import de.htwmaps.server.algorithm.AStarEdge;
 import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.shared.exceptions.MySQLException;
 
@@ -49,7 +49,7 @@ public class RouteToText {
 	 * @throws MySQLException 
 	 * @throws SQLException 
 	 */
-	public RouteToText(Node[] route, Edge[] edges) throws MySQLException, SQLException {
+	public RouteToText(Node[] route, AStarEdge[] edges) throws MySQLException, SQLException {
 			createInfo(route, edges);
 	}
 
@@ -65,10 +65,10 @@ public class RouteToText {
 	 *             etc.)
 	 * @throws MySQLException 
 	 */
-	private void createInfo(Node[] route, Edge[] edge) throws SQLException, MySQLException {
+	private void createInfo(Node[] route, AStarEdge[] edge) throws SQLException, MySQLException {
 		PreparedStatement pStmt;
 		String streetQuery = "SELECT nameValue, cityname, is_in, ref FROM ways WHERE ID = ? ;";
-		LinkedList<Edge> edgeList = new LinkedList<Edge>();
+		LinkedList<AStarEdge> edgeList = new LinkedList<AStarEdge>();
 		info = new ArrayList<TextInfos>();
 		double dist = 0;
 		ResultSet resultSet = null;
@@ -145,7 +145,7 @@ public class RouteToText {
 	 * @param e
 	 *            Kante welche befahren wird.
 	 */
-	private void fillDriveOn(Edge e) {
+	private void fillDriveOn(AStarEdge e) {
 		// Autobahn 1
 		// Landstraße 5 ,7
 		// Innerorts 10,11,13

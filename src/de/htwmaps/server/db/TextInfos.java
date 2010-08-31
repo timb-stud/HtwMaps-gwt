@@ -3,7 +3,7 @@ package de.htwmaps.server.db;
 import java.text.DecimalFormat;
 import java.util.LinkedList;
 
-import de.htwmaps.server.algorithm.Edge;
+import de.htwmaps.server.algorithm.AStarEdge;
 
 public class TextInfos {
 	private String name;
@@ -12,15 +12,15 @@ public class TextInfos {
 	private String city;
 	private double distance;
 	private String direction;
-	private LinkedList<Edge> edgeList;
+	private LinkedList<AStarEdge> edgeList;
 	
-	public TextInfos(String streetname, String ref, String city, String state, double distance, LinkedList<Edge> edgeList, String direction) {
+	public TextInfos(String streetname, String ref, String city, String state, double distance, LinkedList<AStarEdge> edgeList, String direction) {
 		this.name = streetname;
 		this.addition = ref;
 		this.city = city;
 		this.state = state;
 		this.distance = distance;
-		this.edgeList = new LinkedList<Edge>();
+		this.edgeList = new LinkedList<AStarEdge>();
 		this.edgeList.addAll(edgeList);
 		this.direction = direction;
 	}
@@ -52,7 +52,7 @@ public class TextInfos {
 		return distance;
 	}
 
-	public LinkedList<Edge> getEdgeList() {
+	public LinkedList<AStarEdge> getEdgeList() {
 		return this.edgeList;
 	}
 

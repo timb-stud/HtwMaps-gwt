@@ -20,7 +20,7 @@ public abstract class Node {
 		this.id = id;
 	}
 	
-	public abstract LinkedList<Edge> getEdgeList();
+	public abstract LinkedList<AStarEdge> getEdgeList();
 	/**
 	 * 
 	 * @return id des Knotens

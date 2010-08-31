@@ -13,7 +13,7 @@ public class AStarBiNode extends Node {
 	private double dist;								
 	private volatile AStarBiNode predecessor; 					
 	private volatile boolean removed, touchedByTh1, touchedByTh2;	
-	private LinkedList<Edge> edgeList;
+	private LinkedList<AStarEdge> edgeList;
 
 	/**
 	 * @param id unique node on earth
@@ -23,7 +23,7 @@ public class AStarBiNode extends Node {
 	public AStarBiNode(float x, float y, int id) {
 		super(x, y, id);
 		setDist(Double.MAX_VALUE);
-		edgeList = new LinkedList<Edge>();
+		edgeList = new LinkedList<AStarEdge>();
 	}
 	
 	
@@ -39,7 +39,7 @@ public class AStarBiNode extends Node {
 	/**
 	 * @return liefert alle Kanten die von diesem Knoten ausgehen
 	 */
-	public LinkedList<Edge> getEdgeList(){
+	public LinkedList<AStarEdge> getEdgeList(){
 		return edgeList;
 	}
 	/**
