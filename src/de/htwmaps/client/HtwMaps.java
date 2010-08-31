@@ -13,7 +13,7 @@ import de.htwmaps.client.GUI.ControlsPanel;
 import de.htwmaps.client.GUI.InfoAnchor;
 import de.htwmaps.client.GUI.LocationFlexTable;
 import de.htwmaps.client.GUI.StringConstant;
-import de.htwmaps.shared.PathData;
+import de.htwmaps.shared.OptPathData;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -51,7 +51,7 @@ public class HtwMaps implements EntryPoint {
 					findPathSvc = GWT.create(FindPathService.class);
 				}
 				
-				AsyncCallback<PathData> callback = new AsyncCallback<PathData>() {
+				AsyncCallback<OptPathData> callback = new AsyncCallback<OptPathData>() {
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -61,7 +61,7 @@ public class HtwMaps implements EntryPoint {
 					}
 
 					@Override
-					public void onSuccess(PathData result) {
+					public void onSuccess(OptPathData result) {
 						endeZeit = System.currentTimeMillis();
 						loadImageOff();
 						setTextAndStyle(StringConstant.ROUTE_GEFUNDEN, "statusLabelNormal");

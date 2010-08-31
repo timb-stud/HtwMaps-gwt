@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 
 
-public class PathData implements Serializable{
+public class OptPathData implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -24,7 +24,7 @@ public class PathData implements Serializable{
 	
 	
 	
-	public PathData() {}
+	public OptPathData() {}
 
 	public void setNodeLats(float[] nodeLats) {
 		this.nodeLats = nodeLats;

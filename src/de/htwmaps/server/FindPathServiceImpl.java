@@ -14,7 +14,7 @@ import de.htwmaps.server.db.DBAdapterRotativeRectangle;
 import de.htwmaps.server.db.DBUtils;
 import de.htwmaps.server.db.RouteToText;
 import de.htwmaps.shared.AllPathData;
-import de.htwmaps.shared.PathData;
+import de.htwmaps.shared.OptPathData;
 import de.htwmaps.shared.PathDescription;
 import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
@@ -33,7 +33,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 
 	
 	@Override
-	public PathData findShortestPathAStar(String startCity, String startStreet,
+	public OptPathData findShortestPathAStar(String startCity, String startStreet,
 			String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
 		ShortestPathAlgorithm spa = new AStar(gd);
@@ -41,7 +41,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public PathData findFastestPathAStar(String startCity, String startStreet,
+	public OptPathData findFastestPathAStar(String startCity, String startStreet,
 			String destCity, String destStreet, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
@@ -50,7 +50,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public PathData findShortestPathAStarBi(String startCity,
+	public OptPathData findShortestPathAStarBi(String startCity,
 			String startStreet, String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
 		ShortestPathAlgorithm spa = new AStarBiStarter(gd);
@@ -58,7 +58,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public PathData findFastestPathAStarBi(String startCity,
+	public OptPathData findFastestPathAStarBi(String startCity,
 			String startStreet, String destCity, String destStreet,
 			int motorwaySpeed, int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
@@ -67,7 +67,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	}
 
 	
-	private PathData executeSearch(ShortestPathAlgorithm spa,
+	private OptPathData executeSearch(ShortestPathAlgorithm spa,
 			GraphData gd, int option, String startCity, String startStreet,
 			String destCity, String destStreet, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, MySQLException, PathNotFoundException, SQLException {
@@ -103,14 +103,22 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				}
 			}
 			edges	= ShortestPathAlgorithm.getResultEdges(nodes);
-			return buildPathData(nodes, spa, dbap);
+			return buildOptPathData(nodes, spa, dbap);
 		}catch(java.sql.SQLException e){
 			throw new SQLException();
 		}
 	}
 	
-	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap) throws java.sql.SQLException, MySQLException{
-		PathData pd = new PathData();
+	private OptPathData buildOptPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap) throws java.sql.SQLException, MySQLException{
+		float[] lats = new float[nodes.length];
+		float[] lons = new float[nodes.length];
+		for(int i=0; i<nodes.length;i++){
+			lats[i] = nodes[i].getLat();
+			lons[i] = nodes[i].getLon();
+		}
+		OptPathData pd = new OptPathData();
+		pd.setNodeLats(lats);
+		pd.setNodeLons(lons);
 		pd.setOptNodesResultCount(nodes.length);
 		pd.setAlorithmTime(spa.getAlorithmTime());
 		pd.setBuildEdgesTime(spa.getBuildEdgesTime());

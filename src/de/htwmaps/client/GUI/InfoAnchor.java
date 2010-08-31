@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.htwmaps.shared.PathData;
+import de.htwmaps.shared.OptPathData;
 
 public class InfoAnchor extends Anchor {
 
@@ -73,7 +73,7 @@ public class InfoAnchor extends Anchor {
 		}
 	}
 	
-	public void setInfoResultText(PathData result, long time) {
+	public void setInfoResultText(OptPathData result, long time) {
 		infoTable.setWidget(0, 1, new Label(result.getNodesCount() + ""));
 		infoTable.setWidget(1, 1, new Label(result.getEdgesCount() + ""));
 		infoTable.setWidget(2, 1, new Label(result.getReceiveNodesTime() + " ms"));
@@ -81,9 +81,9 @@ public class InfoAnchor extends Anchor {
 		infoTable.setWidget(4, 1, new Label(result.getBuildNodesTime() + " ms"));
 		infoTable.setWidget(5, 1, new Label(result.getBuildEdgesTime() + " ms"));
 		infoTable.setWidget(6, 1, new Label(result.getAlorithmTime() + " ms"));
-		infoTable.setWidget(7, 1, new Label(result.getOptToAllTime() + " ms"));
+//		infoTable.setWidget(7, 1, new Label(result.getOptToAllTime() + " ms"));
 		infoTable.setWidget(8, 1, new Label(result.getOptNodesResultCount() + ""));
-		infoTable.setWidget(9, 1, new Label(result.getAllNodesResultCount() + ""));
+//		infoTable.setWidget(9, 1, new Label(result.getAllNodesResultCount() + ""));
 		infoTable.setWidget(10, 1, new Label(result.getRouteToTextTime() + " ms"));
 		infoTable.setWidget(11, 1, new Label(time + " sec"));
 	}

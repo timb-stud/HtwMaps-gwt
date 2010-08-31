@@ -1,6 +1,9 @@
 package de.htwmaps.shared;
 
-public class PathDescription {
+import java.io.Serializable;
+
+public class PathDescription implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private long runtime;
 	private String description;
 

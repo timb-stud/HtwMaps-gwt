@@ -1,7 +1,10 @@
 package de.htwmaps.shared;
 
-public class AllPathData {
+import java.io.Serializable;
+
+public class AllPathData implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private long optToAllRuntime;
 	private int allNodesNumber;
 	private float[] lats;
