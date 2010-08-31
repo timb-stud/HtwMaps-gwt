@@ -70,5 +70,6 @@ public class StringConstant {
 	public static final String OPT_TO_ALL = "OptToAll:";
 	public static final String OPT_NODES_RESULT = "optNodesResult:";
 	public static final String ALL_NODES_RESULT = "allNodesResult:";
+	public static final String ROUTE_TO_TEXT = "routeToText:";
 	public static final String ZEIT_INSGESAMT = "Zeit insgesamt:";
 }

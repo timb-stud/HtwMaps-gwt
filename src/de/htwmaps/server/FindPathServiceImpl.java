@@ -108,12 +108,14 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		PathData pd = new PathData();
 		//optToAll
 		AStarEdge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
-		long optAllTime = System.currentTimeMillis();
+		long time = System.currentTimeMillis();
 		float [][] latLons = DBUtils.getAllNodeLatLons(nodes, edges);
-		pd.setOptToAllTime(System.currentTimeMillis() - optAllTime);
+		pd.setOptToAllTime(System.currentTimeMillis() - time);
 		//routToText
+		time = System.currentTimeMillis();
 		RouteToText rtt = new RouteToText(nodes, edges);
 		pd.setDescription(rtt.buildRouteInfo());
+		pd.setRouteToTextTime(System.currentTimeMillis() - time);
 		//rest
 		pd.setOptNodesResultCount(nodes.length);
 		pd.setAllNodesResultCount(latLons[0].length);

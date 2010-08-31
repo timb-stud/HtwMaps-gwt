@@ -18,7 +18,7 @@ public class InfoAnchor extends Anchor {
 	final VerticalPanel dialogVPanel = new VerticalPanel();
 	final Button closeButton = new Button(StringConstant.SCHLIESSEN);
 	
-	private Grid infoTable = new Grid(11,2);
+	private Grid infoTable = new Grid(12,2);
 
 	public InfoAnchor(String text) {
 		super(text);
@@ -63,11 +63,12 @@ public class InfoAnchor extends Anchor {
 		infoTable.setWidget(7, 0, new Label(StringConstant.OPT_TO_ALL));
 		infoTable.setWidget(8, 0, new Label(StringConstant.OPT_NODES_RESULT));
 		infoTable.setWidget(9, 0, new Label(StringConstant.ALL_NODES_RESULT));
-		infoTable.setWidget(10, 0, new Label(StringConstant.ZEIT_INSGESAMT));
+		infoTable.setWidget(10, 0, new Label(StringConstant.ROUTE_TO_TEXT));
+		infoTable.setWidget(11, 0, new Label(StringConstant.ZEIT_INSGESAMT));
 	}
 	
 	private void setHorizontalAlignment() {
-		for (int i = 0; i < 11; i++) {
+		for (int i = 0; i < 12; i++) {
 			infoTable.getCellFormatter().setHorizontalAlignment(i, 1, HasHorizontalAlignment.ALIGN_RIGHT);
 		}
 	}
@@ -83,6 +84,7 @@ public class InfoAnchor extends Anchor {
 		infoTable.setWidget(7, 1, new Label(result.getOptToAllTime() + " ms"));
 		infoTable.setWidget(8, 1, new Label(result.getOptNodesResultCount() + ""));
 		infoTable.setWidget(9, 1, new Label(result.getAllNodesResultCount() + ""));
-		infoTable.setWidget(10, 1, new Label(time + " sec"));
+		infoTable.setWidget(10, 1, new Label(result.getRouteToTextTime() + " ms"));
+		infoTable.setWidget(11, 1, new Label(time + " sec"));
 	}
 }
