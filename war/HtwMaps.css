@@ -44,6 +44,11 @@
 	font-family: Verdana;		
 }
 
+.gwt-HTMLTable {
+	font-family: Verdana;		
+}
+
+
 /** Styles f�r HTML- Elemente **/
 div#map {
 	z-index: 1;

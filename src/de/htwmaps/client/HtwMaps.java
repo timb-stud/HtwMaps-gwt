@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import de.htwmaps.client.GUI.AboutAnchor;
 import de.htwmaps.client.GUI.ControlsPanel;
 import de.htwmaps.client.GUI.InfoAnchor;
+import de.htwmaps.client.GUI.LocationFlexTable;
 import de.htwmaps.client.GUI.StringConstant;
 import de.htwmaps.shared.PathData;
 
@@ -18,7 +19,8 @@ import de.htwmaps.shared.PathData;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class HtwMaps implements EntryPoint {
-	Label statusLabel = new Label(StringConstant.BEREIT);
+	
+	static Label statusLabel = new Label(StringConstant.BEREIT);
 	AboutAnchor aboutAnchor = new AboutAnchor(StringConstant.UEBER);
 	InfoAnchor infoAnchor = new InfoAnchor(StringConstant.BERECHNUNGSINFOS);
 	ControlsPanel controlsPanel = new ControlsPanel();
@@ -76,10 +78,10 @@ public class HtwMaps implements EntryPoint {
 					}
 				};
 				
-				String startCity = controlsPanel.getLocationsPanel().getStartCityTextBox().getText();
-				String startStreet = controlsPanel.getLocationsPanel().getStartStreetTextBox().getText();
-				String destCity = controlsPanel.getLocationsPanel().getDestCityTextBox().getText();
-				String destStreet = controlsPanel.getLocationsPanel().getDestStreetTextBox().getText();
+				String startCity = LocationFlexTable.getLocations().get(0).getCitySuggestBox().getText();
+				String startStreet = LocationFlexTable.getLocations().get(0).getStreetSuggestBox().getText();;
+				String destCity = LocationFlexTable.getLocations().get(1).getCitySuggestBox().getText();;
+				String destStreet = LocationFlexTable.getLocations().get(1).getStreetSuggestBox().getText();;
 				
 				if (checkInputLocation(startCity, startStreet, destCity, destStreet)) {
 					controlsPanel.setCalcRouteButton(true);
@@ -139,10 +141,11 @@ public class HtwMaps implements EntryPoint {
 		setTextAndStyle(StringConstant.BERECHNE, "statusLabelNormal");
 		removePolyline();
 		removeMarker();
-		controlsPanel.getLocationsPanel().getStartCity().clearContent();
-		controlsPanel.getLocationsPanel().getStartStreet().clearContent();
-		controlsPanel.getLocationsPanel().getDestCity().clearContent();
-		controlsPanel.getLocationsPanel().getDestStreet().clearContent();
+		controlsPanel.getLocation();
+		LocationFlexTable.getLocations().get(0).getCityHandler().clearContent();
+		LocationFlexTable.getLocations().get(0).getStreetHandler().clearContent();;
+		LocationFlexTable.getLocations().get(0).getCityHandler().clearContent();;
+		LocationFlexTable.getLocations().get(0).getStreetHandler().clearContent();;
 	}
 	
 	private boolean checkInputLocation (String startCity, String startStreet, String destCity, String destStreet) {
@@ -177,9 +180,9 @@ public class HtwMaps implements EntryPoint {
         return eingabe;
     }
     
-    private void setTextAndStyle(String text, String style) {
-    	this.statusLabel.setText(text);
-    	this.statusLabel.setStyleName(style);
+    public static void setTextAndStyle(String text, String style) {
+    	statusLabel.setText(text);
+    	statusLabel.setStyleName(style);
     }
 	
 	native void alert(String s)/*-{

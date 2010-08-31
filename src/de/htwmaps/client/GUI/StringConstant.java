@@ -26,8 +26,8 @@ public class StringConstant {
 	public static final String WEGBESCHREIBUNG_ANZEIGEN = "Wegbeschreibung anzeigen";
 	public static final String WEGBESCHREIBUNG_AUSBLENDEN = "Wegbeschreibung ausblenden";
 	
-	public static final String START = "Start:";
-	public static final String ENDE = "Ende:";
+	public static final String STADT = "Stadt:";
+	public static final String STRASSE = "Straße:";
 	
 	public static final String ROUTENART = "Routenart waehlen:";
 	public static final String WEG = "weg";
