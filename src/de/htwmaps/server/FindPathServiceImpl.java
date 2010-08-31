@@ -4,7 +4,6 @@ package de.htwmaps.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.htwmaps.client.FindPathService;
-import de.htwmaps.client.GUI.SummaryPanel;
 import de.htwmaps.server.algorithm.AStar;
 import de.htwmaps.server.algorithm.AStarBiStarter;
 import de.htwmaps.server.algorithm.AStarEdge;
@@ -107,7 +106,6 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	
 	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap) throws java.sql.SQLException, MySQLException{
 		PathData pd = new PathData();
-//		SummaryPanel sp = new SummaryPanel();
 		//optToAll
 		AStarEdge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
 		long optAllTime = System.currentTimeMillis();
@@ -115,7 +113,6 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		pd.setOptToAllTime(System.currentTimeMillis() - optAllTime);
 		//routToText
 		RouteToText rtt = new RouteToText(nodes, edges);
-//		sp.setSummaryResult(rtt);
 		pd.setDescription(rtt.buildRouteInfo());
 		//rest
 		pd.setOptNodesResultCount(nodes.length);
