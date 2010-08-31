@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import de.htwmaps.server.algorithm.AStarEdge;
 
-public class TextInfos {
+public class StreetDetails {
 	private String name;
 	private String addition;
 	private String state;
@@ -14,7 +14,7 @@ public class TextInfos {
 	private String direction;
 	private LinkedList<AStarEdge> edgeList;
 	
-	public TextInfos(String streetname, String ref, String city, String state, double distance, LinkedList<AStarEdge> edgeList, String direction) {
+	public StreetDetails(String streetname, String ref, String city, String state, double distance, LinkedList<AStarEdge> edgeList, String direction) {
 		this.name = streetname;
 		this.addition = ref;
 		this.city = city;

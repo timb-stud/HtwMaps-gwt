@@ -37,7 +37,7 @@ public class RouteToText {
 
 	private DecimalFormat df = new DecimalFormat("0.00");
 
-	private ArrayList<TextInfos> info = null;
+	private ArrayList<StreetDetails> info = null;
 
 	/**
 	 * Konstruktor: ruft Methode auf welche Text erstellt
@@ -69,7 +69,7 @@ public class RouteToText {
 		PreparedStatement pStmt;
 		String streetQuery = "SELECT nameValue, cityname, is_in, ref FROM ways WHERE ID = ? ;";
 		LinkedList<AStarEdge> edgeList = new LinkedList<AStarEdge>();
-		info = new ArrayList<TextInfos>();
+		info = new ArrayList<StreetDetails>();
 		double dist = 0;
 		ResultSet resultSet = null;
 		String preview = null, current = null;
@@ -111,7 +111,7 @@ public class RouteToText {
 				dist += edge[i-1].getLenght();
 			} else {
 				direction = getNextDirectionByConditions(route[i + 1],route[i], route[i - 1]);
-				TextInfos ti = new TextInfos(preview, addition, city, state, dist, edgeList, direction);
+				StreetDetails ti = new StreetDetails(preview, addition, city, state, dist, edgeList, direction);
 				info.add(ti);
 				ti = null;
 				edgeList.clear();
@@ -123,7 +123,7 @@ public class RouteToText {
 			if (i == 1) {
 				edgeList.add(edge[i-1]);
 				// direction = getNextDirectionByConditions(route[i+1], route[i], route[i-1]);
-				TextInfos ti = new TextInfos(current, selectedAdditon, city, state, dist, edgeList, direction);
+				StreetDetails ti = new StreetDetails(current, selectedAdditon, city, state, dist, edgeList, direction);
 //				System.out.println("Ziel: " + ti);
 				info.add(ti);
 				ti = null;
@@ -274,7 +274,7 @@ public class RouteToText {
 		int i = 0;
 
 		StringBuilder sb = new StringBuilder();
-		Iterator<TextInfos> tInfo = info.iterator();
+		Iterator<StreetDetails> tInfo = info.iterator();
 		sb.append("Distance: " + "\t Strasse: " + "\t\t Additional: "
 				+ "\t\t Ort/Stadt: " + "\t\t Bundesland: " + "\n");
 		while (tInfo.hasNext()) {
@@ -345,7 +345,7 @@ public class RouteToText {
 		return genarateTime(innerOrtstime);
 	}
 
-	public ArrayList<TextInfos> getInfo() {
+	public ArrayList<StreetDetails> getInfo() {
 		return info;
 	}
 
