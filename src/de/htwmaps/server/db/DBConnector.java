@@ -21,6 +21,15 @@ public class DBConnector {
 	private static final String password = DBProperties.getString("DBConnector.password");
 	private static final String driver = DBProperties.getString("DBConnector.driver");
 
+	
+	/**
+	 * Erstellt mit den Verbindungsdaten aus db.properties eine Connection
+	 * zu einem Datenbank Server.
+	 * 
+	 * @return Connection
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	public static Connection getConnection() throws SQLException, MySQLException{
 		try {
 			Class.forName(driver).newInstance();
