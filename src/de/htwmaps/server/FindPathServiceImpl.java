@@ -13,7 +13,9 @@ import de.htwmaps.server.algorithm.ShortestPathAlgorithm;
 import de.htwmaps.server.db.DBAdapterRotativeRectangle;
 import de.htwmaps.server.db.DBUtils;
 import de.htwmaps.server.db.RouteToText;
+import de.htwmaps.shared.AllPathData;
 import de.htwmaps.shared.PathData;
+import de.htwmaps.shared.PathDescription;
 import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
 import de.htwmaps.shared.exceptions.PathNotFoundException;
@@ -25,6 +27,9 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 	public static final int SHORTEST = 0;
 	public static final int FASTEST = 1;
+	
+	private Node[] nodes;
+	private AStarEdge[] edges;
 
 	
 	@Override
@@ -69,36 +74,36 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		try{
 			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
 			if (startNodeID == -1) {
-				throw new NodeNotFoundException("Flasche Startdaten");
+				throw new NodeNotFoundException("Falsche Startdaten");
 			}
 			int goalNodeID = DBUtils.getNodeId(destCity, destStreet);
 			if (goalNodeID == -1) {
-				throw new NodeNotFoundException("Flasche Zieldaten");
+				throw new NodeNotFoundException("Falsche Zieldaten");
 			}
 			float h = 0.1f; //20 km dicke
 			DBAdapterRotativeRectangle dbap;
 			dbap = new DBAdapterRotativeRectangle(gd);
-			Node[] result = null;
 			dbap.fillGraphData(startNodeID, goalNodeID, h);
 			try {
 				switch (option) {
-				case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
-				case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
+				case FASTEST: nodes = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
+				case SHORTEST: nodes = spa.findShortestPath(startNodeID, goalNodeID); break;
 				}
 			} catch (PathNotFoundException e) {
 				System.out.print("2. versuch");
 				dbap.fillGraphData(startNodeID, goalNodeID, h + 1.4f);
 				try {
 					switch (option) {
-					case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
-					case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
+					case FASTEST: nodes = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
+					case SHORTEST: nodes = spa.findShortestPath(startNodeID, goalNodeID); break;
 					}
 				} catch (PathNotFoundException ex) {
 					System.out.println(" fehlgeschlagen");
 					throw new PathNotFoundException("Es tut uns Leid. Dieser Weg kann nicht erfasst werden.");
 				}
 			}
-			return buildPathData(result, spa, dbap);
+			edges	= ShortestPathAlgorithm.getResultEdges(nodes);
+			return buildPathData(nodes, spa, dbap);
 		}catch(java.sql.SQLException e){
 			throw new SQLException();
 		}
@@ -106,21 +111,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	
 	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap) throws java.sql.SQLException, MySQLException{
 		PathData pd = new PathData();
-		//optToAll
-		AStarEdge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
-		long time = System.currentTimeMillis();
-		float [][] latLons = DBUtils.getAllNodeLatLons(nodes, edges);
-		pd.setOptToAllTime(System.currentTimeMillis() - time);
-		//routToText
-		time = System.currentTimeMillis();
-		RouteToText rtt = new RouteToText(nodes, edges);
-		pd.setDescription(rtt.buildRouteInfo());
-		pd.setRouteToTextTime(System.currentTimeMillis() - time);
-		//rest
 		pd.setOptNodesResultCount(nodes.length);
-		pd.setAllNodesResultCount(latLons[0].length);
-		pd.setNodeLats(latLons[0]);
-		pd.setNodeLons(latLons[1]);
 		pd.setAlorithmTime(spa.getAlorithmTime());
 		pd.setBuildEdgesTime(spa.getBuildEdgesTime());
 		pd.setBuildNodesTime(spa.getBuildNodesTime());
@@ -128,6 +119,44 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		pd.setNodesCount(dbap.getNodesCount());
 		pd.setReceiveEdgesTime(dbap.getReceiveEdgesTime());
 		pd.setReceiveNodesTime(dbap.getReceiveNodesTime());
+		return pd;
+	}
+
+	@Override
+	public AllPathData buildAllPathData() throws MySQLException, SQLException {
+		if(nodes == null || edges == null)
+			throw new RuntimeException("Call one of the findFastestPath methods first!");
+		
+		AllPathData allND = new AllPathData();
+		long time = System.currentTimeMillis();
+		float[][] latLons;
+		try {
+			latLons = DBUtils.getAllNodeLatLons(nodes, edges);
+		} catch (java.sql.SQLException e) {
+			throw new SQLException();
+		}
+		allND.setOptToAllRuntime(System.currentTimeMillis() - time);
+		allND.setAllNodesNumber(latLons[0].length);
+		allND.setLats(latLons[0]);
+		allND.setLons(latLons[1]);
+		return allND;
+	}
+
+	@Override
+	public PathDescription buildPathDescription() throws MySQLException, SQLException {
+		if(nodes == null || edges == null)
+			throw new RuntimeException("Call one of the findFastestPath methods first!");
+		
+		PathDescription pd = new PathDescription();
+		long time = System.currentTimeMillis();
+		RouteToText rtt;
+		try {
+			rtt = new RouteToText(nodes, edges);
+		} catch (java.sql.SQLException e) {
+			throw new SQLException();
+		}
+		pd.setDescription(rtt.buildRouteInfo().toString());
+		pd.setRuntime(System.currentTimeMillis() - time);
 		return pd;
 	}
 }

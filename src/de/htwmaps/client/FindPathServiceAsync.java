@@ -3,7 +3,9 @@ package de.htwmaps.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.htwmaps.shared.AllPathData;
 import de.htwmaps.shared.PathData;
+import de.htwmaps.shared.PathDescription;
 
 public interface FindPathServiceAsync {
 
@@ -22,5 +24,9 @@ public interface FindPathServiceAsync {
 
 	void findShortestPathAStarBi(String startCity, String startStreet,
 			String destCity, String destStreet, AsyncCallback<PathData> callback);
+
+	void buildAllPathData(AsyncCallback<AllPathData> callback);
+
+	void buildPathDescription(AsyncCallback<PathDescription> callback);
 
 }

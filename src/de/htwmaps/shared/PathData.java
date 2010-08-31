@@ -16,12 +16,10 @@ public class PathData implements Serializable{
 	private long buildNodesTime;
 	private long buildEdgesTime;
 	private long alorithmTime;
-	private long optToAllTime;
 	private long routeToTextTime;
 	private int edgesCount;
 	private int nodesCount;
 	private int optNodesResultCount;
-	private int allNodesResultCount;
 	private LinkedList<String> description;
 	
 	
@@ -100,28 +98,12 @@ public class PathData implements Serializable{
 		this.alorithmTime = alorithmTime;
 	}
 
-	public void setOptToAllTime(long optToAllTime) {
-		this.optToAllTime = optToAllTime;
-	}
-
-	public long getOptToAllTime() {
-		return optToAllTime;
-	}
-
 	public void setOptNodesResultCount(int optNodesResultCount) {
 		this.optNodesResultCount = optNodesResultCount;
 	}
 
 	public int getOptNodesResultCount() {
 		return optNodesResultCount;
-	}
-
-	public void setAllNodesResultCount(int allNodesResultCount) {
-		this.allNodesResultCount = allNodesResultCount;
-	}
-
-	public int getAllNodesResultCount() {
-		return allNodesResultCount;
 	}
 
 	public void setDescription(LinkedList<String> discription) {
