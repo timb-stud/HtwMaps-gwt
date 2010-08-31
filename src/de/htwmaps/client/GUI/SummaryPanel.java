@@ -5,6 +5,8 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.htwmaps.server.db.RouteToText;
+
 public class SummaryPanel extends VerticalPanel {
 	
 	Grid summaryTable = new Grid(5,2);
@@ -23,6 +25,14 @@ public class SummaryPanel extends VerticalPanel {
 		add(summaryTable);
 		setVisible(false);
 	}
+	
+//	public void setSummaryResult(RouteToText rtt) {
+//		summaryTable.setWidget(0, 1, new Label(rtt.getTotaltime()));
+//		summaryTable.setWidget(1, 1, new Label(rtt.getTotallengthString()));
+//		summaryTable.setWidget(2, 1, new Label(rtt.getAutobahnString()));
+//		summaryTable.setWidget(3, 1, new Label(rtt.getLandstrasseString()));
+//		summaryTable.setWidget(4, 1, new Label(rtt.getInnerOrtsString()));
+//	}
 	
 	public void setSummaryResult() {
 		summaryTable.setWidget(0, 1, new Label(""));
