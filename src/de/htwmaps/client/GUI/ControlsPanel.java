@@ -100,4 +100,7 @@ public class ControlsPanel extends VerticalPanel{
 		return wayDescriptionPanel;
 	}
 	
+	public SummaryPanel getSummaryPanel() {
+		return summaryPanel;
+	}
 }

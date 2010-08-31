@@ -42,11 +42,10 @@ public class StringConstant {
 	public static final String ASTERN = "A*";
 	public static final String ASTERN_BIDIREKTIONAL = "A* Bidirektional";
 	
-	public static final String FAHRZEIT = "Fahrzeit:";
-	public static final String WEGLAENGE = "Weglaenge:";
-	public static final String AUTOBAHN = "-Autobahn:";
-	public static final String LANDSTRASSE = "-Landstrasse:";
-	public static final String INNERORTS = "-Innerorts:";
+	public static final String GESAMT = "Gesamt:";
+	public static final String AUTOBAHN = "Autobahn:";
+	public static final String LANDSTRASSE = "Landstrasse:";
+	public static final String INNERORTS = "Innerorts:";
 	
 	public static final String ABOUT_TEXT = "Software Project HTW PI 2008<br>" +
 		"Version 28.08.2010<br><br>" + 
@@ -60,16 +59,16 @@ public class StringConstant {
 		"Tobias Lana<br>" +
 		"Yassir Klose<br>";
 	
-	public static final String NODES = "Nodes:";
-	public static final String EDGES = "Edges:";
+	public static final String NODES = "Selected Nodes:";
+	public static final String EDGES = "Selected Edges:";
 	public static final String SELECT_NODES = "Select Nodes:";
 	public static final String SELECT_EDGES = "Select Edges:";
 	public static final String BUILD_NODES = "Build Nodes:";
 	public static final String BUILD_EDGES = "Build Edges:";
 	public static final String ALGORITHM = "Algorithm:";
 	public static final String OPT_TO_ALL = "OptToAll:";
-	public static final String OPT_NODES_RESULT = "optNodesResult:";
-	public static final String ALL_NODES_RESULT = "allNodesResult:";
+	public static final String OPT_NODES= "Opt. Nodes:";
+	public static final String ALL_NODES = "All Nodes:";
 	public static final String ROUTE_TO_TEXT = "routeToText:";
-	public static final String ZEIT_INSGESAMT = "Zeit insgesamt:";
+	public static final String TOTAL = "Total:";
 }

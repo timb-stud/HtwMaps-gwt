@@ -1,7 +1,6 @@
 package de.htwmaps.shared;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 
 
 
@@ -11,16 +10,14 @@ public class OptPathData implements Serializable{
 	
 	private float[] nodeLats;
 	private float[] nodeLons;
-	private long receiveNodesTime;
-	private long receiveEdgesTime;
-	private long buildNodesTime;
-	private long buildEdgesTime;
-	private long alorithmTime;
-	private long routeToTextTime;
-	private int edgesCount;
-	private int nodesCount;
-	private int optNodesResultCount;
-	private LinkedList<String> description;
+	private long selectNodesRuntime;
+	private long selectEdgesRuntime;
+	private long buildNodesRuntime;
+	private long buildEdgesRuntime;
+	private long algorithmRuntime;
+	private int selectedNodesNumber;
+	private int selectedEdgesNumber;
+	private int optNodesNumber;
 	
 	
 	
@@ -42,83 +39,72 @@ public class OptPathData implements Serializable{
 		return nodeLons;
 	}
 
-	public long getReceiveNodesTime() {
-		return receiveNodesTime;
+	public long getSelectNodesRuntime() {
+		return selectNodesRuntime;
 	}
 
-	public void setReceiveNodesTime(long receiveNodesTime) {
-		this.receiveNodesTime = receiveNodesTime;
+	public void setSelectNodesRuntime(long selectNodesRuntime) {
+		this.selectNodesRuntime = selectNodesRuntime;
 	}
 
-	public long getReceiveEdgesTime() {
-		return receiveEdgesTime;
+	public long getSelectEdgesRuntime() {
+		return selectEdgesRuntime;
 	}
 
-	public void setReceiveEdgesTime(long receiveEdgesTime) {
-		this.receiveEdgesTime = receiveEdgesTime;
+	public void setSelectEdgesRuntime(long selectEdgesRuntime) {
+		this.selectEdgesRuntime = selectEdgesRuntime;
 	}
 
-	public long getBuildNodesTime() {
-		return buildNodesTime;
+	public long getBuildNodesRuntime() {
+		return buildNodesRuntime;
 	}
 
-	public void setBuildNodesTime(long buildNodesTime) {
-		this.buildNodesTime = buildNodesTime;
+	public void setBuildNodesRuntime(long buildNodesRuntime) {
+		this.buildNodesRuntime = buildNodesRuntime;
 	}
 
-	public long getBuildEdgesTime() {
-		return buildEdgesTime;
+	public long getBuildEdgesRuntime() {
+		return buildEdgesRuntime;
 	}
 
-	public void setBuildEdgesTime(long buildEdgesTime) {
-		this.buildEdgesTime = buildEdgesTime;
+	public void setBuildEdgesRuntime(long buildEdgesRuntime) {
+		this.buildEdgesRuntime = buildEdgesRuntime;
 	}
 
-	public int getEdgesCount() {
-		return edgesCount;
+	public long getAlgorithmRuntime() {
+		return algorithmRuntime;
 	}
 
-	public void setEdgesCount(int edgesCount) {
-		this.edgesCount = edgesCount;
+	public void setAlgorithmRuntime(long algorithmRuntime) {
+		this.algorithmRuntime = algorithmRuntime;
 	}
 
-	public int getNodesCount() {
-		return nodesCount;
+	public int getSelectedNodesNumber() {
+		return selectedNodesNumber;
 	}
 
-	public void setNodesCount(int nodesCount) {
-		this.nodesCount = nodesCount;
+	public void setSelectedNodesNumber(int selectedNodesNumber) {
+		this.selectedNodesNumber = selectedNodesNumber;
+	}
+
+	public int getSelectedEdgesNumber() {
+		return selectedEdgesNumber;
+	}
+
+	public void setSelectedEdgesNumber(int selectedEdgesNumber) {
+		this.selectedEdgesNumber = selectedEdgesNumber;
+	}
+
+	public int getOptNodesNumber() {
+		return optNodesNumber;
+	}
+
+	public void setOptNodesNumber(int optNodesNumber) {
+		this.optNodesNumber = optNodesNumber;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
-	public long getAlorithmTime() {
-		return alorithmTime;
-	}
-	
-	public void setAlorithmTime(long alorithmTime) {
-		this.alorithmTime = alorithmTime;
-	}
-
-	public void setOptNodesResultCount(int optNodesResultCount) {
-		this.optNodesResultCount = optNodesResultCount;
-	}
-
-	public int getOptNodesResultCount() {
-		return optNodesResultCount;
-	}
-
-	public void setDescription(LinkedList<String> discription) {
-		this.description = discription;
-	}
-
-	public LinkedList<String> getDescription() {
-		return description;
-	}
-
-	public void setRouteToTextTime(long routeToTextTime) {
-		this.routeToTextTime = routeToTextTime;
-	}
-
-	public long getRouteToTextTime() {
-		return routeToTextTime;
-	}
 }

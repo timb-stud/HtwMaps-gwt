@@ -5,15 +5,17 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class WayDescriptionPanel extends VerticalPanel {
 	
-	Label wayDescriptionLabel = new Label();
 	
 	public WayDescriptionPanel() {
 		setVisible(false);
-		wayDescriptionLabel.setSize("280px", "10px");
-		add(wayDescriptionLabel);
 	}
 	
-	public Label getWayDescriptionLabel() {
-		return wayDescriptionLabel;
+	public void addItems(String[] items){
+		for(String item: items)
+			addItem(item);
+	}
+	
+	public void addItem(String item){
+		add(new Label(item));
 	}
 }

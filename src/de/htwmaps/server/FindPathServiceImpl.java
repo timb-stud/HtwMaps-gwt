@@ -119,14 +119,14 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		OptPathData opd = new OptPathData();
 		opd.setNodeLats(lats);
 		opd.setNodeLons(lons);
-		opd.setOptNodesResultCount(nodes.length);
-		opd.setAlorithmTime(spa.getAlorithmTime());
-		opd.setBuildEdgesTime(spa.getBuildEdgesTime());
-		opd.setBuildNodesTime(spa.getBuildNodesTime());
-		opd.setEdgesCount(dbap.getEdgesCount());
-		opd.setNodesCount(dbap.getNodesCount());
-		opd.setReceiveEdgesTime(dbap.getReceiveEdgesTime());
-		opd.setReceiveNodesTime(dbap.getReceiveNodesTime());
+		opd.setOptNodesNumber(nodes.length);
+		opd.setAlgorithmRuntime(spa.getAlorithmTime());
+		opd.setBuildEdgesRuntime(spa.getBuildEdgesTime());
+		opd.setBuildNodesRuntime(spa.getBuildNodesTime());
+		opd.setSelectedEdgesNumber(dbap.getEdgesCount());
+		opd.setSelectedNodesNumber(dbap.getNodesCount());
+		opd.setSelectEdgesRuntime(dbap.getReceiveEdgesTime()); //TODO fertig refactoren
+		opd.setSelectNodesRuntime(dbap.getReceiveNodesTime());
 		return opd;
 	}
 
@@ -163,8 +163,16 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		} catch (java.sql.SQLException e) {
 			throw new SQLException();
 		}
-		pd.setDescription(rtt.buildRouteInfo().toString());
-		pd.setRuntime(System.currentTimeMillis() - time);
+		pd.setWayDescriptions(rtt.buildRouteInfo().toArray(new String[0])); //TODO direkt string array
+		pd.setTimeTotal(rtt.getTotaltime());
+		pd.setTimeOnMotorWay(rtt.getAutobahnTime());	//TODO englische namen
+		pd.setTimeOnPrimary(rtt.getLandstrasseTime());	//TODO werte in string?
+		pd.setTimeOnResidential(rtt.getInnerOrtstime()); // TODO schreibfehler
+		pd.setDistanceOnMotorWay(rtt.getAutobahnString());
+		pd.setDistanceOnPrimary(rtt.getLandstrasseString());
+		pd.setDistanceOnResidential(rtt.getInnerOrtsString());
+		pd.setDistanceTotal(rtt.getTotallengthString());
+		pd.setRouteToTextRuntime(System.currentTimeMillis() - time);
 		return pd;
 	}
 }
