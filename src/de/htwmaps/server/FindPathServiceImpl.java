@@ -116,18 +116,18 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			lats[i] = nodes[i].getLat();
 			lons[i] = nodes[i].getLon();
 		}
-		OptPathData pd = new OptPathData();
-		pd.setNodeLats(lats);
-		pd.setNodeLons(lons);
-		pd.setOptNodesResultCount(nodes.length);
-		pd.setAlorithmTime(spa.getAlorithmTime());
-		pd.setBuildEdgesTime(spa.getBuildEdgesTime());
-		pd.setBuildNodesTime(spa.getBuildNodesTime());
-		pd.setEdgesCount(dbap.getEdgesCount());
-		pd.setNodesCount(dbap.getNodesCount());
-		pd.setReceiveEdgesTime(dbap.getReceiveEdgesTime());
-		pd.setReceiveNodesTime(dbap.getReceiveNodesTime());
-		return pd;
+		OptPathData opd = new OptPathData();
+		opd.setNodeLats(lats);
+		opd.setNodeLons(lons);
+		opd.setOptNodesResultCount(nodes.length);
+		opd.setAlorithmTime(spa.getAlorithmTime());
+		opd.setBuildEdgesTime(spa.getBuildEdgesTime());
+		opd.setBuildNodesTime(spa.getBuildNodesTime());
+		opd.setEdgesCount(dbap.getEdgesCount());
+		opd.setNodesCount(dbap.getNodesCount());
+		opd.setReceiveEdgesTime(dbap.getReceiveEdgesTime());
+		opd.setReceiveNodesTime(dbap.getReceiveNodesTime());
+		return opd;
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		if(nodes == null || edges == null)
 			throw new RuntimeException("Call one of the findFastestPath methods first!");
 		
-		AllPathData allND = new AllPathData();
+		AllPathData apd = new AllPathData();
 		long time = System.currentTimeMillis();
 		float[][] latLons;
 		try {
@@ -143,11 +143,11 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		} catch (java.sql.SQLException e) {
 			throw new SQLException();
 		}
-		allND.setOptToAllRuntime(System.currentTimeMillis() - time);
-		allND.setAllNodesNumber(latLons[0].length);
-		allND.setLats(latLons[0]);
-		allND.setLons(latLons[1]);
-		return allND;
+		apd.setOptToAllRuntime(System.currentTimeMillis() - time);
+		apd.setAllNodesNumber(latLons[0].length);
+		apd.setLats(latLons[0]);
+		apd.setLons(latLons[1]);
+		return apd;
 	}
 
 	@Override
