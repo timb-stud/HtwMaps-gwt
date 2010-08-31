@@ -1,6 +1,7 @@
 package de.htwmaps.shared;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 
 
@@ -16,10 +17,13 @@ public class PathData implements Serializable{
 	private long buildEdgesTime;
 	private long alorithmTime;
 	private long optToAllTime;
+	private long routeToTextTime;
 	private int edgesCount;
 	private int nodesCount;
 	private int optNodesResultCount;
 	private int allNodesResultCount;
+	private LinkedList<String> description;
+	
 	
 	
 	public PathData() {}
@@ -118,5 +122,21 @@ public class PathData implements Serializable{
 
 	public int getAllNodesResultCount() {
 		return allNodesResultCount;
+	}
+
+	public void setDescription(LinkedList<String> discription) {
+		this.description = discription;
+	}
+
+	public LinkedList<String> getDescription() {
+		return description;
+	}
+
+	public void setRouteToTextTime(long routeToTextTime) {
+		this.routeToTextTime = routeToTextTime;
+	}
+
+	public long getRouteToTextTime() {
+		return routeToTextTime;
 	}
 }

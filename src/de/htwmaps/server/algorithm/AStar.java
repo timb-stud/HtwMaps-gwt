@@ -3,7 +3,7 @@ package de.htwmaps.server.algorithm;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import de.htwmaps.server.utils.FibonacciHeap;
+import de.htwmaps.server.algorithm.utils.FibonacciHeap;
 import de.htwmaps.shared.exceptions.PathNotFoundException;
 
 

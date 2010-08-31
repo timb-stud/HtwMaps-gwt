@@ -12,6 +12,7 @@ import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.server.algorithm.ShortestPathAlgorithm;
 import de.htwmaps.server.db.DBAdapterRotativeRectangle;
 import de.htwmaps.server.db.DBUtils;
+import de.htwmaps.server.db.RouteToText;
 import de.htwmaps.shared.PathData;
 import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
@@ -105,10 +106,17 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	
 	private PathData buildPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap) throws java.sql.SQLException, MySQLException{
 		PathData pd = new PathData();
+		//optToAll
 		AStarEdge [] edges	= ShortestPathAlgorithm.getResultEdges(nodes);
-		long optAllTime = System.currentTimeMillis();
+		long time = System.currentTimeMillis();
 		float [][] latLons = DBUtils.getAllNodeLatLons(nodes, edges);
-		pd.setOptToAllTime(System.currentTimeMillis() - optAllTime);
+		pd.setOptToAllTime(System.currentTimeMillis() - time);
+		//routToText
+		time = System.currentTimeMillis();
+		RouteToText rtt = new RouteToText(nodes, edges);
+		pd.setDescription(rtt.buildRouteInfo());
+		pd.setRouteToTextTime(System.currentTimeMillis() - time);
+		//rest
 		pd.setOptNodesResultCount(nodes.length);
 		pd.setAllNodesResultCount(latLons[0].length);
 		pd.setNodeLats(latLons[0]);

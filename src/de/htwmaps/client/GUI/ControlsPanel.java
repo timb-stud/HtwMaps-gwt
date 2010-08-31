@@ -95,4 +95,9 @@ public class ControlsPanel extends VerticalPanel{
 	public OptionsPanel getOptionsPanel() {
 		return optionsPanel;
 	}
+
+	public WayDescriptionPanel getWayDescriptionPanel() {
+		return wayDescriptionPanel;
+	}
+	
 }
