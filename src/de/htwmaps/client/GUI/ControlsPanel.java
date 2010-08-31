@@ -8,7 +8,8 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ControlsPanel extends VerticalPanel{
-	LocationsPanel locationsPanel = new LocationsPanel();
+	
+	LocationFlexTable location = new LocationFlexTable();
 	OptionsPanel optionsPanel = new OptionsPanel();
 	SummaryPanel summaryPanel = new SummaryPanel();
 	WayDescriptionPanel wayDescriptionPanel = new WayDescriptionPanel();
@@ -23,7 +24,7 @@ public class ControlsPanel extends VerticalPanel{
 
 	private void init(){
 		setSize("300px", "10px");
-		add(locationsPanel);
+		add(location);
 		add(calcRouteButton);
 		setCellHorizontalAlignment(calcRouteButton, HasHorizontalAlignment.ALIGN_RIGHT);
 		add(optionsAnchor);
@@ -87,8 +88,8 @@ public class ControlsPanel extends VerticalPanel{
 		this.calcRouteButton.setEnabled(active);
 	}
 	
-	public LocationsPanel getLocationsPanel() {
-		return locationsPanel;
+	public LocationFlexTable getLocation() {
+		return location;
 	}
 
 	public OptionsPanel getOptionsPanel() {
