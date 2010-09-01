@@ -5,7 +5,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.htwmaps.client.GUI.LocationFlexTable;
 import de.htwmaps.client.GUI.StringConstant;
 import de.htwmaps.shared.OptPathData;
 
@@ -27,10 +26,10 @@ public class CalcRouteClickHandler implements ClickHandler {
 		
 		AsyncCallback<OptPathData> callback = new FindPathCallback(mainModule);
 		
-		String startCity = LocationFlexTable.getLocations().get(0).getCitySuggestBox().getText();
-		String startStreet = LocationFlexTable.getLocations().get(0).getStreetSuggestBox().getText();;
-		String destCity = LocationFlexTable.getLocations().get(1).getCitySuggestBox().getText();;
-		String destStreet = LocationFlexTable.getLocations().get(1).getStreetSuggestBox().getText();;
+		String startCity = mainModule.controlsPanel.getLocation().getLocations().get(0).getCitySuggestBox().getText();
+		String startStreet = mainModule.controlsPanel.getLocation().getLocations().get(0).getStreetSuggestBox().getText();;
+		String destCity = mainModule.controlsPanel.getLocation().getLocations().get(1).getCitySuggestBox().getText();;
+		String destStreet = mainModule.controlsPanel.getLocation().getLocations().get(1).getStreetSuggestBox().getText();;
 		
 		if (mainModule.checkInputLocation(startCity, startStreet, destCity, destStreet)) {
 			mainModule.controlsPanel.setCalcRouteButton(true);

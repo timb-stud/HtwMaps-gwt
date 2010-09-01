@@ -48,4 +48,11 @@ public class SummaryPanel extends VerticalPanel {
 	public void setTotal(String time, String distance){
 		total.setText(distance + "  " + time);
 	}
+	
+	public void setFieldsEmpty() {
+		onMotorWay.setText("");
+		onPrimary.setText("");
+		onResidential.setText("");
+		total.setText("");
+	}
 }

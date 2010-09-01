@@ -89,7 +89,7 @@ public class LocationFlexTable extends VerticalPanel {
 		}
 	}
 
-	public static ArrayList<LocationsObjects> getLocations() {
+	public ArrayList<LocationsObjects> getLocations() {
 		return locations;
 	}
 }

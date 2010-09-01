@@ -34,7 +34,7 @@ public class LocationsObjects {
 		cityHandler = new CitySuggestionKeyUpHandler(cityStreetSuggestSvc, citySuggestOracle);
 		streetHandler = new StreetSuggestionKeyUpHandler(cityStreetSuggestSvc, streetSuggestOracle, citySuggestBox);
 		citySuggestBox.getTextBox().addKeyUpHandler(cityHandler);
-		citySuggestBox.getTextBox().addKeyUpHandler(streetHandler);
+		streetSuggestBox.getTextBox().addKeyUpHandler(streetHandler);
 		
 		citySuggestBox.setSize("80px", "10px");
 		streetSuggestBox.setSize("120px", "10px");

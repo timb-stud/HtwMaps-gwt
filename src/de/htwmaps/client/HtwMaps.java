@@ -8,7 +8,6 @@ import com.google.gwt.user.client.ui.RootPanel;
 import de.htwmaps.client.GUI.AboutAnchor;
 import de.htwmaps.client.GUI.ControlsPanel;
 import de.htwmaps.client.GUI.InfoAnchor;
-import de.htwmaps.client.GUI.LocationFlexTable;
 import de.htwmaps.client.GUI.StringConstant;
 
 /**
@@ -41,11 +40,13 @@ public class HtwMaps implements EntryPoint {
 		setTextAndStyle(StringConstant.BERECHNE, "statusLabelNormal");
 		removePolyline();
 		removeMarker();
+		controlsPanel.getSummaryPanel().setFieldsEmpty();
+		controlsPanel.getWayDescriptionPanel().clear();
 		controlsPanel.getLocation();
-		LocationFlexTable.getLocations().get(0).getCityHandler().clearContent();
-		LocationFlexTable.getLocations().get(0).getStreetHandler().clearContent();;
-		LocationFlexTable.getLocations().get(0).getCityHandler().clearContent();;
-		LocationFlexTable.getLocations().get(0).getStreetHandler().clearContent();;
+		controlsPanel.getLocation().getLocations().get(0).getCityHandler().clearContent();
+		controlsPanel.getLocation().getLocations().get(0).getStreetHandler().clearContent();;
+		controlsPanel.getLocation().getLocations().get(1).getCityHandler().clearContent();;
+		controlsPanel.getLocation().getLocations().get(1).getStreetHandler().clearContent();;
 	}
 	
 	boolean checkInputLocation (String startCity, String startStreet, String destCity, String destStreet) {
