@@ -23,7 +23,7 @@ public class AboutAnchor extends Anchor {
 		dialogBox.setAnimationEnabled(true);
 		VerticalPanel dialogVPanel = new VerticalPanel();
 		dialogVPanel.add(new HTML(StringConstant.ABOUT_TEXT));
-		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
+		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
 		dialogVPanel.add(closeButton);
 		dialogBox.setWidget(dialogVPanel);
 		

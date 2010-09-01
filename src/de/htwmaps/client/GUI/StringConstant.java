@@ -48,17 +48,18 @@ public class StringConstant {
 	public static final String LANDSTRASSE = "-Landstrasse:";
 	public static final String INNERORTS = "-Innerorts:";
 	
-	public static final String ABOUT_TEXT = "Software Project HTW PI 2008<br>" +
-		"Version 28.08.2010<br><br>" + 
-		"Entwicklerteam:<br>" + 
-		"Christian Rech<br>" + 
-		"Tim Bartsch<br>" +
-		"Lucian Schneider<br>" +
-		"Stanislav Tartakowski<br>" +
-		"Volkan Goekkaya<br>" +
-		"Thomas Altmeyer<br>" +
-		"Tobias Lana<br>" +
-		"Yassir Klose<br>";
+	public static final String ABOUT_TEXT = "<u><b>Software Projekt HTW PI 2008</b></u><br>" +
+		"Version: <i>01.09.2010</i><br><br>" + 
+		"<b>Entwicklerteam:</b><br>" + 
+		"- Christian Rech<br>" + 
+		"- Tim Bartsch<br>" +
+		"- Lucian Schneider<br>" +
+		"- Stanislav Tartakowski<br>" +
+		"- Volkan Goekkaya<br>" +
+		"- Thomas Altmeyer<br>" +
+		"- Tobias Lana<br>" +
+		"- Yassir Klose<br>" +
+		"<br>";
 	
 	public static final String NODES = "Nodes:";
 	public static final String EDGES = "Edges:";
