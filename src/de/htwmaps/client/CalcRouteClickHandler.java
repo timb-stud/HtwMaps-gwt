@@ -52,7 +52,7 @@ public class CalcRouteClickHandler implements ClickHandler {
 				}
 			} else {
 				boolean checkSpeed = true;
-				int motorwaySpeed = mainModule.leseIntZahl(mainModule.controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim());
+				int motorwaySpeed = mainModule.leseIntZahl(mainModule.controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim()); //TODO kuerzer schreiben
 				if (motorwaySpeed <= 0) {
 					mainModule.loadImageOff();
 					HtwMaps.setTextAndStyle(StringConstant.F_AUTOBAHN, "statusLabelError");

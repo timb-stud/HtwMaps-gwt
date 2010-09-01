@@ -26,16 +26,16 @@ public class HtwMaps implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		controlsPanel.addStyleName("controlsPanel");
 		RootPanel.get("controlsPanel").add(controlsPanel);
 		RootPanel.get("statusLabelContainer").add(statusLabel);
 		RootPanel.get("aboutAnchorContainer").add(aboutAnchor);
 		RootPanel.get("infoAnchorContainer").add(infoAnchor);
 		
+		controlsPanel.addStyleName("controlsPanel");
 		controlsPanel.getCalcRouteButton().addClickHandler(new CalcRouteClickHandler(this));
 	}
 	
-	void resetFields() {
+	void resetFields() { //TODO Methode aufsplitten
 		controlsPanel.setCalcRouteButton(false);
 		setTextAndStyle(StringConstant.BERECHNE, "statusLabelNormal");
 		removePolyline();
@@ -44,16 +44,17 @@ public class HtwMaps implements EntryPoint {
 		controlsPanel.getWayDescriptionPanel().clear();
 		controlsPanel.getLocation();
 		controlsPanel.getLocation().getLocations().get(0).getCityHandler().clearContent();
-		controlsPanel.getLocation().getLocations().get(0).getStreetHandler().clearContent();;
-		controlsPanel.getLocation().getLocations().get(1).getCityHandler().clearContent();;
-		controlsPanel.getLocation().getLocations().get(1).getStreetHandler().clearContent();;
+		controlsPanel.getLocation().getLocations().get(0).getStreetHandler().clearContent();
+		controlsPanel.getLocation().getLocations().get(1).getCityHandler().clearContent();
+		controlsPanel.getLocation().getLocations().get(1).getStreetHandler().clearContent();
 	}
 	
+	//TODO aufteilen in zwei methoden
 	boolean checkInputLocation (String startCity, String startStreet, String destCity, String destStreet) {
 		boolean check = false;
 		if (startCity.equals("") || startCity == null) {
 			loadImageOff();
-			setTextAndStyle(StringConstant.STARTORT, "statusLabelError");
+			setTextAndStyle(StringConstant.STARTORT, "statusLabelError"); //TODO verschieben
 			check = true;
 		} else if (startStreet.equals("") || startStreet == null) {
 			loadImageOff();
@@ -71,6 +72,8 @@ public class HtwMaps implements EntryPoint {
 		return check;
 	}
 	
+	//TODO englische namen
+	//TODO methode notwendig?
     int leseIntZahl(String inData) {
         int eingabe = 0;
         try {
