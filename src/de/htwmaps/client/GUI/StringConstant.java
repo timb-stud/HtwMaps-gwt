@@ -42,7 +42,7 @@ public class StringConstant {
 	public static final String ASTERN = "A*";
 	public static final String ASTERN_BIDIREKTIONAL = "A* Bidirektional";
 	
-	public static final String GESAMT = "Gesamt:";
+	public static final String GESAMT = "<b>Gesamt:</b>";
 	public static final String AUTOBAHN = "Autobahn:";
 	public static final String LANDSTRASSE = "Landstrasse:";
 	public static final String INNERORTS = "Innerorts:";

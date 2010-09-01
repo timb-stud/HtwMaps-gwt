@@ -184,12 +184,12 @@ public class RouteToText {
 		LinkedList<String> routeText = new LinkedList<String>();
 		StringBuffer sb = new StringBuffer();
 
-		routeText.add("Sie starten in folgdender Straße: "
-				+ info.get(0).getName());
+		routeText.add("Sie starten in folgdender Straße: <b>"
+				+ info.get(0).getName() +  "</b>");
 		for (int i = 0; i < info.size() - 1; i++) {
 			if (info.get(i).getEdgeList().getLast().getHighwayType() != 1
 					&& info.get(i + 1).getEdgeList().getLast().getHighwayType() == 1) {
-				sb.append("Fahren Sie nach ").append(info.get(i).getName()).append("");
+				sb.append("Fahren Sie nach <b>").append(info.get(i).getName()).append("</b>");
 				sb.append(" auf die Autobahn ").append(info.get(i + 1).getName());
 			} else {
 				if (!info.get(i).getName().trim().equals(""))
