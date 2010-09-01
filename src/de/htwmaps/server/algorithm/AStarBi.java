@@ -5,7 +5,7 @@ package de.htwmaps.server.algorithm;
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import de.htwmaps.server.utils.FibonacciHeap;
+import de.htwmaps.server.algorithm.utils.FibonacciHeap;
 
 /**
  * @author Stanislaw Tartakowski

@@ -11,14 +11,18 @@ import de.htwmaps.server.algorithm.Node;
 import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
 
+/**
+ * 
+ * @author Thomas Altmayer, Tim Bartsch, Tobias Lana 
+ * 
+ */
 public class DBUtils {
 
 	private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE (cityName = ? OR is_in LIKE ?) AND nameValue = ?";
 	private final static String GETCITIESSTARTWITH_SELECT = "SELECT DISTINCT cityName FROM ways WHERE cityName LIKE ? ORDER BY cityName LIMIT 15";
 	private final static String GETSTREETSSTARTWITH_SELECT = "SELECT DISTINCT nameValue, cityName FROM ways WHERE (cityName = ? OR is_in LIKE ?) AND nameValue LIKE ? ORDER BY nameValue LIMIT 15";
 
-	private DBUtils() {
-	}
+	private DBUtils() { }
 
 	public static int getNodeId(String city, String street)
 			throws SQLException, NodeNotFoundException, MySQLException {

@@ -3,6 +3,13 @@ package de.htwmaps.server.db;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * Automatisch von Eclipse erstellt.
+ * Laed die Datenbank Verbindungsdaten aus der db.properties
+ * 
+ * @author Tim Bartsch
+ *
+ */
 public class DBProperties {
 	private static final String BUNDLE_NAME = "de.htwmaps.server.db.db"; //$NON-NLS-1$
 

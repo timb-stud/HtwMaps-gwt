@@ -1,4 +1,4 @@
-package de.htwmaps.server.utils;
+package de.htwmaps.server.algorithm.utils;
 
 
 /**

@@ -7,14 +7,12 @@ import java.sql.SQLException;
 import de.htwmaps.shared.exceptions.MySQLException;
 
 /**
- * Name: <code>MySQL</code>
- * <p>
- * Klasse gibt eine SQL Connection zurueck.
- * Aendern der Datenbank waehrend der Laufzeit nicht moeglich.
- * </p>
- * <ul>
- * 	 <li>@author Yassir Klos, Christian Rech, Tim Bartsch</li>
- * </ul>
+ * 
+ * @author Christan Rech, Tim Bartsch, Yassir Klos
+ * 
+ * Erstellt mit den Verbindungsdaten aus db.properties eine Connection
+ * zu einem Datenbank Server.
+ *
  */
 public class DBConnector {
 
@@ -23,6 +21,15 @@ public class DBConnector {
 	private static final String password = DBProperties.getString("DBConnector.password");
 	private static final String driver = DBProperties.getString("DBConnector.driver");
 
+	
+	/**
+	 * Erstellt mit den Verbindungsdaten aus db.properties eine Connection
+	 * zu einem Datenbank Server.
+	 * 
+	 * @return Connection
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	public static Connection getConnection() throws SQLException, MySQLException{
 		try {
 			Class.forName(driver).newInstance();

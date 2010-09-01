@@ -1,44 +1,58 @@
-package de.htwmaps.client.GUI;
+package de.htwmaps.client.GUI; 
 
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.htwmaps.server.db.RouteToText;
-
 public class SummaryPanel extends VerticalPanel {
 	
-	Grid summaryTable = new Grid(5,2);
+	private Label onMotorWay = new Label();
+	private Label onPrimary = new Label();
+	private Label onResidential = new Label();
+	private Label total = new Label();
+	
+	Grid summaryTable = new Grid(4,2);
 	
 	public SummaryPanel() {
 		summaryTable.setSize("280px", "10px");
-		summaryTable.setWidget(0, 0, new Label(StringConstant.FAHRZEIT));
-		summaryTable.setWidget(1, 0, new Label(StringConstant.WEGLAENGE));
-		summaryTable.setWidget(2, 0, new Label(StringConstant.AUTOBAHN));
-		summaryTable.setWidget(3, 0, new Label(StringConstant.LANDSTRASSE));
-		summaryTable.setWidget(4, 0, new Label(StringConstant.INNERORTS));
+		summaryTable.setWidget(0, 0, new Label(StringConstant.GESAMT));
+		summaryTable.setWidget(1, 0, new Label(StringConstant.AUTOBAHN));
+		summaryTable.setWidget(2, 0, new Label(StringConstant.LANDSTRASSE));
+		summaryTable.setWidget(3, 0, new Label(StringConstant.INNERORTS));
 
-		for (int i = 0; i < 5; i++) {
+		summaryTable.setWidget(0, 1, total);
+		summaryTable.setWidget(1, 1, onMotorWay);
+		summaryTable.setWidget(2, 1, onPrimary);
+		summaryTable.setWidget(3, 1, onResidential);
+		
+		for (int i = 0; i < 4; i++) {
 			summaryTable.getCellFormatter().setHorizontalAlignment(i, 1, HasHorizontalAlignment.ALIGN_RIGHT);
 		}
 		add(summaryTable);
 		setVisible(false);
 	}
 	
-//	public void setSummaryResult(RouteToText rtt) {
-//		summaryTable.setWidget(0, 1, new Label(rtt.getTotaltime()));
-//		summaryTable.setWidget(1, 1, new Label(rtt.getTotallengthString()));
-//		summaryTable.setWidget(2, 1, new Label(rtt.getAutobahnString()));
-//		summaryTable.setWidget(3, 1, new Label(rtt.getLandstrasseString()));
-//		summaryTable.setWidget(4, 1, new Label(rtt.getInnerOrtsString()));
-//	}
+	public void setOnMotorWay(String time, String distance){
+		onMotorWay.setText(distance + "  " + time);
+	}
 	
-	public void setSummaryResult() {
-		summaryTable.setWidget(0, 1, new Label(""));
-		summaryTable.setWidget(1, 1, new Label(""));
-		summaryTable.setWidget(2, 1, new Label(""));
-		summaryTable.setWidget(3, 1, new Label(""));
-		summaryTable.setWidget(4, 1, new Label(""));
+	public void setOnPrimary(String time, String distance){
+		onPrimary.setText(distance + "  " + time);
+	}
+	
+	public void setOnResidential(String time, String distance){
+		onResidential.setText(distance + "  " + time);
+	}
+	
+	public void setTotal(String time, String distance){
+		total.setText(distance + "  " + time);
+	}
+	
+	public void setFieldsEmpty() {
+		onMotorWay.setText("");
+		onPrimary.setText("");
+		onResidential.setText("");
+		total.setText("");
 	}
 }
