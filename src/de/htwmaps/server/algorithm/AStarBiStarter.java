@@ -1,6 +1,7 @@
 package de.htwmaps.server.algorithm;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import de.htwmaps.shared.exceptions.PathNotFoundException;
 
@@ -59,26 +60,19 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	/**
 	 * node list -> Node[] array
 	 */
-	public Node[] nodeToArray(AStarBiNode start, AStarBiNode goal) {
+	public LinkedList<Node> nodeToArray(AStarBiNode start, AStarBiNode goal) {
 		AStarBiNode tmp = start.getPredecessor() != null ? start : goal;
-		ArrayList<AStarBiNode> nodesContainer = new ArrayList<AStarBiNode>(1000);
+		LinkedList<Node> nodesContainer = new LinkedList<Node>();
 		while (tmp != null) {
 			nodesContainer.add(tmp);
 			tmp = tmp.getPredecessor();
 		}
-		if (start.getPredecessor() != null) {
-			Node[] result = nodesContainer.toArray(new Node[0]);
-			Node[] tmp2 = new Node[result.length];
-			for (int i = 0; i < result.length; i++) {
-				tmp2[i] = result[result.length - i - 1];
-			}
-			return tmp2;
-		}
-		return nodesContainer.toArray(new Node[0]);
+		//TODO umdrehen
+		return nodesContainer;
 	}
 	
 
-	public Node[] aStar(int startNodeID, int goalNodeID) throws PathNotFoundException {
+	public LinkedList<Node> aStar(int startNodeID, int goalNodeID) throws PathNotFoundException {
 		HashMap<Integer, AStarBiNode> Q = new HashMap<Integer, AStarBiNode>(graphData.getAllNodeIDs().length);
 
 		long time = System.currentTimeMillis();
@@ -112,7 +106,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		d0.interrupt();
 		d1.interrupt();
 		setAlorithmTime(System.currentTimeMillis() - time);
-		Node[] result = nodeToArray(start, goal);
+		LinkedList<Node> result = nodeToArray(start, goal);
 		AStarBi.count.set(0);
 		AStarBi.finished = false;
 		if (result.length == 1) {
@@ -122,7 +116,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	}
 	
 	@Override
-	public Node[] findShortestPath(int startNodeID, int goalNodeID)
+	public LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID)
 			throws PathNotFoundException {
 		setMotorwaySpeed(1);
 		setPrimarySpeed(1);
@@ -134,7 +128,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	}
 
 	@Override
-	public Node[] findFastestPath(int startNodeID, int goalNodeID,
+	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
 			int motorwaySpeed, int primarySpeed, int secondarySpeed,
 			int residentialSpeed, int roadSpeed, int livingStreetSpeed)
 			throws PathNotFoundException {
@@ -148,7 +142,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	}
 
 	@Override
-	public Node[] findFastestPath(int startNodeID, int goalNodeID,
+	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
 			int motorwaySpeed, int primarySpeed, int residentialSpeed)
 			throws PathNotFoundException {
 		setMotorwaySpeed(motorwaySpeed);
