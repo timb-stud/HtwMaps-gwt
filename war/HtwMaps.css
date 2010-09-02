@@ -25,6 +25,7 @@
 }
 
 .gwt-SuggestBoxPopup {
+	z-index: 2;
 	font-family: Verdana;
 }
 
@@ -60,7 +61,7 @@ div#map {
 }
 
 img#htwMapsLoad {
-	z-index: 2;
+	z-index: 3;
 	position: absolute;
 	width: 250px;
  	height: 250px;
@@ -74,9 +75,6 @@ img#htwMapsLoad {
 /** Eigene Style**/
 .controlsPanel {
 	float: left; 
-}
-
-.controlsPanel {
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 5px;
