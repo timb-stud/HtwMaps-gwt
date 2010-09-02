@@ -13,18 +13,14 @@ import de.htwmaps.shared.exceptions.PathNotFoundException;
 import de.htwmaps.shared.exceptions.SQLException;
 @RemoteServiceRelativePath("findPath")
 public interface FindPathService extends RemoteService {
-	OptPathData findShortestPathAStar(String startCity, String startStreet,
-			String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
+	OptPathData findShortestPathAStar(String[] cities, String[] streets) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
 
-	OptPathData findFastestPathAStar(String startCity, String startStreet,
-			String destCity, String destStreet, int motorwaySpeed,
+	OptPathData findFastestPathAStar(String[] cities, String[] streets, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
 
-	OptPathData findShortestPathAStarBi(String startCity, String startStreet,
-			String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
+	OptPathData findShortestPathAStarBi(String[] cities, String[] streets) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
 
-	OptPathData findFastestPathAStarBi(String startCity, String startStreet,
-			String destCity, String destStreet, int motorwaySpeed,
+	OptPathData findFastestPathAStarBi(String[] cities, String[] streets, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
 	
 	AllPathData buildAllPathData() throws MySQLException, SQLException;

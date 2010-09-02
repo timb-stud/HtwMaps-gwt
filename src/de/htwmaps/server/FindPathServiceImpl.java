@@ -1,6 +1,8 @@
 package de.htwmaps.server;
 
 
+import java.util.LinkedList;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.htwmaps.client.FindPathService;
@@ -33,83 +35,93 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 
 	
 	@Override
-	public OptPathData findShortestPathAStar(String startCity, String startStreet,
-			String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
+	public OptPathData findShortestPathAStar(String[] cities, String[] streets) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
 		ShortestPathAlgorithm spa = new AStar(gd);
-		return executeSearch(spa, gd, SHORTEST, startCity, startStreet, destCity, destStreet, 0, 0, 0);
+		return executeSearch(spa, gd, SHORTEST, cities, streets, 0, 0, 0);
 	}
 
 	@Override
-	public OptPathData findFastestPathAStar(String startCity, String startStreet,
-			String destCity, String destStreet, int motorwaySpeed,
+	public OptPathData findFastestPathAStar(String[] cities, String[] streets, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
 		ShortestPathAlgorithm spa = new AStar(gd);
-		return executeSearch(spa, gd, FASTEST, startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed);
+		return executeSearch(spa, gd, FASTEST, cities, streets, motorwaySpeed, primarySpeed, residentialSpeed);
 	}
 
 	@Override
-	public OptPathData findShortestPathAStarBi(String startCity,
-			String startStreet, String destCity, String destStreet) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
+	public OptPathData findShortestPathAStarBi(String[] cities, String[] streets) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
 		ShortestPathAlgorithm spa = new AStarBiStarter(gd);
-		return executeSearch(spa, gd, SHORTEST, startCity, startStreet, destCity, destStreet, 0, 0, 0);
+		return executeSearch(spa, gd, SHORTEST, cities, streets, 0, 0, 0);
 	}
 
 	@Override
-	public OptPathData findFastestPathAStarBi(String startCity,
-			String startStreet, String destCity, String destStreet,
+	public OptPathData findFastestPathAStarBi(String[] cities, String[] streets,
 			int motorwaySpeed, int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
 		ShortestPathAlgorithm spa = new AStarBiStarter(gd);
-		return executeSearch(spa, gd, FASTEST, startCity, startStreet, destCity, destStreet, motorwaySpeed, primarySpeed, residentialSpeed);
+		return executeSearch(spa, gd, FASTEST, cities, streets, motorwaySpeed, primarySpeed, residentialSpeed);
 	}
 
 	
 	private OptPathData executeSearch(ShortestPathAlgorithm spa,
-			GraphData gd, int option, String startCity, String startStreet,
-			String destCity, String destStreet, int motorwaySpeed,
+			GraphData gd, int option, String[] cities, String[] streets, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, MySQLException, PathNotFoundException, SQLException {
-		try{
-			int startNodeID = DBUtils.getNodeId(startCity, startStreet);
-			if (startNodeID == -1) {
-				throw new NodeNotFoundException("Falsche Startdaten");
-			}
-			int goalNodeID = DBUtils.getNodeId(destCity, destStreet);
-			if (goalNodeID == -1) {
-				throw new NodeNotFoundException("Falsche Zieldaten");
-			}
-			float h = 0.1f; //20 km dicke
-			DBAdapterRotativeRectangle dbap;
-			dbap = new DBAdapterRotativeRectangle(gd);
-			dbap.fillGraphData(startNodeID, goalNodeID, h);
-			try {
-				switch (option) {
-				case FASTEST: nodes = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
-				case SHORTEST: nodes = spa.findShortestPath(startNodeID, goalNodeID); break;
+		
+		LinkedList<Node> nodeList = new LinkedList<Node>();
+		LinkedList<Node> result = new LinkedList<Node>();
+		DBAdapterRotativeRectangle dbap = null;
+		for(int i=0; i < cities.length -1; i++){
+			try{
+				int startNodeID = DBUtils.getNodeId(cities[i], streets[i]);
+				if (startNodeID == -1) {
+					throw new NodeNotFoundException("Falsche Startdaten");
 				}
-			} catch (PathNotFoundException e) {
-				System.out.print("2. versuch");
-				dbap.fillGraphData(startNodeID, goalNodeID, h + 1.4f);
+				int goalNodeID = DBUtils.getNodeId(cities[i+1], streets[i+1]);
+				if (goalNodeID == -1) {
+					throw new NodeNotFoundException("Falsche Zieldaten");
+				}
+				float h = 0.1f; //20 km dicke
+				dbap = new DBAdapterRotativeRectangle(gd);
+				dbap.fillGraphData(startNodeID, goalNodeID, h);
 				try {
 					switch (option) {
-					case FASTEST: nodes = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
-					case SHORTEST: nodes = spa.findShortestPath(startNodeID, goalNodeID); break;
+					case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
+					case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
 					}
-				} catch (PathNotFoundException ex) {
-					System.out.println(" fehlgeschlagen");
-					throw new PathNotFoundException("Es tut uns Leid. Dieser Weg kann nicht erfasst werden.");
+				} catch (PathNotFoundException e) {
+					System.out.print("2. versuch");
+					dbap.fillGraphData(startNodeID, goalNodeID, h + 1.4f);
+					try {
+						switch (option) {
+						case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
+						case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
+						}
+					} catch (PathNotFoundException ex) {
+						System.out.println(" fehlgeschlagen");
+						throw new PathNotFoundException("Es tut uns Leid. Dieser Weg kann nicht erfasst werden.");
+					}
 				}
+				if(i > 0)
+					result.removeLast();
+				nodeList.addAll(0, result);
+			}catch(java.sql.SQLException e){
+				throw new SQLException();
 			}
-			edges	= ShortestPathAlgorithm.getResultEdges(nodes);
-			return buildOptPathData(nodes, spa, dbap);
-		}catch(java.sql.SQLException e){
+		}
+		nodes = nodeList.toArray(new Node[0]);
+		edges = ShortestPathAlgorithm.getResultEdges(nodes);
+		OptPathData opd = null;
+		try {
+			opd = buildOptPathData(spa, dbap);
+		} catch (java.sql.SQLException e) {
 			throw new SQLException();
 		}
+		return opd;
 	}
 	
-	private OptPathData buildOptPathData(Node[] nodes, ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap) throws java.sql.SQLException, MySQLException{
+	private OptPathData buildOptPathData(ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap) throws java.sql.SQLException, MySQLException{
 		float[] lats = new float[nodes.length];
 		float[] lons = new float[nodes.length];
 		for(int i=0; i<nodes.length;i++){

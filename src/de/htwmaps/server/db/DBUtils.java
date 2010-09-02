@@ -18,9 +18,9 @@ import de.htwmaps.shared.exceptions.NodeNotFoundException;
  */
 public class DBUtils {
 
-	private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE (cityName = ? OR is_in LIKE ?) AND nameValue = ?";
-	private final static String GETCITIESSTARTWITH_SELECT = "SELECT DISTINCT cityName FROM ways WHERE cityName LIKE ? ORDER BY cityName LIMIT 15";
-	private final static String GETSTREETSSTARTWITH_SELECT = "SELECT DISTINCT nameValue, cityName FROM ways WHERE (cityName = ? OR is_in LIKE ?) AND nameValue LIKE ? ORDER BY nameValue LIMIT 15";
+	private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE is_in LIKE ? AND cityName = ? AND nameValue = ?";
+	private final static String GETCITIESSTARTWITH_SELECT = "SELECT cityName, is_in FROM ways WHERE cityName LIKE ? GROUP BY cityNodeID";
+	private final static String GETSTREETSSTARTWITH_SELECT = "SELECT nameValue, cityName FROM ways WHERE (cityName = ? AND is_in LIKE ? AND nameValue LIKE ?) OR (is_in LIKE ? AND nameValue LIKE ?)";
 
 	private DBUtils() { }
 
@@ -28,9 +28,15 @@ public class DBUtils {
 			throws SQLException, NodeNotFoundException, MySQLException {
 		Connection con = DBConnector.getConnection();
 		PreparedStatement select = con.prepareStatement(GETNODEID_SELECT);
-		select.setString(1, city);
-		select.setString(2, "%" + city + "%");
-		select.setString(3, street);
+		if (city.substring(0, city.indexOf(",")).equals(street.substring(street.indexOf(",") + 1))) {
+			select.setString(1, city.substring(city.indexOf(",") + 1));
+			select.setString(2, city.substring(0, city.indexOf(",")));
+			select.setString(3, street.substring(0, street.indexOf(",")));
+		} else {
+			select.setString(1, city.substring(0, city.indexOf(",")) + "%");
+			select.setString(2, street.substring(street.indexOf(",") + 1));
+			select.setString(3, street.substring(0, street.indexOf(",")));
+		};
 		ResultSet rs = select.executeQuery();
 		if(!rs.next()) {
 			return -1;
@@ -55,7 +61,7 @@ public class DBUtils {
 		rs.beforeFirst();
 		String[] result = new String[tableLength];
 		for (int i = 0; rs.next(); i++) {
-			result[i] = rs.getString(1);
+			result[i] = rs.getString(1) + "," + rs.getString(2);
 		}
 		select.close();
 		con.close();
@@ -70,9 +76,11 @@ public class DBUtils {
 		Connection con = DBConnector.getConnection();
 		PreparedStatement select = con
 				.prepareStatement(GETSTREETSSTARTWITH_SELECT);
-		select.setString(1, city);
-		select.setString(2, "%" + city + "%");
+		select.setString(1, city.substring(0, city.indexOf(",")));
+		select.setString(2, city.substring(city.indexOf(",") + 1));
 		select.setString(3, s + "%");
+		select.setString(4, city);
+		select.setString(5, s + "%");
 		ResultSet rs = select.executeQuery();
 		if (!rs.next())
 			return null;

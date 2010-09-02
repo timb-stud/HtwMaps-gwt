@@ -1,5 +1,7 @@
 package de.htwmaps.server.algorithm;
 
+import java.util.LinkedList;
+
 import de.htwmaps.shared.exceptions.PathNotFoundException;
 
 
@@ -12,10 +14,10 @@ public abstract class ShortestPathAlgorithm {
 	public static final int RESIDENTIAL = 10;
 	public static final int ROAD = 11;
 	public static final int LIVING_STREET = 13;
-	private int motorwaySpeed = 130; //Autobahn
-	private int primarySpeed = 80; //Landstraﬂe
+	private int motorwaySpeed = 100; //Autobahn
+	private int primarySpeed = 70; //Landstraﬂe
 	private int secondarySpeed = 60; //Ortsverbindung
-	private int residentialSpeed = 45; //Innerorts
+	private int residentialSpeed = 40; //Innerorts
 	private int roadSpeed = 50; //unclassified
 	private int livingStreetSpeed = 5; //Spielstrasse
 	
@@ -31,9 +33,9 @@ public abstract class ShortestPathAlgorithm {
 		this.graphData = gd;
 	}
 	
-	public abstract Node[] findShortestPath(int startNodeID, int goalNodeID) throws PathNotFoundException;
+	public abstract LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID) throws PathNotFoundException;
 	
-	public abstract Node[] findFastestPath(int startNodeID, 
+	public abstract LinkedList<Node> findFastestPath(int startNodeID, 
 									int goalNodeID, 
 									int motorwaySpeed, 
 									int primarySpeed,
@@ -43,7 +45,7 @@ public abstract class ShortestPathAlgorithm {
 									int livingStreetSpeed) throws PathNotFoundException;
 	
 	
-	public abstract Node[] findFastestPath(int startNodeID, 
+	public abstract LinkedList<Node> findFastestPath(int startNodeID, 
 									int goalNodeID, 
 									int motorwaySpeed, 
 									int primarySpeed,

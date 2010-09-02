@@ -36,7 +36,7 @@ public class LocationFlexTable extends VerticalPanel {
 		add(flexTable);
 	}
 
-	
+	//TODO wiso statisch?
 	protected static void addRow(int row) {
 		locations.add(row, new LocationsObjects(String.valueOf(row + 1)));
 		if (row == flexTable.getRowCount() - 1) {
@@ -55,6 +55,32 @@ public class LocationFlexTable extends VerticalPanel {
 			refreshNumbersAdd(row + 1);
 		}
 		setVisibleRemove(true);
+	}
+	
+	public String[] getCities(){
+		String[] cities = new String[locations.size()];
+		for(int i=0; i< cities.length; i++){
+			cities[i] = locations.get(i).getCitySuggestBox().getText().trim();
+		}
+		return cities;
+	}
+	
+	public String[] getStreets(){
+		String[] streets = new String[locations.size()];
+		for(int i=0; i< streets.length;i++){
+			streets[i] = locations.get(i).getStreetSuggestBox().getText().trim();
+		}
+		return streets;
+	}
+	
+	public void removeEmptyLocations(){
+		for(int i=0; i<locations.size(); i++){
+			String city = locations.get(i).getCitySuggestBox().getText().trim();
+			String street = locations.get(i).getStreetSuggestBox().getText().trim();
+			if(city.isEmpty() || street.isEmpty()){
+				locations.remove(i);
+			}
+		}
 	}
 	
 	private static void refreshNumbersAdd(int row) {
