@@ -65,10 +65,18 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		while (tmp != null) {
 			nodesContainer.add(tmp);
 			tmp = tmp.getPredecessor();
+		}	
+		if (start.getPredecessor() != null) {
+			Node first = nodesContainer.getFirst();
+			int i = 0;
+			while (!first.equals(nodesContainer.getLast())) {
+				nodesContainer.add(i, nodesContainer.removeLast()); 
+				i++;
+			} 
 		}
-		//TODO umdrehen
 		return nodesContainer;
 	}
+	
 	
 
 	public LinkedList<Node> aStar(int startNodeID, int goalNodeID) throws PathNotFoundException {
