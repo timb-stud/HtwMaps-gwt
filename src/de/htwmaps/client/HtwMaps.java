@@ -49,27 +49,13 @@ public class HtwMaps implements EntryPoint {
 		controlsPanel.getLocation().getLocations().get(1).getStreetHandler().clearContent();
 	}
 	
-	//TODO aufteilen in zwei methoden
-	boolean checkInputLocation (String startCity, String startStreet, String destCity, String destStreet) {
-		boolean check = false;
-		if (startCity.equals("") || startCity == null) {
-			loadImageOff();
-			setTextAndStyle(StringConstant.STARTORT, "statusLabelError"); //TODO verschieben
-			check = true;
-		} else if (startStreet.equals("") || startStreet == null) {
-			loadImageOff();
-			setTextAndStyle(StringConstant.STARTSTRASSE, "statusLabelError");
-			check = true;
-		} else if (destCity.equals("") || destCity == null) {
-			loadImageOff();
-			setTextAndStyle(StringConstant.ZIELORT, "statusLabelError");
-			check = true;
-		} else if (destStreet.equals("") || destStreet == null) {	
-			loadImageOff();
-			setTextAndStyle(StringConstant.ZIELSTRASSE, "statusLabelError");
-			check = true;
+	int findEmptyField (String[] tab) {
+		for(int i=0; i< tab.length; i++){
+			if(tab[i] == null || tab[i].isEmpty()){
+				return i;
+			}
 		}
-		return check;
+		return -1;
 	}
 	
 	//TODO englische namen

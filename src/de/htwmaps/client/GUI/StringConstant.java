@@ -13,11 +13,6 @@ public class StringConstant {
 	public static final String F_LANDSTRASSE = "Falsche Geschwindigkeitsange bei Landstrasse!";
 	public static final String F_INNERORTS = "Falsche Geschwindigkeitsange bei Innerorts!";
 	
-	public static final String STARTORT = "Bitte geben Sie einen Startort ein.";
-	public static final String STARTSTRASSE = "Bitte geben Sie eine Startstrasse ein.";
-	public static final String ZIELORT = "Bitte geben Sie einen Zielort ein.";
-	public static final String ZIELSTRASSE = "Bitte geben Sie eine Zielstrasse ein.";
-	
 	public static final String ROUTE_BERECHNEN= "Route berechnen";
 	public static final String OPTIONEN_ANZEIGEN = "Optionen anzeigen";
 	public static final String OPTIONEN_AUSBLENDEN = "Optionen anzeigen";

@@ -1,7 +1,7 @@
 package de.htwmaps.server.algorithm;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import de.htwmaps.server.algorithm.utils.FibonacciHeap;
 import de.htwmaps.shared.exceptions.PathNotFoundException;
@@ -39,7 +39,7 @@ public class AStar extends ShortestPathAlgorithm {
 	 *             if no way from start to goal is found. This exception will be
 	 *             thrown.
 	 */
-	private ArrayList<AStarNode> aStar(int startNodeID, int goalNodeID, int maxSpeed) throws PathNotFoundException {
+	private LinkedList<AStarNode> aStar(int startNodeID, int goalNodeID, int maxSpeed) throws PathNotFoundException {
 		long time = System.currentTimeMillis();
 		AStarNode start = allNodes.get(startNodeID);
 		AStarNode goal = allNodes.get(goalNodeID);
@@ -88,8 +88,8 @@ public class AStar extends ShortestPathAlgorithm {
 	 * @param goal
 	 *            the goal Node of the searched way.
 	 */
-	private ArrayList<AStarNode> reconstructPath(AStarNode goal) {
-		ArrayList<AStarNode> path = new ArrayList<AStarNode>();
+	private LinkedList<AStarNode> reconstructPath(AStarNode goal) {
+		LinkedList<AStarNode> path = new LinkedList<AStarNode>();
 		while (goal != null) {
 			path.add(goal);
 			goal = goal.getPredeccessor();
