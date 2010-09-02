@@ -34,13 +34,6 @@ public class CalcRouteClickHandler implements ClickHandler {
 		if (mainModule.checkInputLocation(startCity, startStreet, destCity, destStreet)) {
 			mainModule.controlsPanel.setCalcRouteButton(true);
 		} else {
-			if (startStreet.indexOf(",") != -1) {
-				startStreet = startStreet.substring(0, startStreet.indexOf(","));
-			}
-			if (destStreet.indexOf(",") != -1) {
-				destStreet = destStreet.substring(0, destStreet.indexOf(","));
-			}
-
 			boolean shortestPath = mainModule.controlsPanel.getOptionsPanel().getShortestRadioButton().getValue();
 			boolean aStarBi = mainModule.controlsPanel.getOptionsPanel().getaStarBiRadioButton().getValue();
 
