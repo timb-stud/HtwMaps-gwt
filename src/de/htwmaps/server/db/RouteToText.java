@@ -35,7 +35,8 @@ public class RouteToText {
 	private double landstrasseTime = 0;
 	private double innerOrtstime = 0;
 
-	private DecimalFormat df = new DecimalFormat("0.00");
+	private DecimalFormat df_0_00 = new DecimalFormat("0.00");
+	private DecimalFormat df_0 = new DecimalFormat("0");
 
 	private ArrayList<StreetDetails> info = null;
 
@@ -262,8 +263,9 @@ public class RouteToText {
 		DecimalFormat df = new DecimalFormat("00");
 		int hours = (int) (lTime / (60 * 60));
 		int minutes = (int) (lTime / 60 - (hours * 60));
-		int seconds = (int) (lTime % 60);
-		return (df.format(hours) + ":" + df.format(minutes) + ":" + df.format(seconds));
+//		int seconds = (int) (lTime % 60);
+//		return (df.format(hours) + ":" + df.format(minutes) + ":" + df.format(seconds));
+		return (df.format(hours) + ":" + df.format(minutes));
 	}
 
 	/**
@@ -283,13 +285,13 @@ public class RouteToText {
 		}
 
 		sb.append("\nAnzahl Strassen: " + i + " Gesamt Entfernung: "
-				+ df.format((totallength / 1000)) + " km " + " Gesamt Dauer: "
+				+ df_0_00.format((totallength / 1000)) + " km " + " Gesamt Dauer: "
 				+ genarateTime(totaltime) + "\n\n");
-		sb.append("Autobahn: ").append(df.format(autobahn / 1000)).append(
+		sb.append("Autobahn: ").append(df_0_00.format(autobahn / 1000)).append(
 				" km Dauer: ").append(genarateTime(autobahnTime)).append("\n");
-		sb.append("Landstraße: ").append(df.format(landstrasse / 1000)).append(
+		sb.append("Landstraße: ").append(df_0_00.format(landstrasse / 1000)).append(
 				" km Dauer: ").append(genarateTime(landstrasseTime)).append("\n");
-		sb.append("Innerorts: ").append(df.format(innerOrts / 1000)).append(
+		sb.append("Innerorts: ").append(df_0_00.format(innerOrts / 1000)).append(
 				" km Dauer: ").append(genarateTime(innerOrtstime)).append("\n");
 
 		return sb.toString();
@@ -302,7 +304,7 @@ public class RouteToText {
 	}
 
 	public String getTotallengthString() {
-		return (totallength > 1000) ? df.format((totallength / 1000)) + " km" : df.format(totallength) + " m";
+		return (totallength > 1000) ? df_0_00.format((totallength / 1000)) + " km" : df_0.format(totallength) + " m";
 	}
 
 	public double getAutobahn() {
@@ -310,7 +312,7 @@ public class RouteToText {
 	}
 
 	public String getAutobahnString() {
-		return (autobahn > 1000) ? df.format((autobahn / 1000)) + " km" : df.format(autobahn)+ " m";
+		return (autobahn > 1000) ? df_0_00.format((autobahn / 1000)) + " km" : df_0.format(autobahn)+ " m";
 	}
 
 	public double getLandstrasse() {
@@ -318,7 +320,7 @@ public class RouteToText {
 	}
 
 	public String getLandstrasseString() {
-		return (landstrasse > 1000) ? df.format((landstrasse / 1000)) + " km" : df.format(landstrasse) + " m";
+		return (landstrasse > 1000) ? df_0_00.format((landstrasse / 1000)) + " km" : df_0.format(landstrasse) + " m";
 	}
 
 	public double getInnerOrts() {
@@ -326,7 +328,7 @@ public class RouteToText {
 	}
 
 	public String getInnerOrtsString() {
-		return (innerOrts > 1000) ? df.format((innerOrts / 1000)) + " km" : df.format(innerOrts) + " m";
+		return (innerOrts > 1000) ? df_0_00.format((innerOrts / 1000)) + " km" : df_0.format(innerOrts) + " m";
 	}
 
 	public String getTotaltime() {

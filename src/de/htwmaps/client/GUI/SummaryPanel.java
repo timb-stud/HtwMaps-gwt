@@ -35,19 +35,19 @@ public class SummaryPanel extends VerticalPanel {
 	}
 	
 	public void setOnMotorWay(String time, String distance){
-		onMotorWay.setText(distance + "   -  " + time);
+		onMotorWay.setText(distance + "   -   " + time);
 	}
 	
 	public void setOnPrimary(String time, String distance){
-		onPrimary.setText(distance + "   -  " + time);
+		onPrimary.setText(distance + "   -   " + time);
 	}
 	
 	public void setOnResidential(String time, String distance){
-		onResidential.setText(distance + "   -  " + time);
+		onResidential.setText(distance + "   -   " + time);
 	}
 	
 	public void setTotal(String time, String distance){
-		total.setText(distance + "  -   " + time);
+		total.setText(distance + "   -   " + time);
 	}
 	
 	public void setFieldsEmpty() {
