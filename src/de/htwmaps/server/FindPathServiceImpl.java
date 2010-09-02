@@ -70,6 +70,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, MySQLException, PathNotFoundException, SQLException {
 		
 		LinkedList<Node> nodeList = new LinkedList<Node>();
+		LinkedList<Node> result = new LinkedList<Node>();
 		DBAdapterRotativeRectangle dbap = null;
 		for(int i=0; i < cities.length -1; i++){
 			try{
@@ -86,37 +87,30 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				dbap.fillGraphData(startNodeID, goalNodeID, h);
 				try {
 					switch (option) {
-					case FASTEST: nodeList.addAll(spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed)); break;
-					case SHORTEST: nodeList.add(spa.findShortestPath(startNodeID, goalNodeID)); break;
+					case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
+					case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
 					}
 				} catch (PathNotFoundException e) {
 					System.out.print("2. versuch");
 					dbap.fillGraphData(startNodeID, goalNodeID, h + 1.4f);
 					try {
 						switch (option) {
-						case FASTEST: nodeList.add(spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed)); break;
-						case SHORTEST: nodeList.add(spa.findShortestPath(startNodeID, goalNodeID)); break;
+						case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
+						case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
 						}
 					} catch (PathNotFoundException ex) {
 						System.out.println(" fehlgeschlagen");
 						throw new PathNotFoundException("Es tut uns Leid. Dieser Weg kann nicht erfasst werden.");
 					}
 				}
+				if(i > 0)
+					result.removeLast();
+				nodeList.addAll(0, result);
 			}catch(java.sql.SQLException e){
 				throw new SQLException();
 			}
 		}
-		int n = 0;
-		for(Node[] ns: nodeList){
-			n += ns.length;
-		}
-		nodes = new Node[n];
-		int i = 0;
-		for(Node[] ns: nodeList){
-			for(Node node: ns){
-				nodes[i++] = node;
-			}
-		}
+		nodes = nodeList.toArray(new Node[0]);
 		edges = ShortestPathAlgorithm.getResultEdges(nodes);
 		OptPathData opd = null;
 		try {

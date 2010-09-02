@@ -39,7 +39,7 @@ public class AStar extends ShortestPathAlgorithm {
 	 *             if no way from start to goal is found. This exception will be
 	 *             thrown.
 	 */
-	private LinkedList<AStarNode> aStar(int startNodeID, int goalNodeID, int maxSpeed) throws PathNotFoundException {
+	private LinkedList<Node> aStar(int startNodeID, int goalNodeID, int maxSpeed) throws PathNotFoundException {
 		long time = System.currentTimeMillis();
 		AStarNode start = allNodes.get(startNodeID);
 		AStarNode goal = allNodes.get(goalNodeID);
@@ -88,8 +88,8 @@ public class AStar extends ShortestPathAlgorithm {
 	 * @param goal
 	 *            the goal Node of the searched way.
 	 */
-	private LinkedList<AStarNode> reconstructPath(AStarNode goal) {
-		LinkedList<AStarNode> path = new LinkedList<AStarNode>();
+	private LinkedList<Node> reconstructPath(AStarNode goal) {
+		LinkedList<Node> path = new LinkedList<Node>();
 		while (goal != null) {
 			path.add(goal);
 			goal = goal.getPredeccessor();
@@ -195,7 +195,7 @@ public class AStar extends ShortestPathAlgorithm {
 	 * 
 	 */
 	@Override
-	public Node[] findFastestPath(int startNodeID, int goalNodeID,
+	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
 			int motorwaySpeed, int primarySpeed, int secondarySpeed,
 			int residentialSpeed, int roadSpeed, int livingStreetSpeed)
 			throws PathNotFoundException {
@@ -211,14 +211,14 @@ public class AStar extends ShortestPathAlgorithm {
 		maxSpeed = getMax(speeds);
 		buildNodes();
 		buildEdges(motorwaySpeed, primarySpeed, secondarySpeed, residentialSpeed, roadSpeed, livingStreetSpeed);
-		return aStar(startNodeID, goalNodeID, maxSpeed).toArray(new Node[0]);
+		return aStar(startNodeID, goalNodeID, maxSpeed);
 	}
 
 	/**
 	 * 
 	 */
 	@Override
-	public Node[] findFastestPath(int startNodeID, int goalNodeID,
+	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
 			int motorwaySpeed, int primarySpeed, int residentialSpeed)
 			throws PathNotFoundException {
 		
@@ -242,12 +242,12 @@ public class AStar extends ShortestPathAlgorithm {
 	}
 
 	@Override
-	public Node[] findShortestPath(int startNodeID, int goalNodeID)
+	public LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID)
 			throws PathNotFoundException {
 		buildNodes();
 		buildEdges();
 		int maxSpeed = 1;
-		return aStar(startNodeID, goalNodeID, maxSpeed).toArray(new Node[0]);
+		return aStar(startNodeID, goalNodeID, maxSpeed);
 	}
 	
 	

@@ -1,5 +1,4 @@
 package de.htwmaps.server.algorithm;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -109,7 +108,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		LinkedList<Node> result = nodeToArray(start, goal);
 		AStarBi.count.set(0);
 		AStarBi.finished = false;
-		if (result.length == 1) {
+		if (result.size() == 1) {
 			throw new PathNotFoundException("Weg nicht gefunden.");
 		}
 		return result;
