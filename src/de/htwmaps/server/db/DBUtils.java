@@ -19,6 +19,7 @@ import de.htwmaps.shared.exceptions.NodeNotFoundException;
 public class DBUtils {
 
 	private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE is_in LIKE ? AND cityName = ? AND nameValue = ?";
+	private final static String GETLAT_LON_SELECT = "SELECT lat, lon FROM nodes WHERE ID = ?";
 	private final static String GETCITIESSTARTWITH_SELECT = "SELECT cityName, is_in FROM ways WHERE cityName LIKE ? GROUP BY cityNodeID";
 	private final static String GETSTREETSSTARTWITH_SELECT = "SELECT nameValue, cityName FROM ways WHERE (cityName = ? AND is_in LIKE ? AND nameValue LIKE ?) OR (is_in LIKE ? AND nameValue LIKE ?)";
 
@@ -28,15 +29,19 @@ public class DBUtils {
 			throws SQLException, NodeNotFoundException, MySQLException {
 		Connection con = DBConnector.getConnection();
 		PreparedStatement select = con.prepareStatement(GETNODEID_SELECT);
-		if (city.substring(0, city.indexOf(",")).equals(street.substring(street.indexOf(",") + 1))) {
-			select.setString(1, city.substring(city.indexOf(",") + 1));
-			select.setString(2, city.substring(0, city.indexOf(",")));
-			select.setString(3, street.substring(0, street.indexOf(",")));
+		if (city.indexOf(",") != -1) {
+			if (city.substring(0, city.indexOf(",")).equals(street.substring(street.indexOf(",") + 1))) {
+				select.setString(1, city.substring(city.indexOf(",") + 1));
+				select.setString(2, city.substring(0, city.indexOf(",")));
+			} else {
+				select.setString(1, city.substring(0, city.indexOf(",")) + "%");
+				select.setString(2, street.substring(street.indexOf(",") + 1));
+			}
 		} else {
-			select.setString(1, city.substring(0, city.indexOf(",")) + "%");
+			select.setString(1, "");
 			select.setString(2, street.substring(street.indexOf(",") + 1));
-			select.setString(3, street.substring(0, street.indexOf(",")));
-		};
+		}
+		select.setString(3, street.substring(0, street.indexOf(",")));
 		ResultSet rs = select.executeQuery();
 		if(!rs.next()) {
 			return -1;
@@ -45,6 +50,22 @@ public class DBUtils {
 		select.close();
 		con.close();
 		return nodeID;
+	}
+
+	public static String getLatLon(long startNodeID) throws SQLException,
+			MySQLException {
+		Connection con = DBConnector.getConnection();
+		PreparedStatement select = con
+				.prepareStatement(GETLAT_LON_SELECT);
+		select.setLong(1, startNodeID);
+		ResultSet rs = select.executeQuery();
+		if (!rs.next()) {
+			return null;
+		}
+		String result = rs.getString(1) + "|" + rs.getString(2);
+		select.close();
+		con.close();
+		return result;
 	}
 
 	public static String[] getCitiesStartsWith(String s) throws SQLException,
@@ -61,7 +82,11 @@ public class DBUtils {
 		rs.beforeFirst();
 		String[] result = new String[tableLength];
 		for (int i = 0; rs.next(); i++) {
-			result[i] = rs.getString(1) + "," + rs.getString(2);
+			if (rs.getString(2).equals("")) {
+				result[i] = rs.getString(1);
+			} else {
+				result[i] = rs.getString(1) + "," + rs.getString(2);	
+			}
 		}
 		select.close();
 		con.close();
@@ -76,8 +101,13 @@ public class DBUtils {
 		Connection con = DBConnector.getConnection();
 		PreparedStatement select = con
 				.prepareStatement(GETSTREETSSTARTWITH_SELECT);
-		select.setString(1, city.substring(0, city.indexOf(",")));
-		select.setString(2, city.substring(city.indexOf(",") + 1));
+		if (city.indexOf(",") != -1) {
+			select.setString(1, city.substring(0, city.indexOf(",")));
+			select.setString(2, city.substring(city.indexOf(",") + 1));
+		} else {
+			select.setString(1, city);
+			select.setString(2, "");
+		}
 		select.setString(3, s + "%");
 		select.setString(4, city);
 		select.setString(5, s + "%");

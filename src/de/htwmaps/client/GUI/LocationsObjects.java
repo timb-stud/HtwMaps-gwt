@@ -35,9 +35,11 @@ public class LocationsObjects {
 		streetHandler = new StreetSuggestionKeyUpHandler(cityStreetSuggestSvc, streetSuggestOracle, citySuggestBox);
 		citySuggestBox.getTextBox().addKeyUpHandler(cityHandler);
 		streetSuggestBox.getTextBox().addKeyUpHandler(streetHandler);
+		citySuggestBox.setLimit(20);
+		streetSuggestBox.setLimit(20);
 		
-		citySuggestBox.setSize("80px", "12px");
-		streetSuggestBox.setSize("120px", "12px");
+		citySuggestBox.setSize("80px", "15px");
+		streetSuggestBox.setSize("120px", "15px");
 		addHandler = new AddHandler(Integer.parseInt(label));
 		addButton.setSize("25px", "25px");
 		addButton.addClickHandler(addHandler);

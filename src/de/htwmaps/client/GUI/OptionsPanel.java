@@ -35,28 +35,28 @@ public class OptionsPanel extends VerticalPanel {
 		wegPanel.add(fastestRadioButton);
 		wegPanel.add(shortestRadioButton);
 		fastestRadioButton.setValue(true);
-		wegPanel.setSize("300px", "10px");
+		wegPanel.setSize("300px", "15px");
 		wegPanel.setCellHorizontalAlignment(fastestRadioButton, HasHorizontalAlignment.ALIGN_LEFT);
 		wegPanel.setCellHorizontalAlignment(shortestRadioButton, HasHorizontalAlignment.ALIGN_CENTER);
 		add(wegLabel);
 		add(wegPanel);
 		
 		//Speed
-		speedAutobPanel.setSize("250px", "10px");
-		motorwaySpeedTextBox.setSize("40px", "10px");
+		speedAutobPanel.setSize("250px", "15px");
+		motorwaySpeedTextBox.setSize("40px", "15px");
 		motorwaySpeedTextBox.setText("100");
 		speedAutobPanel.add(motorwaySpeedLabel);
 		speedAutobPanel.add(motorwaySpeedTextBox);
 		speedAutobPanel.setCellHorizontalAlignment(motorwaySpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
-		speedLandPanel.setSize("250px", "10px");
-		primarySpeedTextBox.setSize("40px", "10px");
+		speedLandPanel.setSize("250px", "15px");
+		primarySpeedTextBox.setSize("40px", "15px");
 		primarySpeedTextBox.setText("60");
 		speedLandPanel.add(primarySpeedLabel);
 		speedLandPanel.add(primarySpeedTextBox);
 		speedLandPanel.setCellHorizontalAlignment(primarySpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
-		residentialSpeedTextBox.setSize("40px", "10px");
+		residentialSpeedTextBox.setSize("40px", "15px");
 		residentialSpeedTextBox.setText("40");
-		residentialSpeedPanel.setSize("250px", "10px");
+		residentialSpeedPanel.setSize("250px", "15px");
 		residentialSpeedPanel.add(residentialSpeedLabel);
 		residentialSpeedPanel.add(residentialSpeedTextBox);
 		residentialSpeedPanel.setCellHorizontalAlignment(residentialSpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
@@ -70,7 +70,7 @@ public class OptionsPanel extends VerticalPanel {
 		algoPanel.add(aStarRadioButton);
 		algoPanel.add(aStarBiRadioButton);
 		aStarRadioButton.setValue(true);
-		algoPanel.setSize("200px", "10px");
+		algoPanel.setSize("200px", "15px");
 		algoPanel.setCellHorizontalAlignment(aStarRadioButton, HasHorizontalAlignment.ALIGN_LEFT);
 		algoPanel.setCellHorizontalAlignment(aStarBiRadioButton, HasHorizontalAlignment.ALIGN_RIGHT);
 		add(algoLabel);

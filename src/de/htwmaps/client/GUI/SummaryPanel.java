@@ -16,7 +16,7 @@ public class SummaryPanel extends VerticalPanel {
 	Grid summaryTable = new Grid(4,2);
 	
 	public SummaryPanel() {
-		summaryTable.setSize("250px", "10px");
+		summaryTable.setSize("250px", "15px");
 		summaryTable.setWidget(0, 0, new HTML(StringConstant.GESAMT));
 		summaryTable.setWidget(1, 0, new Label(StringConstant.AUTOBAHN));
 		summaryTable.setWidget(2, 0, new Label(StringConstant.LANDSTRASSE));

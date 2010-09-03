@@ -10,13 +10,15 @@ import de.htwmaps.shared.OptPathData;
 
 public class CalcRouteClickHandler implements ClickHandler {
 	HtwMaps mainModule;
-	
+	static long startTime;
+
 	public CalcRouteClickHandler(HtwMaps module) {
 		mainModule = module;
 	}
 
 	@Override
 	public void onClick(ClickEvent event) {
+		startTime = System.currentTimeMillis();
 		mainModule.resetFields();
 		mainModule.loadImageOn();
 		
@@ -73,14 +75,17 @@ public class CalcRouteClickHandler implements ClickHandler {
 				}
 			}else{
 				mainModule.loadImageOff();
-				HtwMaps.setTextAndStyle("Leeres Straﬂenfeld: " + emptyStreet, "statusLabelError");
+				HtwMaps.setTextAndStyle("Leeres Stra√üenfeld: " + (emptyStreet + 1), "statusLabelError");
 				mainModule.controlsPanel.setCalcRouteButton(true);
 			}
 		}else{
 			mainModule.loadImageOff();
-			HtwMaps.setTextAndStyle("Leeres Ortsfeld: " + emptyStreet, "statusLabelError");
+			HtwMaps.setTextAndStyle("Leeres Ortsfeld: " + (emptyCity + 1), "statusLabelError");
 			mainModule.controlsPanel.setCalcRouteButton(true);
 		}
 	}
 
+	public static long getStartTime() {
+		return startTime;
+	}
 }

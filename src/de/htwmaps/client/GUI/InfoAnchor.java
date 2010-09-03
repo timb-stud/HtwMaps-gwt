@@ -144,7 +144,7 @@ public class InfoAnchor extends Anchor {
 	}
 
 	public void setCompleteRuntime(long runtime) {
-		this.completeRuntime.setText(runtime + " ms");
+		this.completeRuntime.setText(runtime + " sek");
 	}
 	
 	

@@ -23,7 +23,7 @@ public class ControlsPanel extends VerticalPanel{
 	}
 
 	private void init(){
-		setSize("300px", "10px");
+		setSize("300px", "15px");
 		add(location);
 		add(calcRouteButton);
 		setCellHorizontalAlignment(calcRouteButton, HasHorizontalAlignment.ALIGN_RIGHT);

@@ -71,14 +71,18 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		
 		LinkedList<Node> nodeList = new LinkedList<Node>();
 		LinkedList<Node> result = new LinkedList<Node>();
+		String[] destinations = new String[cities.length];
 		DBAdapterRotativeRectangle dbap = null;
-		for(int i=0; i < cities.length -1; i++){
+		int i = -1;
+		int goalNodeID = -1;
+		for(i=0; i < cities.length -1; i++){
 			try{
 				int startNodeID = DBUtils.getNodeId(cities[i], streets[i]);
 				if (startNodeID == -1) {
 					throw new NodeNotFoundException("Falsche Startdaten");
 				}
-				int goalNodeID = DBUtils.getNodeId(cities[i+1], streets[i+1]);
+				destinations[i] = DBUtils.getLatLon(startNodeID);
+				goalNodeID = DBUtils.getNodeId(cities[i+1], streets[i+1]);
 				if (goalNodeID == -1) {
 					throw new NodeNotFoundException("Falsche Zieldaten");
 				}
@@ -110,18 +114,23 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				throw new SQLException();
 			}
 		}
+		try {
+			destinations[i] = DBUtils.getLatLon(goalNodeID);
+		} catch (java.sql.SQLException e1) {
+			throw new SQLException();
+		}
 		nodes = nodeList.toArray(new Node[0]);
 		edges = ShortestPathAlgorithm.getResultEdges(nodes);
 		OptPathData opd = null;
 		try {
-			opd = buildOptPathData(spa, dbap);
+			opd = buildOptPathData(spa, dbap, destinations);
 		} catch (java.sql.SQLException e) {
 			throw new SQLException();
 		}
 		return opd;
 	}
 	
-	private OptPathData buildOptPathData(ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap) throws java.sql.SQLException, MySQLException{
+	private OptPathData buildOptPathData(ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap, String[] destinations) throws java.sql.SQLException, MySQLException{
 		float[] lats = new float[nodes.length];
 		float[] lons = new float[nodes.length];
 		for(int i=0; i<nodes.length;i++){
@@ -131,6 +140,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		OptPathData opd = new OptPathData();
 		opd.setNodeLats(lats);
 		opd.setNodeLons(lons);
+		opd.setDestinations(destinations);
 		opd.setOptNodesNumber(nodes.length);
 		opd.setAlgorithmRuntime(spa.getAlorithmTime());
 		opd.setBuildEdgesRuntime(spa.getBuildEdgesTime());

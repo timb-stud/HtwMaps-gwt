@@ -33,27 +33,22 @@ function drawPolyLine() {
 	pointCount = 0;
 }
 
-function removePolyline() {
-	maps.removePolyline(polyline);
+function addMarker(lat, lon, text) {
+	marker = new Marker(new LatLonPoint(lat, lon));
+	maps.addMarkerWithData(marker, {
+		infoBubble : text
+	});
 }
 
-function addMarker(latStart, lonStart, latEnde, lonEnde) {
-	markerStart = new Marker(new LatLonPoint(latStart, lonStart));
-	maps.addMarkerWithData(markerStart, {
-		infoBubble : "Ziel"
-	});
-	markerZiel = new Marker(new LatLonPoint(latEnde, lonEnde));
-	maps.addMarkerWithData(markerZiel, {
-		infoBubble : "Start"
-	});
-	maps.autoCenterAndZoom();
-}
-
-function removeMarker() {
-	maps.removeMarker(markerStart);
-	maps.removeMarker(markerZiel);
+function removePolylineAndMarker() {
+	maps.removeAllPolylines();
+	maps.removeAllMarkers();
 	var myPoint = new LatLonPoint(51.1632400, 10.4451736);
 	maps.setCenterAndZoom(myPoint, 6);
+}
+
+function removePolyline() {
+	maps.removeAllPolylines();
 }
 
 function autoCenterAndZoom() {

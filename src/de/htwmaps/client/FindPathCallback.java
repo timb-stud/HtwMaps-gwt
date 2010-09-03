@@ -35,7 +35,25 @@ public class FindPathCallback implements AsyncCallback<OptPathData> {
 			mainModule.addPoint(nodeLats[i], nodeLons[i]);
 		}
 		mainModule.drawPolyLine();
-		mainModule.addMarker(nodeLats[0], nodeLons[0], nodeLats[nodeLats.length - 1], nodeLons[nodeLats.length - 1]);
+		
+		String[] destinations = result.getDestinations();
+		float lat;
+		float lon;
+		String beschreibung;
+		for (i = 0; i < destinations.length; i++) {
+			lat = Float.parseFloat(destinations[i].substring(0, destinations[i].indexOf("|")));
+			lon = Float.parseFloat(destinations[i].substring(destinations[i].indexOf("|") + 1));
+			if (i == 0) {
+				beschreibung = "Start<br>";
+			} else if (i == destinations.length - 1) {
+				beschreibung = "Ziel<br>";
+			} else {
+				beschreibung = "Zwischenziel " + (i) + "<br>";
+			}
+			beschreibung = beschreibung + mainModule.controlsPanel.getLocation().getLocations().get(i).getStreetSuggestBox().getText();
+			mainModule.addMarker(lat, lon, beschreibung);
+		}
+		mainModule.autoCenterAndZoom();
 		
 		InfoAnchor ia = mainModule.infoAnchor;
 		ia.setSelectedNodesNumber(result.getSelectedNodesNumber());
@@ -46,6 +64,7 @@ public class FindPathCallback implements AsyncCallback<OptPathData> {
 		ia.setBuildEdgesRuntime(result.getBuildEdgesRuntime());
 		ia.setAlgorithmRuntime(result.getAlgorithmRuntime());
 		ia.setOptNodesNumber(result.getOptNodesNumber());
+		ia.setCompleteRuntime((System.currentTimeMillis() - CalcRouteClickHandler.getStartTime()) / 1000);
 		
 		AsyncCallback<AllPathData> allPathDataCallback = new AllPathDataCallback(mainModule);
 		mainModule.findPathSvc.buildAllPathData(allPathDataCallback);

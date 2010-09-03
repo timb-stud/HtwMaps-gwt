@@ -38,8 +38,7 @@ public class HtwMaps implements EntryPoint {
 	void resetFields() { //TODO Methode aufsplitten
 		controlsPanel.setCalcRouteButton(false);
 		setTextAndStyle(StringConstant.BERECHNE, "statusLabelNormal");
-		removePolyline();
-		removeMarker();
+		removePolylineAndMarker();
 		controlsPanel.getSummaryPanel().setFieldsEmpty();
 		controlsPanel.getWayDescriptionPanel().clear();
 		controlsPanel.getLocation();
@@ -87,18 +86,21 @@ public class HtwMaps implements EntryPoint {
 		$wnd.drawPolyLine();
 	}-*/;
 	
+	native void addMarker(float lat, float lon, String text) /*-{
+		$wnd.addMarker(lat, lon, text);
+	}-*/;
+	
+	native void removePolylineAndMarker() /*-{
+		$wnd.removePolylineAndMarker();
+	}-*/;
+	
 	native void removePolyline() /*-{
 		$wnd.removePolyline();
 	}-*/;
 	
-	native void addMarker(float latStart, float lonStart, float latEnde, float lonEnde) /*-{
-		$wnd.addMarker(latStart, lonStart, latEnde, lonEnde);
+	native void autoCenterAndZoom() /*-{
+		$wnd.autoCenterAndZoom();
 	}-*/;
-	
-	native void removeMarker() /*-{
-		$wnd.removeMarker();
-	}-*/;
-	
 	native void loadImageOn() /*-{
 		$wnd.loadImageOn();
 	}-*/;

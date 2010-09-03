@@ -1,25 +1,30 @@
 /** Allgemeine Styles f�r gwt- Widgets **/
 .gwt-Label {
 	font-family: Verdana;
+	font-size: 10pt;
 	padding-top: 2px;
 	padding-bottom: 2px;
 }
 
 .gwt-Button {
 	font-family: Verdana;
+	font-size: 10pt;
 }
 
 .gwt-Anchor { 
 	font-family: Verdana;
+	font-size: 10pt;
 	text-decoration: none;
 }
 
 .gwt-TextBox {
 	font-family: Verdana;
+	font-size: 8pt;
 }
 	
 .gwt-SuggestBox {
 	font-family: Verdana;
+	font-size: 8pt;
 	margin-top: 1px;
 	margin-bottom: 1px;
 }
@@ -27,6 +32,7 @@
 .gwt-SuggestBoxPopup {
 	z-index: 2;
 	font-family: Verdana;
+	font-size: 10pt;
 }
 
 .gwt-DialogBox {
@@ -35,18 +41,22 @@
 
 .gwt-DialogBox .Caption {
 	font-family: Verdana;
+	font-size: 10pt;
 }
 
 .gwt-HTML { 
-	font-family: Verdana;		
+	font-family: Verdana;
+	font-size: 10pt;		
 }
 
 .gwt-RadioButton {
-	font-family: Verdana;		
+	font-family: Verdana;
+	font-size: 10pt;		
 }
 
 .gwt-HTMLTable {
-	font-family: Verdana;		
+	font-family: Verdana;
+	font-size: 10pt;		
 }
 
 

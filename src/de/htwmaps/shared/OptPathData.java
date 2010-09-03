@@ -10,6 +10,7 @@ public class OptPathData implements Serializable{
 	
 	private float[] nodeLats;
 	private float[] nodeLons;
+	private String[] destinations;
 	private long selectNodesRuntime;
 	private long selectEdgesRuntime;
 	private long buildNodesRuntime;
@@ -18,7 +19,6 @@ public class OptPathData implements Serializable{
 	private int selectedNodesNumber;
 	private int selectedEdgesNumber;
 	private int optNodesNumber;
-	
 	
 	
 	public OptPathData() {}
@@ -31,12 +31,20 @@ public class OptPathData implements Serializable{
 		this.nodeLons = nodeLons;
 	}
 
+	public void setDestinations(String[] destinations) {
+		this.destinations = destinations;
+	}
+	
 	public float[] getNodeLats() {
 		return nodeLats;
 	}
 
 	public float[] getNodeLons() {
 		return nodeLons;
+	}
+	
+	public String[] getDestinations() {
+		return destinations;
 	}
 
 	public long getSelectNodesRuntime() {
