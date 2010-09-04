@@ -75,6 +75,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		DBAdapterRotativeRectangle dbap = null;
 		int i = -1;
 		int goalNodeID = -1;
+		dbap = new DBAdapterRotativeRectangle(gd);
 		for(i=0; i < cities.length -1; i++){
 			try{
 				int startNodeID = DBUtils.getNodeId(cities[i], streets[i]);
@@ -87,7 +88,6 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 					throw new NodeNotFoundException("Falsche Zieldaten");
 				}
 				float h = 0.1f; //20 km dicke
-				dbap = new DBAdapterRotativeRectangle(gd);
 				dbap.fillGraphData(startNodeID, goalNodeID, h);
 				try {
 					switch (option) {
