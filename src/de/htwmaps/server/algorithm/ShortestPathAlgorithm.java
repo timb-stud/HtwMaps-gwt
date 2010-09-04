@@ -125,7 +125,7 @@ public abstract class ShortestPathAlgorithm {
 	}
 
 	public void setBuildNodesTime(long buildNodesTime) {
-		this.buildNodesTime = buildNodesTime;
+		this.buildNodesTime += buildNodesTime;
 	}
 
 	public long getBuildEdgesTime() {
@@ -133,7 +133,7 @@ public abstract class ShortestPathAlgorithm {
 	}
 
 	public void setBuildEdgesTime(long buildEdgesTime) {
-		this.buildEdgesTime = buildEdgesTime;
+		this.buildEdgesTime += buildEdgesTime;
 	}
 
 	public long getAlorithmTime() {
@@ -141,7 +141,7 @@ public abstract class ShortestPathAlgorithm {
 	}
 
 	public void setAlorithmTime(long alorithmTime) {
-		this.alorithmTime = alorithmTime;
+		this.alorithmTime += alorithmTime;
 	}
 
 	
