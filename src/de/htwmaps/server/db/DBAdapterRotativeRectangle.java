@@ -75,12 +75,12 @@ public class DBAdapterRotativeRectangle{
 		setParabel();
 		long time = System.currentTimeMillis();
 		initNodes();
-		receiveNodesTime = System.currentTimeMillis() - time;
+		receiveNodesTime += System.currentTimeMillis() - time;
 		time = System.currentTimeMillis();
 		initEdges();
-		receiveEdgesTime = System.currentTimeMillis() - time;
-		nodesCount = nodeIDs.length;
-		edgesCount = edgeStartNodeIDs.length;
+		receiveEdgesTime += System.currentTimeMillis() - time;
+		nodesCount += nodeIDs.length;
+		edgesCount += edgeStartNodeIDs.length;
 		gd.build(nodeIDs, nodeLats, nodeLons, wayIDs, edgeStartNodeIDs, edgeEndNodeIDs, edgeLengths, oneways, highwayTypes, edgeIDs);
 	}
 
@@ -548,31 +548,15 @@ public class DBAdapterRotativeRectangle{
 		return edgesCount;
 	}
 
-	public void setEdgesCount(int edgesCount) {
-		this.edgesCount += edgesCount;
-	}
-
 	public int getNodesCount() {
 		return nodesCount;
-	}
-
-	public void setNodesCount(int nodesCount) {
-		this.nodesCount += nodesCount;
 	}
 
 	public long getReceiveNodesTime() {
 		return receiveNodesTime;
 	}
 
-	public void setReceiveNodesTime(long receiveNodesTime) {
-		this.receiveNodesTime += receiveNodesTime;
-	}
-
 	public long getReceiveEdgesTime() {
 		return receiveEdgesTime;
-	}
-
-	public void setReceiveEdgesTime(long receiveEdgesTime) {
-		this.receiveEdgesTime += receiveEdgesTime;
 	}
 }
