@@ -18,7 +18,7 @@ import de.htwmaps.shared.exceptions.NodeNotFoundException;
  */
 public class DBUtils {
 
-	//private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE is_in LIKE ? AND cityName = ? AND nameValue = ?";
+	////private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE is_in LIKE ? AND cityName = ? AND nameValue = ?";
 	private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE (is_in LIKE ? or is_in LIKE \"\") AND cityName = ? AND nameValue = ?";
 	private final static String GETLAT_LON_SELECT = "SELECT lat, lon FROM nodes WHERE ID = ?";
 	private final static String GETCITIESSTARTWITH_SELECT = "SELECT cityName, is_in FROM ways WHERE cityName LIKE ? GROUP BY cityNodeID";
