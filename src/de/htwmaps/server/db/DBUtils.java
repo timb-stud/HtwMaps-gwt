@@ -18,7 +18,8 @@ import de.htwmaps.shared.exceptions.NodeNotFoundException;
  */
 public class DBUtils {
 
-	private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE is_in LIKE ? AND cityName = ? AND nameValue = ?";
+	//private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE is_in LIKE ? AND cityName = ? AND nameValue = ?";
+	private final static String GETNODEID_SELECT = "SELECT startNodeID FROM ways WHERE (is_in LIKE ? or is_in LIKE \"\") AND cityName = ? AND nameValue = ?";
 	private final static String GETLAT_LON_SELECT = "SELECT lat, lon FROM nodes WHERE ID = ?";
 	private final static String GETCITIESSTARTWITH_SELECT = "SELECT cityName, is_in FROM ways WHERE cityName LIKE ? GROUP BY cityNodeID";
 	private final static String GETSTREETSSTARTWITH_SELECT = "SELECT nameValue, cityName FROM ways WHERE (cityName = ? AND is_in LIKE ? AND nameValue LIKE ?) OR (is_in LIKE ? AND nameValue LIKE ?)";
@@ -38,7 +39,8 @@ public class DBUtils {
 				select.setString(2, street.substring(street.indexOf(",") + 1));
 			}
 		} else {
-			select.setString(1, "");
+//			select.setString(1, "");
+			select.setString(1, city);
 			select.setString(2, street.substring(street.indexOf(",") + 1));
 		}
 		select.setString(3, street.substring(0, street.indexOf(",")));
