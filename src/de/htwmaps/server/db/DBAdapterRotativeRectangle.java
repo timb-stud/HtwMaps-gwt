@@ -549,7 +549,7 @@ public class DBAdapterRotativeRectangle{
 	}
 
 	public void setEdgesCount(int edgesCount) {
-		this.edgesCount = edgesCount;
+		this.edgesCount += edgesCount;
 	}
 
 	public int getNodesCount() {
@@ -557,7 +557,7 @@ public class DBAdapterRotativeRectangle{
 	}
 
 	public void setNodesCount(int nodesCount) {
-		this.nodesCount = nodesCount;
+		this.nodesCount += nodesCount;
 	}
 
 	public long getReceiveNodesTime() {
@@ -565,7 +565,7 @@ public class DBAdapterRotativeRectangle{
 	}
 
 	public void setReceiveNodesTime(long receiveNodesTime) {
-		this.receiveNodesTime = receiveNodesTime;
+		this.receiveNodesTime += receiveNodesTime;
 	}
 
 	public long getReceiveEdgesTime() {
@@ -573,6 +573,6 @@ public class DBAdapterRotativeRectangle{
 	}
 
 	public void setReceiveEdgesTime(long receiveEdgesTime) {
-		this.receiveEdgesTime = receiveEdgesTime;
+		this.receiveEdgesTime += receiveEdgesTime;
 	}
 }
