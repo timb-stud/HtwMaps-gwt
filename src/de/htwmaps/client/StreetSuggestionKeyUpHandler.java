@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 
 /**
- * Handler für die Autvervollständigung bei der Straßeneingabe, der das Ergebnis an die SuggestBox zurückgibt
+ * Handler für die Autovervollständigung bei der Straßeneingabe, der das Ergebnis an die SuggestBox zurückgibt
  * 
  * @author Thomas Altmeyer, Tim Bartsch
  */
@@ -43,7 +43,7 @@ public class StreetSuggestionKeyUpHandler implements KeyUpHandler {
 			oracle.clear();
 		}
 		
-		if(tb.getText().length() > 0){
+		if(tb.getText().length() > 0 && event.getNativeKeyCode() != 53){
 			if(this.cityStreetSuggestSvc == null)
 				this.cityStreetSuggestSvc = GWT.create(CityStreetSuggestService.class);
 			

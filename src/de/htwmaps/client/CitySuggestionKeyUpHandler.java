@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
 
 /**
- * Handler für die Autvervollständigung bei der Stadteingabe, der das Ergebnis an die SuggestBox zurückgibt
+ * Handler für die Autovervollständigung bei der Stadteingabe, der das Ergebnis an die SuggestBox zurückgibt
  * 
  * @author Thomas Altmeyer, Tim Bartsch
  */
@@ -39,7 +39,7 @@ public class CitySuggestionKeyUpHandler implements KeyUpHandler {
 			oracle.clear();
 		}
 		
-		if (tb.getText().length() > 0) {
+		if (tb.getText().length() > 0 && event.getNativeKeyCode() != 53) {
 			if (this.cityStreetSuggestSvc == null)
 				this.cityStreetSuggestSvc = GWT.create(CityStreetSuggestService.class);
 

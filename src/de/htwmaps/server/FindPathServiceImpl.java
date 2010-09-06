@@ -80,12 +80,12 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			try{
 				int startNodeID = DBUtils.getNodeId(cities[i], streets[i]);
 				if (startNodeID == -1) {
-					throw new NodeNotFoundException("Falsche Startdaten");
+					throw new NodeNotFoundException("Falsche Angaben in Zeile: " + (i + 1));
 				}
 				destinations[i] = DBUtils.getLatLon(startNodeID);
 				goalNodeID = DBUtils.getNodeId(cities[i+1], streets[i+1]);
 				if (goalNodeID == -1) {
-					throw new NodeNotFoundException("Falsche Zieldaten");
+					throw new NodeNotFoundException("Falsche Angaben in Zeile: " + (i + 2));
 				}
 				float h = 0.1f; //20 km dicke
 				dbap.fillGraphData(startNodeID, goalNodeID, h);
