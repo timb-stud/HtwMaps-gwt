@@ -6,7 +6,6 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Frame;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class EastereggAnchor extends Anchor{
@@ -25,7 +24,7 @@ public class EastereggAnchor extends Anchor{
 		dialogBox.setAnimationEnabled(true);
 		
 		Frame frame = new Frame();
-		frame.setUrl(getClass().getResource(".\\easteregg\\index.html").toString());
+		frame.setUrl("./easteregg/index.html");
 		dialogVPanel.add(frame);
 		dialogVPanel.add(closeButton);
 //		dialogVPanel.setCellHorizontalAlignment(closeButton, HasHorizontalAlignment.ALIGN_RIGHT);
