@@ -29,7 +29,7 @@ public class AboutAnchor extends Anchor {
 	}
 	
 	/**
-	 * Initialisiert die Dialog Box und fügt de benötigten Widgets hinzu
+	 * Fügt der Box eine HTML Seite hinzu und setzt Styles
 	 */
 	private void init(){
 		dialogBox.setText(StringConstant.UEBER);
