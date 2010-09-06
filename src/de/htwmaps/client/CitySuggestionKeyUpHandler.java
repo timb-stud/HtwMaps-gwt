@@ -7,16 +7,30 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
 
+/**
+ * Handler für die Autvervollständigung bei der Stadteingabe, der das Ergebnis an die SuggestBox zurückgibt
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ */
 public class CitySuggestionKeyUpHandler implements KeyUpHandler {
 	
 	CityStreetSuggestServiceAsync cityStreetSuggestSvc;
 	MultiWordSuggestOracle oracle;
 
+	/**
+	 * Standardkonstruktor der den RPC intialisiert sowie das MultiWordSuggestOracle
+	 * 
+	 * @param cityStreetSuggestSvc  RPC der für die Verbindung zum Server gebraucht wird
+	 * @param oracle MultiWordSuggestOracle der den Result der Abfrage übernimmt
+	 */
 	public CitySuggestionKeyUpHandler(CityStreetSuggestServiceAsync cityStreetSuggestSvc, MultiWordSuggestOracle oracle) {
 		this.cityStreetSuggestSvc = cityStreetSuggestSvc;
 		this.oracle = oracle;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event.dom.client.KeyUpEvent)
+	 */
 	@Override
 	public void onKeyUp(KeyUpEvent event) {
 		TextBox tb = (TextBox) event.getSource();
@@ -51,6 +65,9 @@ public class CitySuggestionKeyUpHandler implements KeyUpHandler {
 		}
 	}
 
+	/**
+	 * Löscht den Inhalt des oracle
+	 */
 	public void clearContent() {
 		this.oracle.clear();
 	}

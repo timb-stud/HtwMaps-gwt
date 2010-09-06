@@ -10,6 +10,11 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * Erstellt die Info Box, in der Berrechnungsinformationen zu der Route angezeigt werden
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ */
 public class InfoAnchor extends Anchor {
 
 	final DialogBox dialogBox = new DialogBox();
@@ -31,11 +36,19 @@ public class InfoAnchor extends Anchor {
 	private Label routeToTextRuntime = new Label();
 	private Label completeRuntime = new Label();
 
+	/**
+	 * Standardkonstruktor der Klasse, der seine Oberklasse aufruft und die weiter Initialisierung an die init() Methode weitergibt
+	 * 
+	 * @param text Title des Anchor
+	 */
 	public InfoAnchor(String text) {
 		super(text);
 		init();
 	}
 	
+	/**
+	 * Fügt der Box eine Tabelle hinzu und setzt Styles
+	 */
 	private void init(){
 		dialogBox.setText(StringConstant.BERECHNUNGSINFOS);
 		dialogBox.setAnimationEnabled(true);
@@ -63,6 +76,9 @@ public class InfoAnchor extends Anchor {
 		});
 	}
 	
+	/**
+	 * Füllt die Tabelle inital mit Standardwerten
+	 */
 	private void initInfoTable() {
 		infoTable = new Grid(12,2);
 		
@@ -93,59 +109,96 @@ public class InfoAnchor extends Anchor {
 		infoTable.setWidget(11, 1, completeRuntime);
 	}
 	
+	/**
+	 * Setzt die Horizontale Ausrichtung für Elemente der Tabelle
+	 */
 	private void setHorizontalAlignment() {
 		for (int i = 0; i < 12; i++) {
 			infoTable.getCellFormatter().setHorizontalAlignment(i, 1, HasHorizontalAlignment.ALIGN_RIGHT);
 		}
 	}
 
+	/**
+	 * @param n Neuer Wert für selectedNodesNumber
+	 */
 	public void setSelectedNodesNumber(int n) {
 		this.selectedNodesNumber.setText(n + "");
 	}
 
+	/**
+	 * @param n Neuer Wert für selectedEdgesNumber
+	 */
 	public void setSelectedEdgesNumber(int n) {
 		this.selectedEdgesNumber.setText(n + "");
 	}
 
+	/**
+	 * @param runtime Neuer Wert für selectNodesRuntime
+	 */
 	public void setSelectNodesRuntime(long runtime) {
 		this.selectNodesRuntime.setText(runtime + " ms");
 	}
 
+	/**
+	 * @param runtime Neuer Wert für selectEdgesRuntime
+	 */
 	public void setSelectEdgesRuntime(long runtime) {
 		this.selectEdgesRuntime.setText(runtime + " ms");
 	}
 
+	/**
+	 * @param runtime Neuer Wert für buildNodesRuntime
+	 */
 	public void setBuildNodesRuntime(long runtime) {
 		this.buildNodesRuntime.setText(runtime + " ms");
 	}
 
+	/**
+	 * @param runtime Neuer Wert für buildEdgesRuntime
+	 */
 	public void setBuildEdgesRuntime(long runtime) {
 		this.buildEdgesRuntime.setText(runtime + " ms");
 	}
 
+	/**
+	 * @param runtime Neuer Wert für algorithmRuntime
+	 */
 	public void setAlgorithmRuntime(long runtime) {
 		this.algorithmRuntime.setText(runtime + " ms");
 	}
 
+	/**
+	 * @param n Neuer Wert für optNodesNumber
+	 */
 	public void setOptNodesNumber(int n) {
 		this.optNodesNumber.setText(n + "");
 	}
 
+	/**
+	 * @param n Neuer Wert für allNodesNumber
+	 */
 	public void setAllNodesNumber(int n) {
 		this.allNodesNumber.setText(n + "");
 	}
 
+	/**
+	 * @param runtime Neuer Wert für optToAllRuntime
+	 */
 	public void setOptToAllRuntime(long runtime) {
 		this.optToAllRuntime.setText(runtime + " ms");
 	}
 
+	/**
+	 * @param runtime Neuer Wert für routeToTextRuntime
+	 */
 	public void setRouteToTextRuntime(long runtime) {
 		this.routeToTextRuntime.setText(runtime + " ms");
 	}
 
+	/**
+	 * @param runtime Neuer Wert für completeRuntime
+	 */
 	public void setCompleteRuntime(long runtime) {
 		this.completeRuntime.setText(runtime + " sek");
-	}
-	
-	
+	}	
 }

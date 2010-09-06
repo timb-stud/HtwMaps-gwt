@@ -7,6 +7,11 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * Erstellt das Optionspanel, damit der Benutzer eigene Routingoptionen wählen kann
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ */
 public class OptionsPanel extends VerticalPanel {
 	
 	Label wegLabel = new Label(StringConstant.ROUTENART);
@@ -28,6 +33,9 @@ public class OptionsPanel extends VerticalPanel {
 	RadioButton aStarRadioButton = new RadioButton(StringConstant.ALGORITHMUS, StringConstant.ASTERN);
 	RadioButton aStarBiRadioButton = new RadioButton(StringConstant.ALGORITHMUS, StringConstant.ASTERN_BIDIREKTIONAL);
 
+	/**
+	 * Intialisiert das Panel mit Standardwerten
+	 */
 	public OptionsPanel() {
 		setVisible(false);		
 		
@@ -77,30 +85,51 @@ public class OptionsPanel extends VerticalPanel {
 		add(algoPanel);
 	}
 
+	/**
+	 * @return Gibt den RadioButton für den schnellsten Weg zurück
+	 */
 	public RadioButton getFastestRadioButton() {
 		return fastestRadioButton;
 	}
 
+	/**
+	 * @return Gibt den RadioButton für den schnellsten Weg zurück
+	 */
 	public RadioButton getShortestRadioButton() {
 		return shortestRadioButton;
 	}
 
+	/**
+	 * @return Gibt den RadioButton für den A* Algorithmus zurück
+	 */
 	public RadioButton getaStarRadioButton() {
 		return aStarRadioButton;
 	}
 
+	/**
+	 * @return Gibt den RadioButton für den A* bidirektional Algorithmus zurück
+	 */
 	public RadioButton getaStarBiRadioButton() {
 		return aStarBiRadioButton;
 	}
 
+	/**
+	 * @return Gibt die TextBox für die Autobahngeschwindigkeit zurück
+	 */
 	public TextBox getMotorwaySpeedTextBox() {
 		return motorwaySpeedTextBox;
 	}
 
+	/**
+	 * @return Gibt die TextBox für die Landstraßengeschwindigkeit zurück
+	 */
 	public TextBox getPrimarySpeedTextBox() {
 		return primarySpeedTextBox;
 	}
 
+	/**
+	 * @return Gibt die TextBox für die Innerortsgeschwindigkeit zurück
+	 */
 	public TextBox getResidentialSpeedTextBox() {
 		return residentialSpeedTextBox;
 	}	

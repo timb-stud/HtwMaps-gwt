@@ -8,16 +8,29 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * Erstellt die About Box, die Informationen über das Projekt beinhaltet
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ */
 public class AboutAnchor extends Anchor {
 	
 	final DialogBox dialogBox = new DialogBox();
 	final Button closeButton = new Button(StringConstant.SCHLIESSEN);
 
+	/**
+	 * Standardkonstruktor des Klasse der seine Oberklasse aufruft und die weiter Initialisierung an die init() Methode weitergibt 
+	 * 
+	 * @param text Title des Anchor
+	 */
 	public AboutAnchor(String text) {
 		super(text);
 		init();
 	}
 	
+	/**
+	 * Initialisiert die Dialog Box und fügt de benötigten Widgets hinzu
+	 */
 	private void init(){
 		dialogBox.setText(StringConstant.UEBER);
 		dialogBox.setAnimationEnabled(true);

@@ -1,5 +1,10 @@
 package de.htwmaps.client.GUI;
 
+/**
+ * Klasse für alle String Konstanten die in dem Projekt benutzt werden
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ */
 public class StringConstant {
 
 	public static final String BEREIT = "Bereit";

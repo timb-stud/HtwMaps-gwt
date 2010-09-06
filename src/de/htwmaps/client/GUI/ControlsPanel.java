@@ -7,6 +7,11 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * Erstellt die Eingabefelder f[r Start/ und Zieldaten, Optionspanel und die Ausgabepanel f[r die Zusammenfassung und Routenbeschreibung 
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ */
 public class ControlsPanel extends VerticalPanel{
 	
 	LocationFlexTable location = new LocationFlexTable();
@@ -18,10 +23,16 @@ public class ControlsPanel extends VerticalPanel{
 	final Anchor summaryAnchor = new Anchor(StringConstant.ZUSAMMENFASSUNG_ANZEIGEN);
 	final Anchor wayDescriptionAnchor = new Anchor(StringConstant.WEGBESCHREIBUNG_ANZEIGEN);
 	
+	/**
+	 * Standardkonstruktor der Klasse, der die Initialisierung an die init() Methode weitergibt
+	 */
 	public ControlsPanel() {
 		init();
 	}
 
+	/**
+	 * Initialisiert die verschiedenen Panels für das Objekt
+	 */
 	private void init(){
 		setSize("300px", "15px");
 		add(location);
@@ -80,26 +91,48 @@ public class ControlsPanel extends VerticalPanel{
 		});
 	}
 	
+	/**
+	 * 
+	 * @return Gibt den Berechnen Button zurück 
+	 */
 	public Button getCalcRouteButton() {
 		return calcRouteButton;
 	}
 	
+	/**
+	 * Methode um den CalcRouteButton zu aktivieren oder deaktivieren
+	 * 
+	 * @param active true -> aktiviert den Button
+	 * 		  		 false -> deaktiviert den Button
+	 */
 	public void setCalcRouteButton(boolean active) {
 		this.calcRouteButton.setEnabled(active);
 	}
 	
+	/**
+	 * @return Liefert die zu Routende Daten zurück
+	 */
 	public LocationFlexTable getLocation() {
 		return location;
 	}
 
+	/**
+	 * @return Gibt das Optionspanel zurück
+	 */
 	public OptionsPanel getOptionsPanel() {
 		return optionsPanel;
 	}
 
+	/**
+	 * @return Gibt das Wegbeschreibungspanel zurück
+	 */
 	public WayDescriptionPanel getWayDescriptionPanel() {
 		return wayDescriptionPanel;
 	}
 	
+	/**
+	 * @return Gibt das Zusammenfassungspanel zurück
+	 */
 	public SummaryPanel getSummaryPanel() {
 		return summaryPanel;
 	}

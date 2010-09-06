@@ -6,6 +6,11 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+/**
+ * Erstellt Zusammenfassungspanel, das eine kurze Wegzusammenfassung enthält
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ */
 public class SummaryPanel extends VerticalPanel {
 	
 	private Label onMotorWay = new Label();
@@ -15,6 +20,9 @@ public class SummaryPanel extends VerticalPanel {
 	
 	Grid summaryTable = new Grid(4,2);
 	
+	/**
+	 * Intitialisiert das Zusammenfassungspanel mit Standardwerte
+	 */
 	public SummaryPanel() {
 		summaryTable.setSize("250px", "15px");
 		summaryTable.setWidget(0, 0, new HTML(StringConstant.GESAMT));
@@ -34,22 +42,49 @@ public class SummaryPanel extends VerticalPanel {
 		setVisible(false);
 	}
 	
+	/**
+	 * Setzt die Werte für die Autobahn
+	 * 
+	 * @param time Benötigte Zeit
+	 * @param distance Angabe der Distanz in Kilometer
+	 */
 	public void setOnMotorWay(String time, String distance){
 		onMotorWay.setText(distance + "   -   " + time);
 	}
 	
+	/**
+	 * Setzt die Werte für die Landstraße
+	 * 
+	 * @param time Benötigte Zeit
+	 * @param distance Angabe der Distanz in Kilometer
+	 */
 	public void setOnPrimary(String time, String distance){
 		onPrimary.setText(distance + "   -   " + time);
 	}
 	
+	/**
+	 * Setzt die Werte für Innerorts
+	 * 
+	 * @param time Benötigte Zeit
+	 * @param distance Angabe der Distanz in Kilometer
+	 */
 	public void setOnResidential(String time, String distance){
 		onResidential.setText(distance + "   -   " + time);
 	}
 	
+	/**
+	 * Setzt die Werte für die komplette Strecke
+	 * 
+	 * @param time Benötigte Zeit
+	 * @param distance Angabe der Distanz in Kilometer
+	 */
 	public void setTotal(String time, String distance){
 		total.setText(distance + "   -   " + time);
 	}
 	
+	/**
+	 * Löscht die Werte für alles felder
+	 */
 	public void setFieldsEmpty() {
 		onMotorWay.setText("");
 		onPrimary.setText("");
