@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.htwmaps.client.GUI.OptionsPanel;
 import de.htwmaps.client.GUI.StringConstant;
 import de.htwmaps.shared.OptPathData;
 
@@ -46,18 +47,19 @@ public class CalcRouteClickHandler implements ClickHandler {
 					}
 				} else {
 					boolean checkSpeed = true;
-					int motorwaySpeed = mainModule.leseIntZahl(mainModule.controlsPanel.getOptionsPanel().getMotorwaySpeedTextBox().getText().trim()); //TODO kuerzer schreiben
+					OptionsPanel speedTextBox = mainModule.controlsPanel.getOptionsPanel();
+					int motorwaySpeed = mainModule.readInteger(speedTextBox.getMotorwaySpeedTextBox().getText().trim());
 					if (motorwaySpeed <= 0) {
 						mainModule.loadImageOff();
 						HtwMaps.setTextAndStyle(StringConstant.F_AUTOBAHN, "statusLabelError");
 						checkSpeed = false;						}
-					int primarySpeed = mainModule.leseIntZahl(mainModule.controlsPanel.getOptionsPanel().getPrimarySpeedTextBox().getText().trim());
+					int primarySpeed = mainModule.readInteger(speedTextBox.getPrimarySpeedTextBox().getText().trim());
 					if (primarySpeed <= 0 && checkSpeed) {
 						mainModule.loadImageOff();
 						HtwMaps.setTextAndStyle(StringConstant.F_LANDSTRASSE, "statusLabelError");
 						checkSpeed = false;
 					}
-					int residentialSpeed = mainModule.leseIntZahl(mainModule.controlsPanel.getOptionsPanel().getResidentialSpeedTextBox().getText().trim());
+					int residentialSpeed = mainModule.readInteger(speedTextBox.getResidentialSpeedTextBox().getText().trim());
 					if (residentialSpeed <= 0 && checkSpeed) {
 						mainModule.loadImageOff();
 						HtwMaps.setTextAndStyle(StringConstant.F_INNERORTS, "statusLabelError");

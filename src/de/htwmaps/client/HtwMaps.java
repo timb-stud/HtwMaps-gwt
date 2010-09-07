@@ -12,6 +12,8 @@ import de.htwmaps.client.GUI.StringConstant;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
  */
 public class HtwMaps implements EntryPoint {
 	
@@ -35,19 +37,27 @@ public class HtwMaps implements EntryPoint {
 		controlsPanel.getCalcRouteButton().addClickHandler(new CalcRouteClickHandler(this));
 	}
 	
-	void resetFields() { //TODO Methode aufsplitten
+	/**
+	 * Setzt alle Eingabefelder und die Map in ihren Anfangszustand
+	 */
+	void resetFields() {
 		controlsPanel.setCalcRouteButton(false);
 		setTextAndStyle(StringConstant.BERECHNE, "statusLabelNormal");
 		removePolylineAndMarker();
 		controlsPanel.getSummaryPanel().setFieldsEmpty();
 		controlsPanel.getWayDescriptionPanel().clear();
-		controlsPanel.getLocation();
-		controlsPanel.getLocation().getLocations().get(0).getCityHandler().clearContent();
-		controlsPanel.getLocation().getLocations().get(0).getStreetHandler().clearContent();
-		controlsPanel.getLocation().getLocations().get(1).getCityHandler().clearContent();
-		controlsPanel.getLocation().getLocations().get(1).getStreetHandler().clearContent();
+		for (int i = 0; i < controlsPanel.getLocation().getLocations().size(); i++) {
+			controlsPanel.getLocation().getLocations().get(i).getCityHandler().clearContent();
+			controlsPanel.getLocation().getLocations().get(i).getStreetHandler().clearContent();
+		}
 	}
 	
+	/**
+	 * Sucht nach leeren Eingabefeldern
+	 * 
+	 * @param tab Array mit allen momentanen Werten der Eingabefelder
+	 * @return Zahl wenn kein leeree Eingabefeld gefunden, wenn nicht -1
+	 */
 	int findEmptyField (String[] tab) {
 		for(int i=0; i< tab.length; i++){
 			if(tab[i] == null || tab[i].isEmpty()){
@@ -57,54 +67,102 @@ public class HtwMaps implements EntryPoint {
 		return -1;
 	}
 	
-	//TODO englische namen
-	//TODO methode notwendig?
-    int leseIntZahl(String inData) {
-        int eingabe = 0;
+
+    /**
+     * Überprüft ob ein richtiger Zahlenwert in den Geschwindigkeitsfeldern steht
+     * 
+     * @param inData Wert in der Textbox
+     * @return Zahl wenn die Konvertirung erfolgreich, wenn nicht -1
+     */
+    int readInteger(String inData) {
+        int value = 0;
         try {
-            eingabe = Integer.parseInt(inData);
+        	value = Integer.parseInt(inData);
         } catch (NumberFormatException fehler) {
             return -1;
         }
-        return eingabe;
+        return value;
     }
     
+    /**
+     * Ersetzt das Statuslabel mit neuem Text und Style
+     * 
+     * @param text Text der angezeigt werden soll
+     * @param style CSS- Style Name
+     */
     public static void setTextAndStyle(String text, String style) {
     	statusLabel.setText(text);
     	statusLabel.setStyleName(style);
     }
 	
+	/**
+	 * 
+	 * 
+	 * @param s
+	 */
 	native void alert(String s)/*-{
 		$wnd.alert(s);
 	}-*/;
 	
+	/**
+	 * Ruft die JSP Methode addPoint(float, float) auf, die geometrische Punkte hinzufügt
+	 * 
+	 * @param lat Lat- Wert des Punktes
+	 * @param lon Lon- Wert des Punktes
+	 */
 	native void addPoint(float lat, float lon) /*-{
 		$wnd.addPoint(lat, lon);
 	}-*/;
 
+	/**
+	 * Ruft die JSP Methode drawPolylin() auf, die die Route zeichnet
+	 */
 	native void drawPolyLine() /*-{
 		$wnd.drawPolyLine();
 	}-*/;
 	
+	/**
+	 * Ruft die JSP Methode addMarker(float, float, String) auf, die ein Marker auf der Map hinzufügt
+	 * 
+	 * @param lat Lat- Wert für den Marker
+	 * @param lon Lon- Wert für den Marker
+	 * @param text Beschreibungstext für den Marker
+	 */
 	native void addMarker(float lat, float lon, String text) /*-{
 		$wnd.addMarker(lat, lon, text);
 	}-*/;
 	
+	/**
+	 * Ruft die JSP Methode removePolylineAndMarker() auf, die die Polyline und alle Marker von der Map löscht
+	 */
 	native void removePolylineAndMarker() /*-{
 		$wnd.removePolylineAndMarker();
 	}-*/;
 	
+	/**
+	 * Ruft die JSP Methode removePolyline() auf, die die Polyline auf der Map löscht
+	 */
 	native void removePolyline() /*-{
 		$wnd.removePolyline();
 	}-*/;
 	
+	/**
+	 * Ruft die JSP Methode autoCenterAndZoom() auf, die automatisch so zoomt, dass alle Marker angezeigt werden
+	 */
 	native void autoCenterAndZoom() /*-{
 		$wnd.autoCenterAndZoom();
 	}-*/;
+	
+	/**
+	 * Ruft die JSP Methode loadImageOn() auf, die das Lagebild sichtbar macht
+	 */
 	native void loadImageOn() /*-{
 		$wnd.loadImageOn();
 	}-*/;
 	
+	/**
+	 * Ruft die JSP Methode loadImageOff() auf, die das Ladebild unsichtbar schaltet
+	 */
 	native void loadImageOff() /*-{
 		$wnd.loadImageOff();
 	}-*/;
