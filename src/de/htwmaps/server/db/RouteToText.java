@@ -2,7 +2,7 @@
  * Erstellt die schriftliche Ausgabe zu einer Route, 
  * sowie eine Statistik zur gefahrenen Strecke
  * 
- * @author Christian Rech, Yassir Klos
+ * @author Christian Rech, Yassir Klos, Volkan Goekkaya
  */
 
 package de.htwmaps.server.db;
@@ -184,34 +184,120 @@ public class RouteToText {
 	public LinkedList<String> buildRouteInfo() {
 		LinkedList<String> routeText = new LinkedList<String>();
 		StringBuffer sb = new StringBuffer();
+//		boolean cityChanged = false;
 
-		routeText.add("Sie starten in folgdender Stra√üe: <b>"
-				+ info.get(0).getName() +  "</b>");
+		if (isNotTagged(info.get(0).getName())) {
+			routeText
+					.add("Sie starten in folgdender Straﬂe: <b><i> (Straﬂenbezeichnung nicht getaggt) </b></i>");
+		} else {
+			routeText.add("Sie starten in folgdender Straﬂe: <b>"
+					+ info.get(0).getName() + "</b>");
+		}
+
 		for (int i = 0; i < info.size() - 1; i++) {
+//			cityChanged = false;
 			if (info.get(i).getEdgeList().getLast().getHighwayType() != 1
 					&& info.get(i + 1).getEdgeList().getLast().getHighwayType() == 1) {
-				sb.append("Fahren Sie nach <b>").append(info.get(i).getName()).append("</b>");
-				sb.append(" auf die Autobahn ").append(info.get(i + 1).getName());
-			} else {
-				if (!info.get(i).getName().trim().equals(""))
-					sb.append("Nach ").append(info.get(i).getName()).append(" ");
-				else
-					sb.append("Dann ");
-				sb.append(info.get(i).getDirection());
-				if (!info.get(i + 1).getName().trim().equals(""))
-					sb.append(" in " + info.get(i + 1).getName());
-				else
-					sb.append(" in die n√§chste Stra√üe");
-				sb.append(" abbiegen.");
+				if (isNotTagged(info.get(i + 1).getName())) {
+					sb.append("Fahren Sie auf die Autobahn-Auffahrt der : <b><i>"
+							+ "Autobahnbezeichnung nicht getaggt" + "</i></b>");
+				} else {
+					sb.append("Fahren Sie auf die Autobahn-Auffahrt der : <b>"
+							+ info.get(i + 1).getName() + "</b>");
+				}
+
+			}
+			while ((info.get(i).getEdgeList().getLast().getHighwayType() == 1)
+					&& (info.get(i).getName().equals(info.get(i + 1).getName())
+							|| isNotTagged(info.get(i).getName()) || isNotTagged(info
+							.get(i + 1).getName()))) {
+//				int j = 1;
+				i++;
+
+			}
+			if (info.get(i).getEdgeList().getLast().getHighwayType() == 1
+					&& info.get(i + 1).getEdgeList().getLast().getHighwayType() == 1) {
+				if (isNotTagged(info.get(i + 1).getName())
+						&& isNotTagged(info.get(i).getName())) {
+					sb.append("Verlassen Sie die <b><i> Autobahnbezeichnung nicht getaggt </b></i> und fahren Sie auf die Autobahn-Auffahrt der : <b><i>"
+							+ "(Autobahnbezeichnung nicht getaggt)"
+							+ "</i></b>");
+				} else if (isNotTagged(info.get(i).getName())
+						&& !isNotTagged(info.get(i + 1).getName())) {
+					sb.append("Verlassen Sie die <b><i> (Autobahnbezeichnung nicht getaggt) </b></i> und fahren Sie "
+							+ info.get(i).getDirection()
+							+ "  auf die Autobahn-Auffahrt der : <b><i>"
+							+ info.get(i + 1).getName() + "</i></b>");
+				} else if (!isNotTagged(info.get(i).getName())
+						&& isNotTagged(info.get(i + 1).getName())) {
+					sb.append("Verlassen Sie die <b>" + info.get(i).getName()
+							+ "</b> und fahren Sie "
+							+ info.get(i).getDirection()
+							+ "  auf die Autobahn-Auffahrt der : <b><i>"
+							+ "(Autobahnbezeichnung nicht getaggt)"
+							+ "</i></b>");
+				} else {
+					sb.append("Verlassen Sie die <b>" + info.get(i).getName()
+							+ "</b> und fahren Sie "
+							+ info.get(i).getDirection()
+							+ " auf die Autobahn-Auffahrt der : <b>"
+							+ info.get(i + 1).getName() + "</b>");
+				}
+			} else if ((info.get(i).getEdgeList().getLast().getHighwayType() == 1)
+					&& (info.get(i + 1).getEdgeList().getLast()
+							.getHighwayType() != 1)) {
+				if (isNotTagged(info.get(i).getName())
+						&& (isNotTagged(info.get(i + 1).getName()))) {
+					sb.append("Verlassen Sie die Autobahn und fahren Sie "
+							+ info.get(i).getDirection()
+							+ " in die <b><i> (Straﬂenbezeichnung nicht getaggt) </b></i>");
+				} else {
+					sb.append("Verlassen Sie die Autobahn und fahren Sie"
+							+ info.get(i).getDirection() + "in die <b>"
+							+ info.get(i + 1).getName() + "</b>");
+				}
+			}
+
+			else {
+
+				if (!(info.get(i).getDirection().equalsIgnoreCase("geradeaus"))) {
+					if (isNotTagged(info.get(i + 1).getName())) {
+						sb.append("\n Biegen Sie nun "
+								+ info.get(i).getDirection()
+								+ " in die <b><i> (Straﬂenbezeichnung nicht getaggt) </i></b>");
+					} else {
+						sb.append("\n Biegen Sie nun "
+								+ info.get(i).getDirection() + " in die <b>"
+								+ info.get(i + 1).getName() + "</b>");
+					}
+				} else {
+					if (isNotTagged(info.get(i + 1).getName())) {
+						sb.append("Fahren Sie geradeaus in die <b><i> (Straﬂenbezeichnung nicht getaggt) </i></b>");
+					} else {
+						sb.append("Fahren Sie geradeaus in die <b>"
+								+ info.get(i + 1).getName() + "</b>");
+					}
+				}
 			}
 			routeText.add(sb.toString());
 			sb.setLength(0);
 		}
 		routeText.add("Sie haben Ihr Ziel erreicht");
-
 		return routeText;
 	}
+	
 
+	/**
+	 * Pr¸ft ob es sich um einen leeren Tag handelt
+	 * @param zu ¸berpr¸fender String
+	 * @return Wahrheitswert
+	 */
+	private boolean isNotTagged(String name) {
+		return name.trim().length() == 0;
+
+	}
+
+	
 	/**
 	 * Stellt fest in welche Richtung abgebogen werden muss
 	 * 
