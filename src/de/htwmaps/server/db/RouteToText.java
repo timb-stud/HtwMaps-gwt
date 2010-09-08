@@ -265,7 +265,7 @@ public class RouteToText {
 		int minutes = (int) (lTime / 60 - (hours * 60));
 //		int seconds = (int) (lTime % 60);
 //		return (df.format(hours) + ":" + df.format(minutes) + ":" + df.format(seconds));
-		return (df.format(hours) + ":" + df.format(minutes));
+		return (df.format(hours) + ":" + df.format(minutes + 1)); // + 1 dient als Aufrundung, da keine Sekunden angezeigt werden
 	}
 
 	/**
