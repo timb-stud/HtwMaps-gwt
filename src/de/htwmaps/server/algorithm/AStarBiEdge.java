@@ -1,5 +1,10 @@
 package de.htwmaps.server.algorithm;
 
+/**
+ * 
+ * @author bline
+ *	Diese Klasse dient dem Bidirektionalem A* als Kante im Graphen. Sie erweitert die AStarEdge um zusätzliche, für den bidirektionalen Algorithmus notwendige Daten.
+ */
 public class AStarBiEdge extends AStarEdge {
 	private Node predecessor;
 	private boolean isOneway;

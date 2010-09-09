@@ -18,6 +18,8 @@ import de.htwmaps.shared.exceptions.MySQLException;
  *
  */
 /**
+ *  * Diese Klasse beschreibt einen Bereich innerhalb eines variabel rotierten Rechtecks. Knoten werden aus diesem Bereich ausgewählt.
+
  * @author bline
  *
  */
@@ -60,6 +62,14 @@ public class DBAdapterRotativeRectangle{
 		this.gd = gd;
 	}
 	
+	/**
+	 * Hier wird GraphData alle Nötigen informationen auf dem Bereich bereitgestellt
+	 * @param startID
+	 * @param goalID
+	 * @param h
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	public void fillGraphData(int startID, int goalID, float h) throws SQLException, MySQLException{
 		this.h = h;
 		Connection con = DBConnector.getConnection();
@@ -72,7 +82,7 @@ public class DBAdapterRotativeRectangle{
 		endNodeLon = resultSet.getFloat(2);
 		con.close();
 		
-		setParabel();
+		setRectangle();
 		long time = System.currentTimeMillis();
 		initNodes();
 		receiveNodesTime += System.currentTimeMillis() - time;
@@ -92,6 +102,11 @@ public class DBAdapterRotativeRectangle{
 		return sb.toString();
 	}
 
+	/**
+	 * Knotenrelevante Daten werden hier ausgelesen
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	private void initNodes() throws SQLException, MySQLException{
 		int tableLength;
 		float bigh = 1.2f;
@@ -173,6 +188,11 @@ public class DBAdapterRotativeRectangle{
 		con.close();
 	}
 
+	/**
+	 * Kantenrelevante Daten werden hier ausgelesen
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	private void initEdges() throws SQLException, MySQLException{
 		int tableLength;
 		float m = (startNodeLat - endNodeLat)/(startNodeLon - endNodeLon);
@@ -306,7 +326,10 @@ public class DBAdapterRotativeRectangle{
 		con.close();
 	}
 
-	private void setParabel() {
+	/**
+	 * Rechteck ausrichten
+	 */
+	private void setRectangle() {
 		if (startNodeLat>endNodeLat && startNodeLon >endNodeLon) {
 			NODE_SELECT = "select varNodes.id, varNodes.lon, varNodes.lat from nodes_opt varNodes "
 				+ " where "

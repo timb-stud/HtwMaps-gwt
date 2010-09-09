@@ -10,7 +10,7 @@ import de.htwmaps.shared.exceptions.PathNotFoundException;
 
 /**
  * @author Stanislaw Tartakowski
- * 
+ * Diese Klasse baut den Graphen auf, startet den Algorithmus, wartet auf dessen Beendigung und baut das Ergebnis zu einer LinkedList<Node> zusammen.
  * This class build a graph, calls the search algorithms, awaits their end and builds result
  */
 public class AStarBiStarter extends ShortestPathAlgorithm {
@@ -57,7 +57,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	}
 	
 	/**
-	 * node list -> Node[] array
+	 * node list -> LinkedList
 	 */
 	public LinkedList<Node> nodeToArray(AStarBiNode start, AStarBiNode goal) {
 		AStarBiNode tmp = start.getPredecessor() != null ? start : goal;
@@ -78,7 +78,13 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	}
 	
 	
-
+	/**
+	 * Hauptmethode
+	 * @param startNodeID startKnoten
+	 * @param goalNodeID zielKnoten
+	 * @return	kürzester Weg
+	 * @throws PathNotFoundException
+	 */
 	public LinkedList<Node> aStar(int startNodeID, int goalNodeID) throws PathNotFoundException {
 		HashMap<Integer, AStarBiNode> Q = new HashMap<Integer, AStarBiNode>(graphData.getAllNodeIDs().length);
 
@@ -122,6 +128,9 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		return result;
 	}
 	
+	/**
+	 * Aufruf des Algorithmus mit dem Kritärium kürzester Weg.
+	 */
 	@Override
 	public LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID)
 			throws PathNotFoundException {
@@ -134,6 +143,9 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		return aStar(startNodeID, goalNodeID);
 	}
 
+	/**
+	 * Aufruf des Algorithmus mit dem Kritärium schnellster Weg.
+	 */
 	@Override
 	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
 			int motorwaySpeed, int primarySpeed, int secondarySpeed,
@@ -148,6 +160,9 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		return aStar(startNodeID, goalNodeID);
 	}
 
+	/**
+	 * Aufruf des Algorithmus mit dem Kritärium schnellster Weg.
+	 */
 	@Override
 	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
 			int motorwaySpeed, int primarySpeed, int residentialSpeed)

@@ -9,14 +9,10 @@ import de.htwmaps.server.algorithm.utils.FibonacciHeap;
 
 /**
  * @author Stanislaw Tartakowski
- * 
- *         This is a concurrent implementation of an graph search algorithm
- *         based on Dijkstra's. Depart from classic implementations this
- *         algorithm has a goal oriented heuristic similar to A*'s and is
- *         optimized for maximal speed performance. Though, this algorithm
- *         doesn't guarantee best possible solution, but a relatively good one.
- *         This class can only be reasonably used if the caller of this class
- *         remains sleeping until this class awakens him when the work is done.
+ * 		Dies ist eine konkurrierende Implementierung eines Suchalgorithmus in einem zusammenhängend Graphen.
+ * 		Der Algorithmus basiert auf der Idee des Dijkstra-Suchalgorithmus und erweitert diesen um eine
+ * 		zielorientierte Heuristik.
+ * 		Die Implementierung ist nicht deterministisch. Das Resultat ist jedoch nie "schlecht"
  */
 public class AStarBi extends Thread {
 	protected volatile static boolean finished;
@@ -29,17 +25,10 @@ public class AStarBi extends Thread {
 
 	/**
 	 * 
-	 * @param Q
-	 *            the container of all nodes of the graph
-	 * @param startNode
-	 *            destination
-	 * @param endNode
-	 *            goal
-	 * @param thread
-	 *            flags the threads to run from destination to goal (true) or
-	 *            reverse (false)
-	 * @param caller
-	 *            the object who started this class and waits for its completion
+	 * @param startNode Startknoten
+	 * @param endNode Endknoten
+	 * @param thread der jeweilige Suchthread
+	 * @param caller der Starter dieses Objektes.
 	 */
 	public AStarBi(AStarBiNode startNode, AStarBiNode endNode,
 			boolean thread, Object caller) {
@@ -50,7 +39,7 @@ public class AStarBi extends Thread {
 	}
 
 	/**
-	 * thread entrance
+	 * Threadeingang und Hauptschleife
 	 */
 	@Override
 	public void run() {
@@ -95,6 +84,13 @@ public class AStarBi extends Thread {
 		}
 	}
 
+	/**
+	 * 
+	 * @param Q Behälter mit allen momentan zu bearbeitenden Knoten
+	 * @param currentNode der aktuell bearbeitende knoten
+	 * @param successor der aktuell ausgewählte Folgeknoten
+	 * @param dist die distanz zwischen aktuellem Knoten und Folgeknoten
+	 */
 	private void updateSuccDist(FibonacciHeap Q, AStarBiNode currentNode, AStarBiNode successor, double dist) {
 		double alternative = currentNode.getDist() + dist;
 
@@ -111,13 +107,18 @@ public class AStarBi extends Thread {
 		}
 	}
 
+	/**
+	 * Heuristik. Die Distanz zum Endknoten wird als Auswahlkritärium benutzt
+	 * @param node der aktuelle Knoten
+	 * @return	Distanz zum Endknoten
+	 */
 	private double potential(AStarBiNode node) {
 		return node.getDistanceTo(endNode);
 	}
 
 	/**
-	 * Sets a touched mark on the current node as a hint for the threads whether
-	 * the node has been analyzed before
+	 * Setzt ein Hinweis auf jeden Knoten, dass dieser von dem jeweiligen Thread bearbeitet wurde oder wird.
+	 * @param node der aktuelle Knoten
 	 */
 	private void touch(AStarBiNode node) {
 		if (thread) {
@@ -128,8 +129,7 @@ public class AStarBi extends Thread {
 	}
 
 	/**
-	 * Checks whether the current thread may build the result and finish the
-	 * algorithm
+	 * Prüfen, ob der aktuelle Thread den Algorithmus beenden kann, da ein Knoten eines anderen Threads gefunden wurde.
 	 */
 	private boolean checkForCommonNode(AStarBiNode currentNode, AStarBiNode successor) {
 		if (!thread && successor.isTouchedByTh1() || thread && successor.isTouchedByTh2()) {
@@ -144,7 +144,7 @@ public class AStarBi extends Thread {
 	}
 
 	/**
-	 * Builds the result. Can be entered only once.
+	 * Zusammenfügen der Resultete der beiden Threads zu einem Resultat
 	 */
 	private void concantenate(AStarBiNode currentNode, AStarBiNode successor) {
 		AStarBiNode tmp;
@@ -158,7 +158,7 @@ public class AStarBi extends Thread {
 	}
 
 	/**
-	 * wakes up every thread thread, waiting on caller's class
+	 * Aufwecken des Starters, diese Methode kann nur einmal betreten werden.
 	 */
 	private void reactivateCaller() {
 		synchronized (caller.getClass()) {

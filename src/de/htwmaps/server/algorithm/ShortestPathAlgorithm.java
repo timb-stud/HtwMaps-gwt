@@ -4,7 +4,11 @@ import java.util.LinkedList;
 
 import de.htwmaps.shared.exceptions.PathNotFoundException;
 
-
+/**
+ * Hier werden die Schnittstellen zu den Algorithmen definiert.
+ * @author bline
+ *
+ */
 public abstract class ShortestPathAlgorithm {
 	GraphData graphData;
 	
@@ -15,7 +19,7 @@ public abstract class ShortestPathAlgorithm {
 	public static final int ROAD = 11;
 	public static final int LIVING_STREET = 13;
 	private int motorwaySpeed = 100; //Autobahn
-	private int primarySpeed = 70; //Landstraße
+	private int primarySpeed = 70; //Landstraï¿½e
 	private int secondarySpeed = 60; //Ortsverbindung
 	private int residentialSpeed = 40; //Innerorts
 	private int roadSpeed = 50; //unclassified

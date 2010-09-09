@@ -19,6 +19,7 @@ import de.htwmaps.shared.exceptions.MySQLException;
  *
  */
 /**
+ * Diese Klasse beschreibt einen Bereich innerhalb 2er Parabeln. Knoten werden aus diesem Bereich ausgewählt.
  * @author bline
  * 
  */
@@ -62,6 +63,16 @@ public class DBAdapterParabel {
 		this.gd = gd;
 	}
 
+	/**
+	  	 * Hier wird GraphData alle Nötigen informationen auf dem Bereich bereitgestellt
+	 * @param startID
+	 * @param goalID
+	 * @param a
+	 * @param h
+	 * @param option
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	public void fillGraphData(int startID, int goalID, float a, float h,
 			int option) throws SQLException, MySQLException {
 		this.a = a;
@@ -98,6 +109,11 @@ public class DBAdapterParabel {
 		return sb.toString();
 	}
 
+	/**
+	 * Knotenrelevante Daten werden hier ausgelesen
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	private void initNodes() throws SQLException, MySQLException {
 		int tableLength;
 		Connection con = DBConnector.getConnection();
@@ -137,6 +153,11 @@ public class DBAdapterParabel {
 		}
 	}
 
+	/**
+	 * Kantenrelevante Daten werden hier ausgelesen
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	private void initEdges() throws SQLException, MySQLException {
 		int tableLength;
 		Connection con = DBConnector.getConnection();

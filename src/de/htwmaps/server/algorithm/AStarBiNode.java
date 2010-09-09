@@ -6,7 +6,7 @@ import java.util.LinkedList;
 /**
  * @author Stanislaw Tartakowski
  * 
- * Node representing location on earth
+ *	Diese Klasse dient dem Bidirektionalem A* als Knoten im Graphen. Sie erweitert die Klasse Node um zusätzliche, für den bidirektionalen Algorithmus notwendige Daten.
  */
 public class AStarBiNode extends Node {
 
