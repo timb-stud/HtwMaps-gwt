@@ -82,7 +82,7 @@ img#htwMapsLoad {
 	visibility: hidden;
 }
 
-/** Eigene Style**/
+/** Eigene Styles**/
 .controlsPanel {
 	float: left; 
 	padding-top: 5px;
@@ -91,14 +91,32 @@ img#htwMapsLoad {
 	padding-right: 5px;		
 }
 
+.optionsLabel {
+	font-family: Verdana;
+	font-size: 10pt;
+	font-weight: bold;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
 .statusLabelNormal{
 	font-family: Verdana;
 	color: black;
-	font-weight: normal ;
+	font-weight: normal;
 }
 
 .statusLabelError{
 	font-family: Verdana;
 	color: red;
 	font-weight: bold;
+}
+
+.wayDescriptionItem{
+	border-style:solid; 
+	border-width:1px;
+	border-top-color:white; 
+	border-bottom-color:grey;
+	border-right-color:white;
+	border-left-color:white;
+	padding:4px;
 }

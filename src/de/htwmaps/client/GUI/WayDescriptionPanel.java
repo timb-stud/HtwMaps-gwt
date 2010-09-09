@@ -34,6 +34,8 @@ public class WayDescriptionPanel extends VerticalPanel {
 	 * @param item Text der eingefügt wird
 	 */
 	public void addItem(String item){
-		add(new HTML(item));
+		HTML htmlItem = new HTML(item);
+		htmlItem.setStyleName("wayDescriptionItem");
+		add(htmlItem);
 	}
 }
