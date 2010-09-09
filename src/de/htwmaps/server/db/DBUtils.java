@@ -168,7 +168,6 @@ public class DBUtils {
 		// durchfahren wird
 		boolean inOrder;
 
-		System.out.println("Size Opt: " + nodes.length);
 		for (int i = 0; i < nodes.length - 1; i++) {
 			inOrder = true;
 			if ((i < edges.length - 2) && (edges[i].getWayID() == edges[i+1].getWayID())) {
@@ -217,9 +216,6 @@ public class DBUtils {
 			}
 
 		}
-		System.out.println("DB-Abfragen Richtung " + timeDir + "ms");
-		System.out.println("DB-Abfragen Daten " + timeData + "ms");
-		System.out.println("Edgetreffer " + edgeTreffer + " DBTreffer " + dbTreffer);
 		psLatLonsAsc.close();
 		psLatLonsDesc.close();
 		psDirection.close();
@@ -231,7 +227,6 @@ public class DBUtils {
 			latLonArray[1][listCount] = latLon[1];
 			listCount++;
 		}
-		System.out.println("Size All: " + latLonArray[1].length);
 		return latLonArray;
 	}
 
