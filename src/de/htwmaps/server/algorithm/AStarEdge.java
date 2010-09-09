@@ -8,6 +8,21 @@ package de.htwmaps.server.algorithm;
  *	Diese Klasse ist eine Kante zwischen 2 Knoten im Graphen
  */
 public class AStarEdge {
+	
+	public static final int MOTORWAY_ID = 1;
+	public static final int PRIMARY_ID = 5;
+	public static final int SECONDARY_ID = 7;
+	public static final int RESIDENTIAL_ID = 10;
+	public static final int ROAD_ID = 11;
+	public static final int LIVING_STREET_ID = 13;
+	
+	public static int MOTORWAY_SPEED = 100; //Autobahn
+	public static int PRIMARY_SPEED = 70; //Landstra�e
+	public static int SECONDARY_SPEED = 60; //Ortsverbindung
+	public static int RESIDENTIAL_SPEED = 40; //Innerorts
+	public static int ROAD_SPEED = 50; //unclassified
+	public static int LIVING_STREET_SPEED = 5; //Spielstrasse
+	 	
 	private Node successor;
 	private double length;
 	private int highwayType;
@@ -30,8 +45,28 @@ public class AStarEdge {
 		this.id = id;
 	}
 	
+
 	public int getSpeed() {
-		return speed;
+		if(speed == 1){
+			switch (highwayType) {
+				case MOTORWAY_ID:
+				return MOTORWAY_SPEED;
+				case PRIMARY_ID:
+				return PRIMARY_SPEED;
+				case SECONDARY_ID:
+				return SECONDARY_SPEED;
+				case RESIDENTIAL_ID:
+				return RESIDENTIAL_SPEED;
+				case ROAD_ID:
+				return ROAD_SPEED;
+				case LIVING_STREET_ID:
+				return LIVING_STREET_SPEED;
+				default:
+				throw new RuntimeException("highwayType: " + highwayType + " is no defined ID");
+			}
+		}
+		else
+			return speed;
 	}
 	
 	public int getWayID() {
