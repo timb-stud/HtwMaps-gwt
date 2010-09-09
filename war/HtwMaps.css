@@ -82,7 +82,7 @@ img#htwMapsLoad {
 	visibility: hidden;
 }
 
-/** Eigene Style**/
+/** Eigene Styles**/
 .controlsPanel {
 	float: left; 
 	padding-top: 5px;
@@ -109,4 +109,12 @@ img#htwMapsLoad {
 	font-family: Verdana;
 	color: red;
 	font-weight: bold;
+}
+
+.wayDescriptionItem{
+	border-width:1px;
+	border-style:solid;
+	border-color:0000CC;
+	padding:5px;
+	background-color:1188CC;
 }
