@@ -112,9 +112,11 @@ img#htwMapsLoad {
 }
 
 .wayDescriptionItem{
-	border-width:1px;
-	border-style:solid;
-	border-color:0000CC;
-	padding:5px;
-	background-color:1188CC;
+	border-style:solid; 
+	border-width:2px;
+	border-top-color:white; 
+	border-bottom-color:grey;
+	border-right-color:white;
+	border-left-color:white;
+	padding:4px;
 }
