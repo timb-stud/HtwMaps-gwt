@@ -7,6 +7,10 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.htwmaps.client.GUI.exceptions.MotorWaySpeedException;
+import de.htwmaps.client.GUI.exceptions.PrimarySpeedException;
+import de.htwmaps.client.GUI.exceptions.ResidentialSpeedException;
+
 /**
  * Erstellt das Optionspanel, damit der Benutzer eigene Routingoptionen wählen kann
  * 
@@ -143,5 +147,38 @@ public class OptionsPanel extends VerticalPanel {
 	 */
 	public TextBox getResidentialSpeedTextBox() {
 		return residentialSpeedTextBox;
-	}	
+	}
+	
+	public int getMotorWaySpeed() throws MotorWaySpeedException{
+		try{
+			int mws = Integer.parseInt(motorwaySpeedTextBox.getText().trim());
+			if(mws < 1 || mws > 1000)
+				throw new MotorWaySpeedException();
+			return mws;
+		} catch(NumberFormatException e){
+			throw new MotorWaySpeedException();
+		}
+	}
+	
+	public int getPrimarySpeed() throws PrimarySpeedException{
+		try{
+			int ps = Integer.parseInt(primarySpeedTextBox.getText().trim());
+			if(ps < 1 || ps > 1000)
+				throw new PrimarySpeedException();
+			return ps;
+		} catch(NumberFormatException e){
+			throw new PrimarySpeedException();
+		}
+	}
+	
+	public int getResidentialSpeed() throws ResidentialSpeedException{
+		try{
+			int rs = Integer.parseInt(residentialSpeedTextBox.getText().trim());
+			if(rs < 1 || rs > 1000)
+				throw new ResidentialSpeedException();
+			return rs;
+		} catch(NumberFormatException e){
+			throw new ResidentialSpeedException();
+		}
+	}
 }

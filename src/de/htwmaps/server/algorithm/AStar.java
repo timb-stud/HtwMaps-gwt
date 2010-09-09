@@ -135,7 +135,7 @@ public class AStar extends ShortestPathAlgorithm {
 			AStarNode toNode = allNodes.get(edgeEndNodeIDs[i]);
 
 			switch (highwayTypes[i]) {
-			case ShortestPathAlgorithm.MOTORWAY:
+			case AStarEdge.MOTORWAY_ID:
 				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i],
 						highwayTypes[i], wayIDs[i], motorwaySpeed, edgeIDs[i]));
 				if (!oneways[i])
@@ -143,7 +143,7 @@ public class AStar extends ShortestPathAlgorithm {
 							highwayTypes[i], wayIDs[i], motorwaySpeed,
 							edgeIDs[i]));
 				break;
-			case ShortestPathAlgorithm.PRIMARY:
+			case AStarEdge.PRIMARY_ID:
 				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i],
 						highwayTypes[i], wayIDs[i], primarySpeed, edgeIDs[i]));
 				if (!oneways[i])
@@ -151,7 +151,7 @@ public class AStar extends ShortestPathAlgorithm {
 							highwayTypes[i], wayIDs[i], primarySpeed,
 							edgeIDs[i]));
 				break;
-			case ShortestPathAlgorithm.SECONDARY:
+			case AStarEdge.SECONDARY_ID:
 				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i],
 						highwayTypes[i], wayIDs[i], secondarySpeed, edgeIDs[i]));
 				if (!oneways[i])
@@ -159,7 +159,7 @@ public class AStar extends ShortestPathAlgorithm {
 							highwayTypes[i], wayIDs[i], secondarySpeed,
 							edgeIDs[i]));
 				break;
-			case ShortestPathAlgorithm.RESIDENTIAL:
+			case AStarEdge.RESIDENTIAL_ID:
 				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i],
 						highwayTypes[i], wayIDs[i], residentialSpeed,
 						edgeIDs[i]));
@@ -168,14 +168,14 @@ public class AStar extends ShortestPathAlgorithm {
 							highwayTypes[i], wayIDs[i], residentialSpeed,
 							edgeIDs[i]));
 				break;
-			case ShortestPathAlgorithm.ROAD:
+			case AStarEdge.ROAD_ID:
 				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i],
 						highwayTypes[i], wayIDs[i], roadSpeed, edgeIDs[i]));
 				if (!oneways[i])
 					toNode.addEdge(new AStarEdge(fromNode, edgeLenghts[i],
 							highwayTypes[i], wayIDs[i], roadSpeed, edgeIDs[i]));
 				break;
-			case ShortestPathAlgorithm.LIVING_STREET:
+			case AStarEdge.LIVING_STREET_ID:
 				fromNode.addEdge(new AStarEdge(toNode, edgeLenghts[i],
 						highwayTypes[i], wayIDs[i], livingStreetSpeed,
 						edgeIDs[i]));
@@ -216,27 +216,6 @@ public class AStar extends ShortestPathAlgorithm {
 	}
 
 	
-	@Override
-	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
-			int motorwaySpeed, int primarySpeed, int secondarySpeed,
-			int residentialSpeed, int roadSpeed, int livingStreetSpeed)
-			throws PathNotFoundException {
-
-		int maxSpeed;
-		int[] speeds = new int[6];
-		speeds[0] = motorwaySpeed;
-		speeds[1] = primarySpeed;
-		speeds[2] = secondarySpeed;
-		speeds[3] = residentialSpeed;
-		speeds[4] = roadSpeed;
-		speeds[5] = livingStreetSpeed;
-		maxSpeed = getMax(speeds);
-		buildNodes();
-		buildEdges(motorwaySpeed, primarySpeed, secondarySpeed,
-				residentialSpeed, roadSpeed, livingStreetSpeed);
-		return aStar(startNodeID, goalNodeID, maxSpeed);
-	}
-
 	/**
 	 * 
 	 */
@@ -245,11 +224,23 @@ public class AStar extends ShortestPathAlgorithm {
 			int motorwaySpeed, int primarySpeed, int residentialSpeed)
 			throws PathNotFoundException {
 
-		return findFastestPath(startNodeID, goalNodeID, motorwaySpeed,
-				primarySpeed, this.getSecondarySpeed(), residentialSpeed,
-				this.getRoadSpeed(), this.getLivingStreetSpeed());
+		int maxSpeed;
+		int[] speeds = new int[6];
+		speeds[0] = motorwaySpeed;
+		speeds[1] = primarySpeed;
+		speeds[2] = AStarEdge.SECONDARY_SPEED;
+		speeds[3] = residentialSpeed;
+		speeds[4] = AStarEdge.ROAD_SPEED;
+		speeds[5] = AStarEdge.LIVING_STREET_SPEED;
+		maxSpeed = getMax(speeds);
+		buildNodes();
+		buildEdges(motorwaySpeed, primarySpeed, AStarEdge.SECONDARY_SPEED,
+				residentialSpeed, AStarEdge.ROAD_SPEED, AStarEdge.LIVING_STREET_SPEED);
+		return aStar(startNodeID, goalNodeID, maxSpeed);
+		
 	}
 
+	
 	private int getMax(int[] tab) {
 		int max = 0;
 		for (int i : tab) {
@@ -259,9 +250,15 @@ public class AStar extends ShortestPathAlgorithm {
 		return max;
 	}
 
+
 	@Override
-	public LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID)
+	public LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID,
+			int motorwaySpeed, int primarySpeed, int residentialSpeed)
 			throws PathNotFoundException {
+
+		AStarEdge.MOTORWAY_SPEED = motorwaySpeed;
+		AStarEdge.PRIMARY_SPEED = primarySpeed;
+		AStarEdge.RESIDENTIAL_SPEED = residentialSpeed;
 		buildNodes();
 		buildEdges();
 		int maxSpeed = 1;

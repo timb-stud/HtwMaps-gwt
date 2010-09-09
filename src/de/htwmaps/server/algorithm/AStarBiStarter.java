@@ -24,17 +24,17 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	 * @param highwayTypes 
 	 * @param edgeIDs 
 	 */
-	private void generateReferences(HashMap<Integer, AStarBiNode> Q, int[] edgeStartNodeIDs, int[] edgeEndNodeIDs, boolean[] oneways, double[] edgeLengths, int[] highwayTypes, int[] wayIDs, int[] edgeIDs) {
+	private void generateReferences(HashMap<Integer, AStarBiNode> Q, int[] edgeStartNodeIDs, int[] edgeEndNodeIDs, boolean[] oneways, double[] edgeLengths, int[] highwayTypes, int[] wayIDs, int[] edgeIDs, int option) {
 		for (int i = 0 ; i < edgeStartNodeIDs.length; i++) {
 			AStarBiNode fromNode = Q.get(edgeStartNodeIDs[i]), toNode = Q.get(edgeEndNodeIDs[i]);
 			AStarBiEdge edge = null;
 			switch (highwayTypes[i]) {
-			case MOTORWAY: edge = new AStarBiEdge(toNode, edgeLengths[i], MOTORWAY, wayIDs[i], getMotorwaySpeed(), edgeIDs[i]); break;
-			case PRIMARY: edge = new AStarBiEdge(toNode, edgeLengths[i], PRIMARY, wayIDs[i], getPrimarySpeed(), edgeIDs[i]); break;
-			case SECONDARY: edge = new AStarBiEdge(toNode, edgeLengths[i], SECONDARY, wayIDs[i], getSecondarySpeed(), edgeIDs[i]); break;
-			case ROAD: edge = new AStarBiEdge(toNode, edgeLengths[i], ROAD, wayIDs[i], getRoadSpeed(), edgeIDs[i]); break;
-			case RESIDENTIAL: edge = new AStarBiEdge(toNode, edgeLengths[i], RESIDENTIAL, wayIDs[i], getResidentialSpeed(), edgeIDs[i]); break;
-			case LIVING_STREET: edge = new AStarBiEdge(toNode, edgeLengths[i], LIVING_STREET, wayIDs[i], getLivingStreetSpeed(), edgeIDs[i]); break;
+			case AStarEdge.MOTORWAY_ID: edge = new AStarBiEdge(toNode, edgeLengths[i], AStarEdge.MOTORWAY_ID, wayIDs[i], option == 0 ? AStarEdge.MOTORWAY_SPEED : 1, edgeIDs[i]); break;
+			case AStarEdge.PRIMARY_ID: edge = new AStarBiEdge(toNode, edgeLengths[i],  AStarEdge.PRIMARY_ID, wayIDs[i],  option == 0 ? AStarEdge.PRIMARY_SPEED : 1, edgeIDs[i]); break;
+			case AStarEdge.SECONDARY_ID: edge = new AStarBiEdge(toNode, edgeLengths[i],  AStarEdge.SECONDARY_ID, wayIDs[i],  option == 0 ? AStarEdge.SECONDARY_SPEED : 1, edgeIDs[i]); break;
+			case AStarEdge.ROAD_ID: edge = new AStarBiEdge(toNode, edgeLengths[i],  AStarEdge.ROAD_ID, wayIDs[i],  option == 0 ? AStarEdge.ROAD_SPEED : 1, edgeIDs[i]); break;
+			case AStarEdge.RESIDENTIAL_ID: edge = new AStarBiEdge(toNode, edgeLengths[i],  AStarEdge.RESIDENTIAL_ID, wayIDs[i],  option == 0 ? AStarEdge.RESIDENTIAL_SPEED : 1, edgeIDs[i]); break;
+			case AStarEdge.LIVING_STREET_ID: edge = new AStarBiEdge(toNode, edgeLengths[i], AStarEdge.LIVING_STREET_ID, wayIDs[i],  option == 0 ? AStarEdge.LIVING_STREET_SPEED : 1, edgeIDs[i]); break;
 			default: throw new IllegalArgumentException();
 			}
 			edge.setPredecessor(fromNode);
@@ -45,6 +45,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 				edge.setOneway(false);
 			}
 		}
+		
 	}
 	
 	/**
@@ -85,14 +86,14 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	 * @return	kürzester Weg
 	 * @throws PathNotFoundException
 	 */
-	public LinkedList<Node> aStar(int startNodeID, int goalNodeID) throws PathNotFoundException {
+	public LinkedList<Node> aStar(int startNodeID, int goalNodeID, int option) throws PathNotFoundException {
 		HashMap<Integer, AStarBiNode> Q = new HashMap<Integer, AStarBiNode>(graphData.getAllNodeIDs().length);
 
 		long time = System.currentTimeMillis();
 		generateNodes(Q, graphData.getAllNodeIDs(), graphData.getAllNodeLons(), graphData.getAllNodeLats());
 		setBuildNodesTime(System.currentTimeMillis() - time);
 		time = System.currentTimeMillis();
-		generateReferences(Q, graphData.getEdgeStartNodeIDs(), graphData.getEdgeEndNodeIDs(), graphData.getOneways(), graphData.getEdgeLengths(), graphData.getHighwayTypes(), graphData.getWayIDs(), graphData.getEdgeIDs());
+		generateReferences(Q, graphData.getEdgeStartNodeIDs(), graphData.getEdgeEndNodeIDs(), graphData.getOneways(), graphData.getEdgeLengths(), graphData.getHighwayTypes(), graphData.getWayIDs(), graphData.getEdgeIDs(), option);
 		setBuildEdgesTime(System.currentTimeMillis() - time);
 		
 		AStarBiNode start = Q.get(startNodeID); 
@@ -132,32 +133,13 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	 * Aufruf des Algorithmus mit dem Kritärium kürzester Weg.
 	 */
 	@Override
-	public LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID)
+	public LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID,
+			int motorwaySpeed, int primarySpeed, int residentialSpeed)
 			throws PathNotFoundException {
-		setMotorwaySpeed(1);
-		setPrimarySpeed(1);
-		setSecondarySpeed(1);
-		setResidentialSpeed(1);
-		setRoadSpeed(1);
-		setLivingStreetSpeed(1);
-		return aStar(startNodeID, goalNodeID);
-	}
-
-	/**
-	 * Aufruf des Algorithmus mit dem Kritärium schnellster Weg.
-	 */
-	@Override
-	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
-			int motorwaySpeed, int primarySpeed, int secondarySpeed,
-			int residentialSpeed, int roadSpeed, int livingStreetSpeed)
-			throws PathNotFoundException {
-		setMotorwaySpeed(motorwaySpeed);
-		setPrimarySpeed(primarySpeed);
-		setSecondarySpeed(secondarySpeed);
-		setResidentialSpeed(residentialSpeed);
-		setRoadSpeed(roadSpeed);
-		setLivingStreetSpeed(livingStreetSpeed);
-		return aStar(startNodeID, goalNodeID);
+		AStarEdge.MOTORWAY_SPEED = motorwaySpeed;
+		AStarEdge.PRIMARY_SPEED = primarySpeed;
+		AStarEdge.RESIDENTIAL_SPEED = residentialSpeed;
+		return aStar(startNodeID, goalNodeID, 1);
 	}
 
 	/**
@@ -167,9 +149,9 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
 			int motorwaySpeed, int primarySpeed, int residentialSpeed)
 			throws PathNotFoundException {
-		setMotorwaySpeed(motorwaySpeed);
-		setPrimarySpeed(primarySpeed);
-		setResidentialSpeed(residentialSpeed);
-		return aStar(startNodeID, goalNodeID);
+		AStarEdge.MOTORWAY_SPEED = motorwaySpeed;
+		AStarEdge.PRIMARY_SPEED = primarySpeed;
+		AStarEdge.RESIDENTIAL_SPEED = residentialSpeed;
+		return aStar(startNodeID, goalNodeID, 0);
 	}
 }

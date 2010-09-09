@@ -37,10 +37,11 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 
 	
 	@Override
-	public OptPathData findShortestPathAStar(String[] cities, String[] streets) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
+	public OptPathData findShortestPathAStar(String[] cities, String[] streets, int motorwaySpeed,
+			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
 		ShortestPathAlgorithm spa = new AStar(gd);
-		return executeSearch(spa, gd, SHORTEST, cities, streets, 0, 0, 0);
+		return executeSearch(spa, gd, SHORTEST, cities, streets, motorwaySpeed, primarySpeed, residentialSpeed);
 	}
 
 	@Override
@@ -52,10 +53,11 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public OptPathData findShortestPathAStarBi(String[] cities, String[] streets) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
+	public OptPathData findShortestPathAStarBi(String[] cities, String[] streets, int motorwaySpeed,
+			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
 		GraphData gd = new GraphData();
 		ShortestPathAlgorithm spa = new AStarBiStarter(gd);
-		return executeSearch(spa, gd, SHORTEST, cities, streets, 0, 0, 0);
+		return executeSearch(spa, gd, SHORTEST, cities, streets, motorwaySpeed, primarySpeed, residentialSpeed);
 	}
 
 	@Override
@@ -96,7 +98,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				try {
 					switch (option) {
 					case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
-					case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
+					case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
 					}
 				} catch (PathNotFoundException e) {
 					System.out.print("2. versuch");
@@ -104,7 +106,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 					try {
 						switch (option) {
 						case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
-						case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
+						case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
 						}
 					} catch (PathNotFoundException ex) {
 						System.out.println(" fehlgeschlagen");

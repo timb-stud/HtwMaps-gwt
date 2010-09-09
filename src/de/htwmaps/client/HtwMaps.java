@@ -66,24 +66,8 @@ public class HtwMaps implements EntryPoint {
 		}
 		return -1;
 	}
-	
 
-    /**
-     * Überprüft ob ein richtiger Zahlenwert in den Geschwindigkeitsfeldern steht
-     * 
-     * @param inData Wert in der Textbox
-     * @return Zahl wenn die Konvertirung erfolgreich, wenn nicht -1
-     */
-    int readInteger(String inData) {
-        int value = 0;
-        try {
-        	value = Integer.parseInt(inData);
-        } catch (NumberFormatException fehler) {
-            return -1;
-        }
-        return value;
-    }
-    
+	
     /**
      * Ersetzt das Statuslabel mit neuem Text und Style
      * 

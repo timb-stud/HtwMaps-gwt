@@ -13,15 +13,30 @@ import de.htwmaps.shared.exceptions.PathNotFoundException;
 import de.htwmaps.shared.exceptions.SQLException;
 @RemoteServiceRelativePath("findPath")
 public interface FindPathService extends RemoteService {
-	OptPathData findShortestPathAStar(String[] cities, String[] streets) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
+	
+	OptPathData findShortestPathAStar(	String[] cities,
+										String[] streets, 
+										int motorwaySpeed,
+										int primarySpeed, 
+										int residentialSpeed) throws 	NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
 
-	OptPathData findFastestPathAStar(String[] cities, String[] streets, int motorwaySpeed,
-			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
+	OptPathData findFastestPathAStar(	String[] cities, 
+										String[] streets, 
+										int motorwaySpeed,
+										int primarySpeed, 
+										int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
 
-	OptPathData findShortestPathAStarBi(String[] cities, String[] streets) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
+	OptPathData findShortestPathAStarBi(String[] cities,
+										String[] streets, 
+										int motorwaySpeed,
+										int primarySpeed, 
+										int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
 
-	OptPathData findFastestPathAStarBi(String[] cities, String[] streets, int motorwaySpeed,
-			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
+	OptPathData findFastestPathAStarBi(	String[] cities, 
+										String[] streets, 
+										int motorwaySpeed,
+										int primarySpeed, 
+										int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException;
 	
 	AllPathData buildAllPathData() throws MySQLException, SQLException;
 	
