@@ -185,11 +185,11 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		long time = System.currentTimeMillis();
 		RouteToText rtt;
 		try {
-			rtt = new RouteToText(nodes, edges, startStreet, goalStreet);
+			rtt = new RouteToText(nodes, edges);
 		} catch (java.sql.SQLException e) {
 			throw new SQLException();
 		}
-		pd.setWayDescriptions(rtt.buildRouteInfo().toArray(new String[0])); //TODO direkt string array
+		pd.setWayDescriptions(rtt.buildRouteInfo(startStreet, goalStreet).toArray(new String[0])); //TODO direkt string array
 		pd.setTimeTotal(rtt.getTotaltime());
 		pd.setTimeOnMotorWay(rtt.getAutobahnTime());	//TODO englische namen
 		pd.setTimeOnPrimary(rtt.getLandstrasseTime());	//TODO werte in string?
