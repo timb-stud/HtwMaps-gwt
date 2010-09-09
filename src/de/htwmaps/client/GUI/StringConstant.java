@@ -29,7 +29,7 @@ public class StringConstant {
 	public static final String STADT = "Stadt:";
 	public static final String STRASSE = "Straße:";
 	
-	public static final String ROUTENART = "Routenart waehlen:";
+	public static final String ROUTENART = "Routenart wählen:";
 	public static final String WEG = "weg";
 	public static final String KUERZESTE = "kürzeste";
 	public static final String SCHNELLSTE = "schnellste";
@@ -37,7 +37,7 @@ public class StringConstant {
 	public static final String SPEED_AUTOBAHN = "Autobahngeschwindigkeit:";
 	public static final String SPEED_LANDSTRASSE = "Landstrassengeschwindigkeit:";
 	public static final String SPEED_INNERORTS = "Innerorts:";
-	public static final String WAEHLE_ALGORITHMUS = "Routingalgorithmus waehlen:";
+	public static final String WAEHLE_ALGORITHMUS = "Routingalgorithmus wählen:";
 	public static final String ALGORITHMUS = "algo";
 	public static final String ASTERN = "A*";
 	public static final String ASTERN_BIDIREKTIONAL = "A* Bidirektional";

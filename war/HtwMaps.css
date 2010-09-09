@@ -91,10 +91,18 @@ img#htwMapsLoad {
 	padding-right: 5px;		
 }
 
+.optionsLabel {
+	font-family: Verdana;
+	font-size: 10pt;
+	font-weight: bold;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
 .statusLabelNormal{
 	font-family: Verdana;
 	color: black;
-	font-weight: normal ;
+	font-weight: normal;
 }
 
 .statusLabelError{

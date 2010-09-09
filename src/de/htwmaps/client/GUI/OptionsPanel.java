@@ -14,6 +14,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class OptionsPanel extends VerticalPanel {
 	
+	HorizontalPanel emptyPanel1 = new HorizontalPanel();
+	HorizontalPanel emptyPanel2 = new HorizontalPanel();
+	HorizontalPanel emptyPanel3 = new HorizontalPanel();
 	Label wegLabel = new Label(StringConstant.ROUTENART);
 	HorizontalPanel wegPanel = new HorizontalPanel();
 	RadioButton fastestRadioButton = new RadioButton(StringConstant.WEG, StringConstant.SCHNELLSTE);
@@ -40,6 +43,8 @@ public class OptionsPanel extends VerticalPanel {
 		setVisible(false);		
 		
 		//Welcher weg?
+		emptyPanel1.setSize("300px", "15px");
+		wegLabel.addStyleName("optionsLabel");
 		wegPanel.add(fastestRadioButton);
 		wegPanel.add(shortestRadioButton);
 		fastestRadioButton.setValue(true);
@@ -48,8 +53,11 @@ public class OptionsPanel extends VerticalPanel {
 		wegPanel.setCellHorizontalAlignment(shortestRadioButton, HasHorizontalAlignment.ALIGN_CENTER);
 		add(wegLabel);
 		add(wegPanel);
+		add(emptyPanel1);
 		
 		//Speed
+		emptyPanel2.setSize("300px", "15px");
+		speedLabel.addStyleName("optionsLabel");
 		speedAutobPanel.setSize("250px", "15px");
 		motorwaySpeedTextBox.setSize("40px", "15px");
 		motorwaySpeedTextBox.setText("100");
@@ -68,13 +76,15 @@ public class OptionsPanel extends VerticalPanel {
 		residentialSpeedPanel.add(residentialSpeedLabel);
 		residentialSpeedPanel.add(residentialSpeedTextBox);
 		residentialSpeedPanel.setCellHorizontalAlignment(residentialSpeedTextBox, HasHorizontalAlignment.ALIGN_RIGHT);
-
 		add(speedLabel);
 		add(speedAutobPanel);
 		add(speedLandPanel);
 		add(residentialSpeedPanel);
+		add(emptyPanel2);
 		
 		//Algo
+		emptyPanel3.setSize("300px", "15px");
+		algoLabel.addStyleName("optionsLabel");
 		algoPanel.add(aStarRadioButton);
 		algoPanel.add(aStarBiRadioButton);
 		aStarRadioButton.setValue(true);
@@ -83,6 +93,7 @@ public class OptionsPanel extends VerticalPanel {
 		algoPanel.setCellHorizontalAlignment(aStarBiRadioButton, HasHorizontalAlignment.ALIGN_RIGHT);
 		add(algoLabel);
 		add(algoPanel);
+		add(emptyPanel3);
 	}
 
 	/**
