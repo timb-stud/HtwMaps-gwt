@@ -138,6 +138,7 @@ public class RouteToText {
 			con.close();
 			pStmt.close();
 		}
+		totaltime = autobahnTime + landstrasseTime + innerOrtstime;
 	}
 
 	/**
@@ -153,7 +154,7 @@ public class RouteToText {
 
 		double length = e.getLenght();
 		double time = length / 1000 / e.getSpeed() * 60 * 60;
-		totaltime += time;
+//		totaltime += time;
 
 		switch (e.getHighwayType()) {
 		case 1:
@@ -181,28 +182,26 @@ public class RouteToText {
 	 * 
 	 * @return Liste mit Anweisungen wir gefahren wird
 	 */
-	public LinkedList<String> buildRouteInfo() {
+	public LinkedList<String> buildRouteInfo(String start, String ziel) {
 		LinkedList<String> routeText = new LinkedList<String>();
 		StringBuffer sb = new StringBuffer();
 //		boolean cityChanged = false;
+		
+		String[] startStreet = start.split(",");
+		String[] zielStreet = ziel.split(",");
 
-		if (isNotTagged(info.get(0).getName())) {
-			routeText
-					.add("Sie starten in folgdender Straﬂe: <b><i> (Straﬂenbezeichnung nicht getaggt) </b></i>");
-		} else {
-			routeText.add("Sie starten in folgdender Straﬂe: <b>"
-					+ info.get(0).getName() + "</b>");
-		}
+	
+		routeText.add("Sie starten in folgender Stra√üe: <b>" + startStreet[0] + "</b>");
 
 		for (int i = 0; i < info.size() - 1; i++) {
 //			cityChanged = false;
 			if (info.get(i).getEdgeList().getLast().getHighwayType() != 1
 					&& info.get(i + 1).getEdgeList().getLast().getHighwayType() == 1) {
 				if (isNotTagged(info.get(i + 1).getName())) {
-					sb.append("Fahren Sie auf die Autobahn-Auffahrt der : <b><i>"
-							+ "Autobahnbezeichnung nicht getaggt" + "</i></b>");
+					sb.append("Fahren Sie auf die Autobahnauffahrt der : <b><i>"
+							+ "Autobahnbezeichnung nicht getaggt " + "</i></b>");
 				} else {
-					sb.append("Fahren Sie auf die Autobahn-Auffahrt der : <b>"
+					sb.append("Fahren Sie auf die Autobahnauffahrt der : <b>"
 							+ info.get(i + 1).getName() + "</b>");
 				}
 
@@ -219,12 +218,12 @@ public class RouteToText {
 					&& info.get(i + 1).getEdgeList().getLast().getHighwayType() == 1) {
 				if (isNotTagged(info.get(i + 1).getName())
 						&& isNotTagged(info.get(i).getName())) {
-					sb.append("Verlassen Sie die <b><i> Autobahnbezeichnung nicht getaggt </b></i> und fahren Sie auf die Autobahn-Auffahrt der : <b><i>"
+					sb.append("Verlassen Sie die <i> (Autobahnbezeichnung nicht getaggt) </i> und fahren Sie auf die Autobahnauffahrt der : <b><i>"
 							+ "(Autobahnbezeichnung nicht getaggt)"
 							+ "</i></b>");
 				} else if (isNotTagged(info.get(i).getName())
 						&& !isNotTagged(info.get(i + 1).getName())) {
-					sb.append("Verlassen Sie die <b><i> (Autobahnbezeichnung nicht getaggt) </b></i> und fahren Sie "
+					sb.append("Verlassen Sie die <i> (Autobahnbezeichnung nicht getaggt) </i> und fahren Sie "
 							+ info.get(i).getDirection()
 							+ "  auf die Autobahn-Auffahrt der : <b><i>"
 							+ info.get(i + 1).getName() + "</i></b>");
@@ -233,14 +232,14 @@ public class RouteToText {
 					sb.append("Verlassen Sie die <b>" + info.get(i).getName()
 							+ "</b> und fahren Sie "
 							+ info.get(i).getDirection()
-							+ "  auf die Autobahn-Auffahrt der : <b><i>"
-							+ "(Autobahnbezeichnung nicht getaggt)"
-							+ "</i></b>");
+							+ "  auf die Autobahnauffahrt der : <i>"
+							+ "(Autobahnbezeichnung nicht getaggt) "
+							+ "</i>");
 				} else {
-					sb.append("Verlassen Sie die <b>" + info.get(i).getName()
+					sb.append("Verlassen Sie: <b>" + info.get(i).getName()
 							+ "</b> und fahren Sie "
 							+ info.get(i).getDirection()
-							+ " auf die Autobahn-Auffahrt der : <b>"
+							+ " auf die Autobahnauffahrt der: <b>"
 							+ info.get(i + 1).getName() + "</b>");
 				}
 			} else if ((info.get(i).getEdgeList().getLast().getHighwayType() == 1)
@@ -250,10 +249,10 @@ public class RouteToText {
 						&& (isNotTagged(info.get(i + 1).getName()))) {
 					sb.append("Verlassen Sie die Autobahn und fahren Sie "
 							+ info.get(i).getDirection()
-							+ " in die <b><i> (Straﬂenbezeichnung nicht getaggt) </b></i>");
+							+ " in: <b><i> (Stra√üenbezeichnung nicht getaggt) </b></i>");
 				} else {
-					sb.append("Verlassen Sie die Autobahn und fahren Sie"
-							+ info.get(i).getDirection() + "in die <b>"
+					sb.append("Verlassen Sie die Autobahn und fahren Sie "
+							+ info.get(i).getDirection() + " in: <b>"
 							+ info.get(i + 1).getName() + "</b>");
 				}
 			}
@@ -264,17 +263,17 @@ public class RouteToText {
 					if (isNotTagged(info.get(i + 1).getName())) {
 						sb.append("\n Biegen Sie nun "
 								+ info.get(i).getDirection()
-								+ " in die <b><i> (Straﬂenbezeichnung nicht getaggt) </i></b>");
+								+ " in die <i> (Stra√üenbezeichnung nicht getaggt) </i>");
 					} else {
 						sb.append("\n Biegen Sie nun "
-								+ info.get(i).getDirection() + " in die <b>"
+								+ info.get(i).getDirection() + " in:  <b>"
 								+ info.get(i + 1).getName() + "</b>");
 					}
 				} else {
 					if (isNotTagged(info.get(i + 1).getName())) {
-						sb.append("Fahren Sie geradeaus in die <b><i> (Straﬂenbezeichnung nicht getaggt) </i></b>");
+						sb.append("Fahren Sie geradeaus in: <i> (Stra√üenbezeichnung nicht getaggt) </i>");
 					} else {
-						sb.append("Fahren Sie geradeaus in die <b>"
+						sb.append("Fahren Sie geradeaus in: <b>"
 								+ info.get(i + 1).getName() + "</b>");
 					}
 				}
@@ -282,14 +281,14 @@ public class RouteToText {
 			routeText.add(sb.toString());
 			sb.setLength(0);
 		}
-		routeText.add("Sie haben Ihr Ziel erreicht");
+		routeText.add("Sie haben Ihr Ziel: " + zielStreet[0] + " erreicht");
 		return routeText;
 	}
 	
 
 	/**
-	 * Pr¸ft ob es sich um einen leeren Tag handelt
-	 * @param zu ¸berpr¸fender String
+	 * Prueft ob es sich um einen leeren Tag handelt
+	 * @param zu ueberpruefender String
 	 * @return Wahrheitswert
 	 */
 	private boolean isNotTagged(String name) {
@@ -351,7 +350,10 @@ public class RouteToText {
 		int minutes = (int) (lTime / 60 - (hours * 60));
 //		int seconds = (int) (lTime % 60);
 //		return (df.format(hours) + ":" + df.format(minutes) + ":" + df.format(seconds));
-		return (df.format(hours) + ":" + df.format(minutes + 1)); // + 1 dient als Aufrundung, da keine Sekunden angezeigt werden
+		if (minutes == 0 && hours == 0)
+			return (df.format(hours) + ":" + df.format(minutes + 1)); // + 1 dient als Aufrundung, da keine Sekunden angezeigt werden
+		else
+			return (df.format(hours) + ":" + df.format(minutes));
 	}
 
 	/**
