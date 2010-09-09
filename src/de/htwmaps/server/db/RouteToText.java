@@ -424,15 +424,15 @@ public class RouteToText {
 	}
 
 	public String getAutobahnTime() {
-		return genarateTime(autobahnTime);
+		return (autobahn != 0) ? genarateTime(autobahnTime) : "00:00";
 	}
 
 	public String getLandstrasseTime() {
-		return genarateTime(landstrasseTime);
+		return (landstrasse != 0) ? genarateTime(landstrasseTime) : "00:00";
 	}
 
 	public String getInnerOrtstime() {
-		return genarateTime(innerOrtstime);
+		return (innerOrts != 0) ? genarateTime(innerOrtstime) : "00:00";
 	}
 
 	public ArrayList<StreetDetails> getInfo() {
