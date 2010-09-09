@@ -92,7 +92,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				try {
 					switch (option) {
 					case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
-					case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
+					case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
 					}
 				} catch (PathNotFoundException e) {
 					System.out.print("2. versuch");
@@ -100,7 +100,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 					try {
 						switch (option) {
 						case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
-						case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID); break;
+						case SHORTEST: result = spa.findShortestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;
 						}
 					} catch (PathNotFoundException ex) {
 						System.out.println(" fehlgeschlagen");
