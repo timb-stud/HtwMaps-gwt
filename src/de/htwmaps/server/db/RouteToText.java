@@ -281,7 +281,7 @@ public class RouteToText {
 			routeText.add(sb.toString());
 			sb.setLength(0);
 		}
-		routeText.add("Sie haben Ihr Ziel: " + zielStreet[0] + " erreicht");
+		routeText.add("Sie haben Ihr Ziel: <b>" + zielStreet[0] + "</b> erreicht");
 		return routeText;
 	}
 	
