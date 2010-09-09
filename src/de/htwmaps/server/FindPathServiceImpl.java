@@ -32,6 +32,8 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	
 	private Node[] nodes;
 	private AStarEdge[] edges;
+	private String startStreet;
+	private String goalStreet;
 
 	
 	@Override
@@ -69,6 +71,8 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 			GraphData gd, int option, String[] cities, String[] streets, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, MySQLException, PathNotFoundException, SQLException {
 		
+		startStreet = streets[0];
+		goalStreet = streets[streets.length - 1];
 		LinkedList<Node> nodeList = new LinkedList<Node>();
 		LinkedList<Node> result = new LinkedList<Node>();
 		String[] destinations = new String[cities.length];
@@ -181,7 +185,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		long time = System.currentTimeMillis();
 		RouteToText rtt;
 		try {
-			rtt = new RouteToText(nodes, edges);
+			rtt = new RouteToText(nodes, edges, startStreet, goalStreet);
 		} catch (java.sql.SQLException e) {
 			throw new SQLException();
 		}
