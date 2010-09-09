@@ -281,7 +281,7 @@ public class RouteToText {
 			routeText.add(sb.toString());
 			sb.setLength(0);
 		}
-		routeText.add("Sie haben Ihr Ziel: " + zielStreet[0] + " erreicht");
+		routeText.add("Sie haben Ihr Ziel: <b>" + zielStreet[0] + "</b> erreicht");
 		return routeText;
 	}
 	
@@ -424,15 +424,15 @@ public class RouteToText {
 	}
 
 	public String getAutobahnTime() {
-		return genarateTime(autobahnTime);
+		return (autobahn != 0) ? genarateTime(autobahnTime) : "00:00";
 	}
 
 	public String getLandstrasseTime() {
-		return genarateTime(landstrasseTime);
+		return (landstrasse != 0) ? genarateTime(landstrasseTime) : "00:00";
 	}
 
 	public String getInnerOrtstime() {
-		return genarateTime(innerOrtstime);
+		return (innerOrts != 0) ? genarateTime(innerOrtstime) : "00:00";
 	}
 
 	public ArrayList<StreetDetails> getInfo() {
