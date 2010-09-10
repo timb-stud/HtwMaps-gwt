@@ -82,6 +82,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		int i = -1;
 		int goalNodeID = -1;
 		dbap = new DBAdapterRotativeRectangle(gd);
+		dbap.printNodes();
 		for(i=0; i < cities.length -1; i++){
 			try{
 				int startNodeID = DBUtils.getNodeId(cities[i], streets[i]);
@@ -93,7 +94,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				if (goalNodeID == -1) {
 					throw new NodeNotFoundException("Falsche Angaben in Zeile: " + (i + 2));
 				}
-				float h = 0.1f; //20 km dicke
+				float h = 0.2f; //40 km dicke
 				dbap.fillGraphData(startNodeID, goalNodeID, h);
 				try {
 					switch (option) {
