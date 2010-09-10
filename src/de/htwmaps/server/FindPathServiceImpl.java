@@ -82,7 +82,6 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		int i = -1;
 		int goalNodeID = -1;
 		dbap = new DBAdapterRotativeRectangle(gd);
-		dbap.printNodes();
 		for(i=0; i < cities.length -1; i++){
 			try{
 				int startNodeID = DBUtils.getNodeId(cities[i], streets[i]);
