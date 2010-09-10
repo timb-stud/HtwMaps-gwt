@@ -3,3 +3,4 @@ war/WEB-INF/classes
 war/mapstraction.js
 war/htwmaps
 src/de/htwmaps/server/db/db.properties
+org.eclipse.core.resources.prefs
