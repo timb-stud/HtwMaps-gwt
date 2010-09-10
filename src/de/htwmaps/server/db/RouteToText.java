@@ -55,14 +55,14 @@ public class RouteToText {
 	}
 
 	/**
-	 * Methode gruppiert alle befahrenen Stra√üen
+	 * Methode gruppiert alle befahrenen Straﬂen
 	 * 
 	 * @param route
 	 *            route Array mit Knoten welche besucht werden
 	 * @param edges
 	 *            Array mit Kanten welche besucht werden
 	 * @throws SQLException
-	 *             Moegliche Fehler beim beschaffen der Daten (Strassennamen
+	 *             Moegliche Fehler beim beschaffen der Daten (Straﬂennamen
 	 *             etc.)
 	 * @throws MySQLException 
 	 */
@@ -85,7 +85,7 @@ public class RouteToText {
 			resultSet =  pStmt.executeQuery();
 			resultSet.first();
 
-			// Bestimmt ob Stra√üennamen oder Stra√üenbezeichnung (L123)
+			// Bestimmt ob Straﬂennamen oder Straﬂenbezeichnung (L123)
 			if (!(i == 1) && (!resultSet.getString(4).isEmpty())) {
 				current = resultSet.getString(4);
 				selectedAdditon = resultSet.getString(1);
@@ -105,7 +105,7 @@ public class RouteToText {
 				state = resultSet.getString(3);
 			}
 
-			// prueft ob aktuelle Strasse noch selbe Strasse ist wie Durchlauf
+			// prueft ob aktuelle Strasse noch selbe Straﬂe ist wie Durchlauf
 			// vorher
 			if (preview.equals(current)) {
 				edgeList.add(edge[i-1]);
@@ -142,14 +142,14 @@ public class RouteToText {
 	}
 
 	/**
-	 * Erstellt die Statistik der befahrenen Stra√üen
+	 * Erstellt die Statistik der befahrenen Straﬂen
 	 * 
 	 * @param e
 	 *            Kante welche befahren wird.
 	 */
 	private void fillDriveOn(AStarEdge e) {
 		// Autobahn 1
-		// Landstra√üe 5 ,7
+		// Landstraﬂe 5 ,7
 		// Innerorts 10,11,13
 
 		double length = e.getLenght();
@@ -191,7 +191,7 @@ public class RouteToText {
 		String[] zielStreet = ziel.split(",");
 
 	
-		routeText.add("Sie starten in folgender Stra√üe: <b>" + startStreet[0] + "</b>");
+		routeText.add("Sie starten in folgender Straﬂe: <b>" + startStreet[0] + "</b>");
 
 		for (int i = 0; i < info.size() - 1; i++) {
 //			cityChanged = false;
@@ -249,7 +249,7 @@ public class RouteToText {
 						&& (isNotTagged(info.get(i + 1).getName()))) {
 					sb.append("Verlassen Sie die Autobahn und fahren Sie "
 							+ info.get(i).getDirection()
-							+ " in: <b><i> (Stra√üenbezeichnung nicht getaggt) </b></i>");
+							+ " in: <b><i> (Straﬂenbezeichnung nicht getaggt) </b></i>");
 				} else {
 					sb.append("Verlassen Sie die Autobahn und fahren Sie "
 							+ info.get(i).getDirection() + " in: <b>"
@@ -263,7 +263,7 @@ public class RouteToText {
 					if (isNotTagged(info.get(i + 1).getName())) {
 						sb.append("\n Biegen Sie nun "
 								+ info.get(i).getDirection()
-								+ " in die <i> (Stra√üenbezeichnung nicht getaggt) </i>");
+								+ " in die <i> (Straﬂenbezeichnung nicht getaggt) </i>");
 					} else {
 						sb.append("\n Biegen Sie nun "
 								+ info.get(i).getDirection() + " in:  <b>"
@@ -271,7 +271,7 @@ public class RouteToText {
 					}
 				} else {
 					if (isNotTagged(info.get(i + 1).getName())) {
-						sb.append("Fahren Sie geradeaus in: <i> (Stra√üenbezeichnung nicht getaggt) </i>");
+						sb.append("Fahren Sie geradeaus in: <i> (Straﬂenbezeichnung nicht getaggt) </i>");
 					} else {
 						sb.append("Fahren Sie geradeaus in: <b>"
 								+ info.get(i + 1).getName() + "</b>");
@@ -365,19 +365,19 @@ public class RouteToText {
 
 		StringBuilder sb = new StringBuilder();
 		Iterator<StreetDetails> tInfo = info.iterator();
-		sb.append("Distance: " + "\t Strasse: " + "\t\t Additional: "
+		sb.append("Distance: " + "\t Straﬂe: " + "\t\t Additional: "
 				+ "\t\t Ort/Stadt: " + "\t\t Bundesland: " + "\n");
 		while (tInfo.hasNext()) {
 			sb.append(tInfo.next().toString() + "\n");
 			i++;
 		}
 
-		sb.append("\nAnzahl Strassen: " + i + " Gesamt Entfernung: "
+		sb.append("\nAnzahl Straﬂen: " + i + " Gesamt Entfernung: "
 				+ df_0_00.format((totallength / 1000)) + " km " + " Gesamt Dauer: "
 				+ genarateTime(totaltime) + "\n\n");
 		sb.append("Autobahn: ").append(df_0_00.format(autobahn / 1000)).append(
 				" km Dauer: ").append(genarateTime(autobahnTime)).append("\n");
-		sb.append("Landstra√üe: ").append(df_0_00.format(landstrasse / 1000)).append(
+		sb.append("Landstraﬂe: ").append(df_0_00.format(landstrasse / 1000)).append(
 				" km Dauer: ").append(genarateTime(landstrasseTime)).append("\n");
 		sb.append("Innerorts: ").append(df_0_00.format(innerOrts / 1000)).append(
 				" km Dauer: ").append(genarateTime(innerOrtstime)).append("\n");

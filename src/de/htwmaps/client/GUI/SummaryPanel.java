@@ -43,9 +43,9 @@ public class SummaryPanel extends VerticalPanel {
 	}
 	
 	/**
-	 * Setzt die Werte fÃ¼r die Autobahn
+	 * Setzt die Werte für die Autobahn
 	 * 
-	 * @param time BenÃ¶tigte Zeit
+	 * @param time Benötigte Zeit
 	 * @param distance Angabe der Distanz in Kilometer
 	 */
 	public void setOnMotorWay(String time, String distance){
@@ -53,9 +53,9 @@ public class SummaryPanel extends VerticalPanel {
 	}
 	
 	/**
-	 * Setzt die Werte fÃ¼r die LandstraÃŸe
+	 * Setzt die Werte für die LandstraÃŸe
 	 * 
-	 * @param time BenÃ¶tigte Zeit
+	 * @param time Benötigte Zeit
 	 * @param distance Angabe der Distanz in Kilometer
 	 */
 	public void setOnPrimary(String time, String distance){

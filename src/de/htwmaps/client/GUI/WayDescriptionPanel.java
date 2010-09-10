@@ -12,7 +12,7 @@ public class WayDescriptionPanel extends VerticalPanel {
 	
 	
 	/**
-	 * Standardkonstruktor fÃ¼r die Klasse
+	 * Standardkonstruktor für die Klasse
 	 */
 	public WayDescriptionPanel() {
 		setVisible(false);
@@ -29,9 +29,9 @@ public class WayDescriptionPanel extends VerticalPanel {
 	}
 	
 	/**
-	 * FÃ¼gt die einzelnen Teile der Wegbeschreibung ins Panel ein
+	 * Fügt die einzelnen Teile der Wegbeschreibung ins Panel ein
 	 * 
-	 * @param item Text der eingefÃ¼gt wird
+	 * @param item Text der eingefügt wird
 	 */
 	public void addItem(String item){
 		HTML htmlItem = new HTML(item);
