@@ -1,4 +1,5 @@
 package de.htwmaps.server.algorithm;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -68,12 +69,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 			tmp = tmp.getPredecessor();
 		}	
 		if (start.getPredecessor() != null) {
-			Node first = nodesContainer.getFirst();
-			int i = 0;
-			while (!first.equals(nodesContainer.getLast())) {
-				nodesContainer.add(i, nodesContainer.removeLast()); 
-				i++;
-			} 
+			Collections.reverse(nodesContainer);
 		}
 		return nodesContainer;
 	}

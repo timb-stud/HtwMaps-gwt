@@ -93,7 +93,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 				if (goalNodeID == -1) {
 					throw new NodeNotFoundException("Falsche Angaben in Zeile: " + (i + 2));
 				}
-				float h = 0.2f; //40 km dicke
+				float h = 0.15f; //30 km dicke
 				dbap.fillGraphData(startNodeID, goalNodeID, h);
 				try {
 					switch (option) {
