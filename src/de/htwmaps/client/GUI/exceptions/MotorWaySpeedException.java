@@ -1,5 +1,11 @@
 package de.htwmaps.client.GUI.exceptions;
 
+/**
+ * Wird geworfen wenn die Autobahngeschwindigkeit kein realistischer Wert ist.
+ * 
+ * @author Tim Bartsch
+ *
+ */
 public class MotorWaySpeedException extends Exception {
 
 	private static final long serialVersionUID = 1L;

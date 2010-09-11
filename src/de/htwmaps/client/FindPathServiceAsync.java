@@ -2,11 +2,16 @@ package de.htwmaps.client;
 
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import de.htwmaps.shared.AllPathData;
 import de.htwmaps.shared.OptPathData;
 import de.htwmaps.shared.PathDescription;
 
+/**
+ * RPC Methoden  zum finden und glaetten einer Route.
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ *
+ */
 public interface FindPathServiceAsync {
 
 	void findFastestPathAStar(	String[] cities, 

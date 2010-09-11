@@ -149,6 +149,12 @@ public class OptionsPanel extends VerticalPanel {
 		return residentialSpeedTextBox;
 	}
 	
+	/**
+	 * Liest die Autobahngeschwindigkeits Eingabe des Benutzers ein.
+	 * 
+	 * @return Autobahngeschwindigkeits Eingabe des Benutzers
+	 * @throws MotorWaySpeedException wenn die Eingabe < 1 oder > 1000 ist
+	 */
 	public int getMotorWaySpeed() throws MotorWaySpeedException{
 		try{
 			int mws = Integer.parseInt(motorwaySpeedTextBox.getText().trim());
@@ -160,6 +166,11 @@ public class OptionsPanel extends VerticalPanel {
 		}
 	}
 	
+	/**
+	 * Liest die Landstraßengeschwindigkeits Eingabe des Benutzers ein.
+	 * @return Landstraßengeschwindigkeits Eingabe des Benutzers
+	 * @throws PrimarySpeedException wenn die Eingabe < 1 oder > 1000
+	 */
 	public int getPrimarySpeed() throws PrimarySpeedException{
 		try{
 			int ps = Integer.parseInt(primarySpeedTextBox.getText().trim());
@@ -171,6 +182,11 @@ public class OptionsPanel extends VerticalPanel {
 		}
 	}
 	
+	/**
+	 * Liest die Innerortsgeschwindigkeits Eingabe des Benutzers ein.
+	 * @return Innerortsgeschwindigkeits Eingabe des Benutzers
+	 * @throws ResidentialSpeedException wenn die Eingabe < 1 oder > 1000
+	 */
 	public int getResidentialSpeed() throws ResidentialSpeedException{
 		try{
 			int rs = Integer.parseInt(residentialSpeedTextBox.getText().trim());

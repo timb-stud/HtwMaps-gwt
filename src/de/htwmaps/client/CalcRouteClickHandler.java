@@ -12,6 +12,12 @@ import de.htwmaps.client.GUI.exceptions.PrimarySpeedException;
 import de.htwmaps.client.GUI.exceptions.ResidentialSpeedException;
 import de.htwmaps.shared.OptPathData;
 
+/**
+ * Route berechnen Click Handler
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ *
+ */
 public class CalcRouteClickHandler implements ClickHandler {
 	HtwMaps mainModule;
 	static long startTime;
@@ -20,6 +26,10 @@ public class CalcRouteClickHandler implements ClickHandler {
 		mainModule = module;
 	}
 
+	/**
+	 * Benutzer Eingaben laden
+	 * RPC Call starten
+	 */
 	@Override
 	public void onClick(ClickEvent event) {
 		startTime = System.currentTimeMillis();

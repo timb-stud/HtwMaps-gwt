@@ -11,7 +11,7 @@ import de.htwmaps.client.GUI.InfoAnchor;
 import de.htwmaps.client.GUI.StringConstant;
 
 /**
- * Entry point classes define <code>onModuleLoad()</code>.
+ * Entry point Klasse
  * 
  * @author Thomas Altmeyer, Tim Bartsch
  */
@@ -25,7 +25,7 @@ public class HtwMaps implements EntryPoint {
 	FindPathServiceAsync findPathSvc = GWT.create(FindPathService.class);
 
 	/**
-	 * This is the entry point method.
+	 * Entry point methode.
 	 */
 	public void onModuleLoad() {
 		RootPanel.get("controlsPanel").add(controlsPanel);
@@ -80,16 +80,7 @@ public class HtwMaps implements EntryPoint {
     }
 	
 	/**
-	 * 
-	 * 
-	 * @param s
-	 */
-	native void alert(String s)/*-{
-		$wnd.alert(s);
-	}-*/;
-	
-	/**
-	 * Ruft die JSP Methode addPoint(float, float) auf, die geometrische Punkte hinzufügt
+	 * Ruft die JavaScipt Methode addPoint(float, float) auf, die geometrische Punkte hinzufügt
 	 * 
 	 * @param lat Lat- Wert des Punktes
 	 * @param lon Lon- Wert des Punktes
@@ -99,14 +90,14 @@ public class HtwMaps implements EntryPoint {
 	}-*/;
 
 	/**
-	 * Ruft die JSP Methode drawPolylin() auf, die die Route zeichnet
+	 * Ruft die JavaScipt Methode drawPolylin() auf, die die Route zeichnet
 	 */
 	native void drawPolyLine() /*-{
 		$wnd.drawPolyLine();
 	}-*/;
 	
 	/**
-	 * Ruft die JSP Methode addMarker(float, float, String) auf, die ein Marker auf der Map hinzufügt
+	 * Ruft die JavaScipt Methode addMarker(float, float, String) auf, die ein Marker auf der Map hinzufügt
 	 * 
 	 * @param lat Lat- Wert für den Marker
 	 * @param lon Lon- Wert für den Marker
@@ -117,35 +108,35 @@ public class HtwMaps implements EntryPoint {
 	}-*/;
 	
 	/**
-	 * Ruft die JSP Methode removePolylineAndMarker() auf, die die Polyline und alle Marker von der Map löscht
+	 * Ruft die JavaScipt Methode removePolylineAndMarker() auf, die die Polyline und alle Marker von der Map löscht
 	 */
 	native void removePolylineAndMarker() /*-{
 		$wnd.removePolylineAndMarker();
 	}-*/;
 	
 	/**
-	 * Ruft die JSP Methode removePolyline() auf, die die Polyline auf der Map löscht
+	 * Ruft die JavaScipt Methode removePolyline() auf, die die Polyline auf der Map löscht
 	 */
 	native void removePolyline() /*-{
 		$wnd.removePolyline();
 	}-*/;
 	
 	/**
-	 * Ruft die JSP Methode autoCenterAndZoom() auf, die automatisch so zoomt, dass alle Marker angezeigt werden
+	 * Ruft die JavaScipt Methode autoCenterAndZoom() auf, die automatisch so zoomt, dass alle Marker angezeigt werden
 	 */
 	native void autoCenterAndZoom() /*-{
 		$wnd.autoCenterAndZoom();
 	}-*/;
 	
 	/**
-	 * Ruft die JSP Methode loadImageOn() auf, die das Lagebild sichtbar macht
+	 * Ruft die JavaScipt Methode loadImageOn() auf, die das Lagebild sichtbar macht
 	 */
 	native void loadImageOn() /*-{
 		$wnd.loadImageOn();
 	}-*/;
 	
 	/**
-	 * Ruft die JSP Methode loadImageOff() auf, die das Ladebild unsichtbar schaltet
+	 * Ruft die JavaScipt Methode loadImageOff() auf, die das Ladebild unsichtbar macht
 	 */
 	native void loadImageOff() /*-{
 		$wnd.loadImageOff();

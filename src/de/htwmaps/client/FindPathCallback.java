@@ -8,6 +8,12 @@ import de.htwmaps.shared.AllPathData;
 import de.htwmaps.shared.OptPathData;
 import de.htwmaps.shared.PathDescription;
 
+/**
+ * Beinhaltet methoden die aufgerufen werden wenn Weg gefunden wurde oder Fehler auftraten.
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ *
+ */
 public class FindPathCallback implements AsyncCallback<OptPathData> {
 
 	HtwMaps mainModule;
@@ -16,6 +22,10 @@ public class FindPathCallback implements AsyncCallback<OptPathData> {
 		mainModule = module;
 	}
 	
+	/**
+	 * Wird aufgerufen bei einem Fehler. <br>
+	 * Fehlerausgabe und zuruecksetzen des Lade Icons und des Berechnen buttons.
+	 */
 	@Override
 	public void onFailure(Throwable caught) {
 		mainModule.loadImageOff();
@@ -23,6 +33,12 @@ public class FindPathCallback implements AsyncCallback<OptPathData> {
 		HtwMaps.setTextAndStyle(caught.getMessage(), "statusLabelError");
 	}
 
+	/**
+	 * Wird aufgerufen wenn eine Route gefunden wurde.<br>
+	 *  Route wird gezeichnet.<br>
+	 *  Start/Ende Marker werden gesetzt. <br>
+	 *  Laufzeit Informationen werden gesetzt.
+	 */
 	@Override
 	public void onSuccess(OptPathData result) {
 		mainModule.loadImageOff();

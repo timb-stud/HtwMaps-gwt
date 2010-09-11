@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Erstellt die Eingabefelder für Start/ und Zieldaten, Optionspanel und die Ausgabepanel für die Zusammenfassung und Routenbeschreibung 
+ * Erstellt die Eingabefelder fuer Start/ und Zieldaten, Optionspanel und die Ausgabepanel fï¿½r die Zusammenfassung und Routenbeschreibung 
  * 
  * @author Thomas Altmeyer, Tim Bartsch
  */

@@ -7,6 +7,12 @@ import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NoCitiesFoundException;
 import de.htwmaps.shared.exceptions.NoStreetsFoundException;
 
+/**
+ * RPC zum erhalten von Straßen und Orten für die SuggestionBox
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ *
+ */
 @RemoteServiceRelativePath("cityStreetSuggest")
 public interface CityStreetSuggestService extends RemoteService {
 	

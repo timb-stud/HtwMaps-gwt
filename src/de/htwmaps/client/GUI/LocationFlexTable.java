@@ -167,7 +167,7 @@ public class LocationFlexTable extends VerticalPanel {
 /**
  * Handler der beim drücken des AddButton eine neue Zeile hinzufügt
  * 
- * @author Thomas Altmeyer, Tim Bartsch
+ * @author Thomas Altmeyer
  */
 class AddHandler implements ClickHandler {
 
@@ -209,11 +209,7 @@ class AddHandler implements ClickHandler {
 /**
  * Handler der beim drücken des RemoveButton eine Zeile löscht
  * 
- * @author altmeyer
- *
- */
-/**
- * @author altmeyer
+ * @author Thomas Altmeyer
  *
  */
 class RemoveHandler implements ClickHandler {

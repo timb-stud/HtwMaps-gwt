@@ -1,21 +1,21 @@
 package de.htwmaps.client.GUI;
 
 /**
- * Klasse für alle String Konstanten die in dem Projekt benutzt werden
+ * Klasse fuer viele String Konstanten die in dem Projekt benutzt werden
  * 
  * @author Thomas Altmeyer, Tim Bartsch, Christian Rech
  */
 public class StringConstant {
 
 	public static final String BEREIT = "Bereit";
-	public static final String UEBER = "über";
+	public static final String UEBER = "ï¿½ber";
 	public static final String BERECHNUNGSINFOS = "Berechnungsinformationen";
-	public static final String SCHLIESSEN = "Schließen";
+	public static final String SCHLIESSEN = "Schlieï¿½en";
 	
 	public static final String BERECHNE = "Berechne Route";
 	public static final String ROUTE_GEFUNDEN = "Ihre Route wurde berechnet.";
 	public static final String F_AUTOBAHN = "Falsche Geschwindigkeitsangabe bei Autobahn!";
-	public static final String F_LANDSTRASSE = "Falsche Geschwindigkeitsange bei Landstraße!";
+	public static final String F_LANDSTRASSE = "Falsche Geschwindigkeitsange bei Landstraï¿½e!";
 	public static final String F_INNERORTS = "Falsche Geschwindigkeitsange bei Innerorts!";
 	
 	public static final String ROUTE_BERECHNEN= "Route berechnen";
@@ -27,24 +27,24 @@ public class StringConstant {
 	public static final String WEGBESCHREIBUNG_AUSBLENDEN = "Wegbeschreibung ausblenden";
 	
 	public static final String STADT = "Stadt:";
-	public static final String STRASSE = "Straße:";
+	public static final String STRASSE = "Straï¿½e:";
 	
-	public static final String ROUTENART = "Routenart wählen:";
+	public static final String ROUTENART = "Routenart wï¿½hlen:";
 	public static final String WEG = "weg";
-	public static final String KUERZESTE = "kürzeste";
+	public static final String KUERZESTE = "kï¿½rzeste";
 	public static final String SCHNELLSTE = "schnellste";
-	public static final String SPEED = "Geschwindigkeit wählen:";
+	public static final String SPEED = "Geschwindigkeit wï¿½hlen:";
 	public static final String SPEED_AUTOBAHN = "Autobahngeschwindigkeit:";
-	public static final String SPEED_LANDSTRASSE = "Landstraßengeschwindigkeit:";
+	public static final String SPEED_LANDSTRASSE = "Landstraï¿½engeschwindigkeit:";
 	public static final String SPEED_INNERORTS = "Innerorts:";
-	public static final String WAEHLE_ALGORITHMUS = "Routingalgorithmus wählen:";
+	public static final String WAEHLE_ALGORITHMUS = "Routingalgorithmus wï¿½hlen:";
 	public static final String ALGORITHMUS = "algo";
 	public static final String ASTERN = "A*";
 	public static final String ASTERN_BIDIREKTIONAL = "A* Bidirektional";
 	
 	public static final String GESAMT = "<b>Gesamt:</b>";
 	public static final String AUTOBAHN = "Autobahn:";
-	public static final String LANDSTRASSE = "Landstraße:";
+	public static final String LANDSTRASSE = "Landstraï¿½e:";
 	public static final String INNERORTS = "Innerorts:";
 	
 	public static final String ABOUT_TEXT = "<u><b>Software Projekt HTW PI 2008</b></u><br>" +
