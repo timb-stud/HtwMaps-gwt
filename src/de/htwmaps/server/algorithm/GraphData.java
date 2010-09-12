@@ -2,8 +2,9 @@ package de.htwmaps.server.algorithm;
 
 /**
  * 
- * Diese Klasse beinhaltet alle Daten zum Aufbau eines Graphs
- * @author Tim Bartsch
+ * Beinhaltet alle Daten zum Aufbau eines Graphs.
+ * 
+ * @author Stanislaw Tartakowski, Tim Bartsch
  *
  */
 public class GraphData {

@@ -2,6 +2,11 @@ package de.htwmaps.shared;
 
 import java.io.Serializable;
 
+/**
+ * Enthaellt alle Daten der Textdarstellung der Route.
+ * @author Tim Bartsch
+ *
+ */
 public class PathDescription implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

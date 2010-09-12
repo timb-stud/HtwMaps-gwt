@@ -12,6 +12,7 @@ import de.htwmaps.shared.exceptions.MySQLException;
 import de.htwmaps.shared.exceptions.NodeNotFoundException;
 
 /**
+ * Utils Klasse für Datenbankabfragen
  * 
  * @author Thomas Altmayer, Tim Bartsch, Tobias Lana 
  * 
@@ -25,6 +26,16 @@ public class DBUtils {
 
 	private DBUtils() { }
 
+	/**
+	 * Gibt die NodeId die zur angegebenen Straße und zum Ort gehoert zurueck.
+	 * 
+	 * @param city
+	 * @param street
+	 * @return
+	 * @throws SQLException
+	 * @throws NodeNotFoundException
+	 * @throws MySQLException
+	 */
 	public static int getNodeId(String city, String street)
 			throws SQLException, NodeNotFoundException, MySQLException {
 		Connection con = DBConnector.getConnection();
@@ -65,12 +76,20 @@ public class DBUtils {
 		return nodeID;
 	}
 
-	public static String getLatLon(long startNodeID) throws SQLException,
+	/**
+	 * Gitb lat und lon der nodeId zurueck
+	 * @param nodeId
+	 * @return String mit lat und lon getrennt durch ein Pipe Symbol
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
+	
+	public static String getLatLon(int nodeId) throws SQLException,
 			MySQLException {
 		Connection con = DBConnector.getConnection();
 		PreparedStatement select = con
 				.prepareStatement(GETLAT_LON_SELECT);
-		select.setLong(1, startNodeID);
+		select.setLong(1, nodeId);
 		ResultSet rs = select.executeQuery();
 		if (!rs.next()) {
 			return null;
@@ -81,6 +100,13 @@ public class DBUtils {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param s
+	 * @return String[] mit Orten die mit dem String s anfangen.
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	public static String[] getCitiesStartsWith(String s) throws SQLException,
 			MySQLException {
 		Connection con = DBConnector.getConnection();
@@ -106,6 +132,14 @@ public class DBUtils {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param city
+	 * @param s
+	 * @return String[] mit Strassen die mit dem String s anfangen.
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	public static String[] getStreetsStartsWith(String city, String s)
 			throws SQLException, MySQLException {
 		if (city.equals("") || city == null) {
@@ -139,6 +173,15 @@ public class DBUtils {
 		return result;
 	}
 
+	/**
+	 * Erstellt aus den optimierten Nodes und Edges ein array mit allen lat und lons also eine gegelaettete Route.
+	 * 
+	 * @param nodes
+	 * @param edges
+	 * @return
+	 * @throws SQLException
+	 * @throws MySQLException
+	 */
 	public static float[][] getAllNodeLatLons(Node[] nodes, AStarEdge[] edges) throws SQLException,
 			MySQLException {
 		String sqlLatLonsAsc 	= "SELECT node1lat, node1lon, node2lat, node2lon, ID FROM edges_all WHERE partOfEdgesOptID = ? ORDER BY 5";

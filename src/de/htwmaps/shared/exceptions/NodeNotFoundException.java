@@ -1,6 +1,7 @@
 package de.htwmaps.shared.exceptions;
 
 /**
+ * Ein Node wurde nicht in der Datenbank gefunden.
  * 
  * @author Tim Bartsch
  *

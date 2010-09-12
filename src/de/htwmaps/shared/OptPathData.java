@@ -3,7 +3,12 @@ package de.htwmaps.shared;
 import java.io.Serializable;
 
 
-
+/**
+ * Enthaellt alle Daten der optimierten Route.
+ * 
+ * @author Thomas Altmeyer, Tim Bartsch
+ *
+ */
 public class OptPathData implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

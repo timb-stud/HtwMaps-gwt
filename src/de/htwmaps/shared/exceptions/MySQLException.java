@@ -1,5 +1,10 @@
 package de.htwmaps.shared.exceptions;
 
+/**
+ * Es trat ein Fehler mit dem My SQL Server auf.
+ * @author Tim Bartsch
+ *
+ */
 public class MySQLException extends Exception {
 
 	private static final long serialVersionUID = 1L;

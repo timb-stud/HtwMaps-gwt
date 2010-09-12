@@ -29,16 +29,17 @@ public class AStarNode extends Node{
 	}
 	
 	/**
-	 * 
-	 * @param e Kante die auf den Knoten gesetzt wird
-	 * @return false: fehler beim setzen
+	 * Adds an Edge to this Node.
+	 * @param e Edge
+	 * @return true (as specified by Collection.add(E))
 	 */
 	public boolean addEdge(AStarEdge e){
 		return edgeList.add(e);
 	}
 	
 	/**
-	 * @return liefert alle Kanten die von diesem Knoten ausgehen
+	 * Returns all outgoing Edges
+	 * @return LinkedList<AStarEdge> with all outgoing Edges
 	 */
 	public LinkedList<AStarEdge> getEdgeList(){
 		return edgeList;
@@ -60,10 +61,20 @@ public class AStarNode extends Node{
 		this.g = g;
 	}
 
+	/**
+	 * Returns predeccessor which is necessary to reconstruct the path.
+	 * 
+	 * @return AStarNode
+	 */
 	public AStarNode getPredeccessor() {
 		return predeccessor;
 	}
 
+	/**
+	 * Sets predeccessor which is necessary to reconstruct the path.
+	 * 
+	 * @param predeccessor
+	 */
 	public void setPredeccessor(AStarNode predeccessor) {
 		this.predeccessor = predeccessor;
 	}

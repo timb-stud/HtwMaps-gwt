@@ -77,10 +77,11 @@ public class AStar extends ShortestPathAlgorithm {
 	}
 
 	/**
-	 * Writes the Nodes on the way between goal and start in a Node List
+	 * Reconstructs the path found by astar into a Linked Node List.
 	 * 
 	 * @param goal
 	 *            the goal Node of the searched way.
+	 * @return LinkedList<Node> containing all Nodes from goal to start.
 	 */
 	private LinkedList<Node> reconstructPath(AStarNode goal) {
 		LinkedList<Node> path = new LinkedList<Node>();
@@ -92,7 +93,7 @@ public class AStar extends ShortestPathAlgorithm {
 	}
 
 	/**
-	 * Builds Nodes and adds them to a global Hash Map.
+	 * Builds Nodes with the information given from the GraphData Object and adds them to a global Hash Map.
 	 * 
 	 */
 	private void buildNodes() {
@@ -109,14 +110,14 @@ public class AStar extends ShortestPathAlgorithm {
 	}
 
 	/**
-	 * Builds Edges that connect Nodes.
+	 * Builds Edges between the Nodes with the information given from the GraphData Object.
 	 * 
-	 * @param motorwaySpeed
-	 * @param primarySpeed
-	 * @param secondarySpeed
-	 * @param residentialSpeed
-	 * @param roadSpeed
-	 * @param livingStreetSpeed
+	 * @param motorwaySpeed average speed on motorway edges
+	 * @param primarySpeed average speed on primary edges
+	 * @param secondarySpeed average speed on secondaryedges
+	 * @param residentialSpeed average speed on residentialedges
+	 * @param roadSpeed average speed on road edges
+	 * @param livingStreetSpeed average speed on livingStreetedges
 	 */
 	private void buildEdges(int motorwaySpeed, int primarySpeed,
 			int secondarySpeed, int residentialSpeed, int roadSpeed,
@@ -192,7 +193,8 @@ public class AStar extends ShortestPathAlgorithm {
 	}
 
 	/**
-	 * Builds Edges that connect Nodes
+	 * Builds Edges between the Nodes with the information given from the GraphData Object.<br>
+	 * The average speed on all Edges is set to 1.
 	 */
 	private void buildEdges() {
 		long time = System.currentTimeMillis();
@@ -216,8 +218,16 @@ public class AStar extends ShortestPathAlgorithm {
 	}
 
 	
+
 	/**
+	 * Find the fastest path between start node and goal node.
 	 * 
+	 * @param motorwaySpeed average speed on motorway edges
+	 * @param primarySpeed average speed on primary edges
+	 * @param residentialSpeed average speed on residentialedges
+	 * 
+	 * @return a Node list representing the found path. First node is goalNode
+	 *         startNode is the last Node.
 	 */
 	@Override
 	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,
@@ -240,7 +250,11 @@ public class AStar extends ShortestPathAlgorithm {
 		
 	}
 
-	
+	/**
+	 * Returns the maximum value of tab.
+	 * @param tab
+	 * @return int maximum
+	 */
 	private int getMax(int[] tab) {
 		int max = 0;
 		for (int i : tab) {
@@ -250,7 +264,16 @@ public class AStar extends ShortestPathAlgorithm {
 		return max;
 	}
 
-
+	/**
+	 * Find the shortest path between start node and goal node.
+	 * 
+	 * @param motorwaySpeed average speed on motorway edges
+	 * @param primarySpeed average speed on primary edges
+	 * @param residentialSpeed average speed on residentialedges
+	 * 
+	 * @return a Node list representing the found path. First node is goalNode
+	 *         startNode is the last Node.
+	 */
 	@Override
 	public LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID,
 			int motorwaySpeed, int primarySpeed, int residentialSpeed)

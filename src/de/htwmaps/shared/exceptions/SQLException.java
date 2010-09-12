@@ -1,5 +1,11 @@
 package de.htwmaps.shared.exceptions;
 
+/**
+ * Eine Serialisierte Verision der {@link java.sql.SQLException}
+ * 
+ * @author Tim Bartsch
+ *
+ */
 public class SQLException extends Exception {
 
 	private static final long serialVersionUID = 1L;

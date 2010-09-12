@@ -23,6 +23,12 @@ import de.htwmaps.shared.exceptions.NodeNotFoundException;
 import de.htwmaps.shared.exceptions.PathNotFoundException;
 import de.htwmaps.shared.exceptions.SQLException;
 
+/**
+ * Implementation der Routenberechnung.
+ * 
+ * @author Stanislaw Tartakowski, Thomas Altmeyer, Tim Bartsch
+ *
+ */
 public class FindPathServiceImpl extends RemoteServiceServlet implements
 		FindPathService {
 
@@ -36,6 +42,15 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 	private String goalStreet;
 
 	
+	/**
+	 * Sucht den kuerzesten Weg zwischen start und ziel node mit dem A Star Algorithmus.
+	 * 
+	 * @param motorwaySpeed durchschnitts Autobahngeschwindigkeit
+	 * @param primarySpeed durchschnitts Landstrassengeschwindigkeit
+	 * @param residentialSpeed durchschnitts Innerortsgeschwindigkeit
+	 * 
+	 * @return ein {@link OptPathData} Objekt mit allen Informationen der Berechnung.
+	 */
 	@Override
 	public OptPathData findShortestPathAStar(String[] cities, String[] streets, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
@@ -44,6 +59,15 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		return executeSearch(spa, gd, SHORTEST, cities, streets, motorwaySpeed, primarySpeed, residentialSpeed);
 	}
 
+	/**
+	 * Sucht den schnellsten Weg zwischen start und ziel node mit dem A Star Algorithmus.
+	 * 
+	 * @param motorwaySpeed durchschnitts Autobahngeschwindigkeit
+	 * @param primarySpeed durchschnitts Landstrassengeschwindigkeit
+	 * @param residentialSpeed durchschnitts Innerortsgeschwindigkeit
+	 * 
+	 * @return ein {@link OptPathData} Objekt mit allen Informationen der Berechnung.
+	 */
 	@Override
 	public OptPathData findFastestPathAStar(String[] cities, String[] streets, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
@@ -52,6 +76,15 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		return executeSearch(spa, gd, FASTEST, cities, streets, motorwaySpeed, primarySpeed, residentialSpeed);
 	}
 
+	/**
+	 * Sucht den kuerzesten Weg zwischen start und ziel node mit dem bidirektionalen A Star Algorithmus.
+	 * 
+	 * @param motorwaySpeed durchschnitts Autobahngeschwindigkeit
+	 * @param primarySpeed durchschnitts Landstrassengeschwindigkeit
+	 * @param residentialSpeed durchschnitts Innerortsgeschwindigkeit
+	 * 
+	 * @return ein {@link OptPathData} Objekt mit allen Informationen der Berechnung.
+	 */
 	@Override
 	public OptPathData findShortestPathAStarBi(String[] cities, String[] streets, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
@@ -60,6 +93,15 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		return executeSearch(spa, gd, SHORTEST, cities, streets, motorwaySpeed, primarySpeed, residentialSpeed);
 	}
 
+	/**
+	 * Sucht den schnellsten Weg zwischen start und ziel node mit dem bidirektionalen A Star Algorithmus.
+	 * 
+	 * @param motorwaySpeed durchschnitts Autobahngeschwindigkeit
+	 * @param primarySpeed durchschnitts Landstrassengeschwindigkeit
+	 * @param residentialSpeed durchschnitts Innerortsgeschwindigkeit
+	 * 
+	 * @return ein {@link OptPathData} Objekt mit allen Informationen der Berechnung.
+	 */
 	@Override
 	public OptPathData findFastestPathAStarBi(String[] cities, String[] streets,
 			int motorwaySpeed, int primarySpeed, int residentialSpeed) throws NodeNotFoundException, PathNotFoundException, SQLException, MySQLException {
@@ -68,7 +110,23 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		return executeSearch(spa, gd, FASTEST, cities, streets, motorwaySpeed, primarySpeed, residentialSpeed);
 	}
 
-	
+	/**
+	 * Fuehrt die Suche aus und schreibt das Ergebnis in ein {@link OptPathData} Objekt.
+	 * 
+	 * @param spa
+	 * @param gd
+	 * @param option
+	 * @param cities
+	 * @param streets
+	 * @param motorwaySpeed
+	 * @param primarySpeed
+	 * @param residentialSpeed
+	 * @return
+	 * @throws NodeNotFoundException
+	 * @throws MySQLException
+	 * @throws PathNotFoundException
+	 * @throws SQLException
+	 */
 	private OptPathData executeSearch(ShortestPathAlgorithm spa,
 			GraphData gd, int option, String[] cities, String[] streets, int motorwaySpeed,
 			int primarySpeed, int residentialSpeed) throws NodeNotFoundException, MySQLException, PathNotFoundException, SQLException {
@@ -136,6 +194,15 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		return opd;
 	}
 	
+	/**
+	 * Erstellt ein {@link OptPathData} Object.
+	 * @param spa
+	 * @param dbap
+	 * @param destinations
+	 * @return
+	 * @throws java.sql.SQLException
+	 * @throws MySQLException
+	 */
 	private OptPathData buildOptPathData(ShortestPathAlgorithm spa, DBAdapterRotativeRectangle dbap, String[] destinations) throws java.sql.SQLException, MySQLException{
 		float[] lats = new float[nodes.length];
 		float[] lons = new float[nodes.length];
@@ -158,6 +225,9 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		return opd;
 	}
 
+	/**
+	 * Erstellt ein {@link AllPathData} Object mit der geglaetteten route.
+	 */
 	@Override
 	public AllPathData buildAllPathData() throws MySQLException, SQLException {
 		if(nodes == null || edges == null)
@@ -178,6 +248,9 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		return apd;
 	}
 
+	/**
+	 * Erstellt ein {@link PathDescription} Object mit der Textdarstellung der Route.
+	 */
 	@Override
 	public PathDescription buildPathDescription() throws MySQLException, SQLException {
 		if(nodes == null || edges == null)
@@ -194,7 +267,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		pd.setWayDescriptions(rtt.buildRouteInfo(startStreet, goalStreet).toArray(new String[0])); //TODO direkt string array
 		pd.setTimeTotal(rtt.getTotaltime());
 		pd.setTimeOnMotorWay(rtt.getAutobahnTime());	//TODO englische namen
-		pd.setTimeOnPrimary(rtt.getLandstrasseTime());	//TODO werte in string?
+		pd.setTimeOnPrimary(rtt.getLandstrasseTime());
 		pd.setTimeOnResidential(rtt.getInnerOrtstime()); // TODO schreibfehler
 		pd.setDistanceOnMotorWay(rtt.getAutobahnString());
 		pd.setDistanceOnPrimary(rtt.getLandstrasseString());

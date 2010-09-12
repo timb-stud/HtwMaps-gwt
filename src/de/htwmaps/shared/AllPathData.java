@@ -2,6 +2,12 @@ package de.htwmaps.shared;
 
 import java.io.Serializable;
 
+/**
+ * Enthaellt alle lat und lons der geglaetteten Route.
+ * 
+ * @author Tim Bartsch
+ *
+ */
 public class AllPathData implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

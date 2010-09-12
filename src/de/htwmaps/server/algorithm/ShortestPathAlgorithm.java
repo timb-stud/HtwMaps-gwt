@@ -5,8 +5,9 @@ import java.util.LinkedList;
 import de.htwmaps.shared.exceptions.PathNotFoundException;
 
 /**
- * Hier werden die Schnittstellen zu den Algorithmen definiert.
- * @author bline
+ * Schnittstelle zu AStar und ASartBi
+ * 
+ * @author Stanislaw Tartakowski, Tim Bartsch
  *
  */
 public abstract class ShortestPathAlgorithm {
@@ -24,6 +25,16 @@ public abstract class ShortestPathAlgorithm {
 		this.graphData = gd;
 	}
 	
+	/**
+	 * Sucht den kuerzesten Weg zwischen start und ziel node.
+	 * 
+	 * @param motorwaySpeed durchschnitts Autobahngeschwindigkeit
+	 * @param primarySpeed durchschnitts Landstrassengeschwindigkeit
+	 * @param residentialSpeed durchschnitts Innerortsgeschwindigkeit
+	 * 
+	 * @return eine Node List mit allen Nodes der Route. Der erste Node in der Liste ist der ziel Node
+	 * der letzte ist der start Node.
+	 */
 	public abstract LinkedList<Node> findShortestPath(int startNodeID,
 									int goalNodeID,
 									int motorwaySpeed, 
@@ -33,6 +44,16 @@ public abstract class ShortestPathAlgorithm {
 
 	
 	
+	/**
+	 * Sucht den schnellsten Weg zwischen start und ziel node.
+	 * 
+	 * @param motorwaySpeed durchschnitts Autobahngeschwindigkeit
+	 * @param primarySpeed durchschnitts Landstrassengeschwindigkeit
+	 * @param residentialSpeed durchschnitts Innerortsgeschwindigkeit
+	 * 
+	 * @return eine Node List mit allen Nodes der Route. Der erste Node in der Liste ist der ziel Node
+	 * der letzte ist der start Node.
+	 */
 	public abstract LinkedList<Node> findFastestPath(int startNodeID, 
 									int goalNodeID, 
 									int motorwaySpeed, 
@@ -60,26 +81,49 @@ public abstract class ShortestPathAlgorithm {
 		return edges;
 	}
 
+	/**
+	 * 
+	 * @return Laufzeit zum Nodes aufbauen.
+	 */
 	public long getBuildNodesTime() {
 		return buildNodesTime;
 	}
 
+	/**
+	 * Setze Laufzeit zum Nodes aufbauen.
+	 * @param buildNodesTime
+	 */
 	public void setBuildNodesTime(long buildNodesTime) {
 		this.buildNodesTime += buildNodesTime;
 	}
 
+	/**
+	 * 
+	 * @return Laufzeit zum Edges aufbauen.
+	 */
 	public long getBuildEdgesTime() {
 		return buildEdgesTime;
 	}
 
+	/**
+	 * Setze Laufzeit zum Edges aufbauen.
+	 * @param buildEdgesTime
+	 */
 	public void setBuildEdgesTime(long buildEdgesTime) {
 		this.buildEdgesTime += buildEdgesTime;
 	}
-
+	/**
+	 * 
+	 * @return Algorithmen Laufzeit.
+	 */
 	public long getAlorithmTime() {
 		return alorithmTime;
 	}
 
+	/**
+	 * Setze Algorithmen Laufzeit.
+	 * @param alorithmTime
+	 */
 	public void setAlorithmTime(long alorithmTime) {
 		this.alorithmTime += alorithmTime;
 	}

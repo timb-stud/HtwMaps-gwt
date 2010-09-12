@@ -4,7 +4,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Automatisch von Eclipse erstellt.
+ * Von Eclipse generiert.
  * Laed die Datenbank Verbindungsdaten aus der db.properties
  * 
  * @author Tim Bartsch

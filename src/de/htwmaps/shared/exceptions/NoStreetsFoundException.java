@@ -1,5 +1,11 @@
 package de.htwmaps.shared.exceptions;
 
+/**
+ * Keine Straßen in der Datenbank gefunden.
+ * 
+ * @author Thomas Altmeyer
+ *
+ */
 public class NoStreetsFoundException extends Exception {
 
 	private static final long serialVersionUID = 1L;

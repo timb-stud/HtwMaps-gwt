@@ -1,6 +1,7 @@
 package de.htwmaps.shared.exceptions;
 
 /**
+ * Eine Route wurde nicht gefunden.
  * 
  * @author Tim Bartsch
  * 

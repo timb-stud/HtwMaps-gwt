@@ -126,7 +126,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	}
 	
 	/**
-	 * Aufruf des Algorithmus mit dem Kritärium kürzester Weg.
+	 * Aufruf des Algorithmus mit dem Kriterium kürzester Weg.
 	 */
 	@Override
 	public LinkedList<Node> findShortestPath(int startNodeID, int goalNodeID,
@@ -139,7 +139,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	}
 
 	/**
-	 * Aufruf des Algorithmus mit dem Kritärium schnellster Weg.
+	 * Aufruf des Algorithmus mit dem Kriterium schnellster Weg.
 	 */
 	@Override
 	public LinkedList<Node> findFastestPath(int startNodeID, int goalNodeID,

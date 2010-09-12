@@ -5,7 +5,8 @@ package de.htwmaps.server.algorithm;
 /**
  * 
  * @author Stanislaw Tartakowski, Tim Bartsch
- *	Diese Klasse ist eine Kante zwischen 2 Knoten im Graphen
+ * 
+ *	Kante zwischen 2 Knoten im Graphen
  */
 public class AStarEdge {
 	
@@ -17,7 +18,7 @@ public class AStarEdge {
 	public static final int LIVING_STREET_ID = 13;
 	
 	public static int MOTORWAY_SPEED = 100; //Autobahn
-	public static int PRIMARY_SPEED = 70; //Landstra�e
+	public static int PRIMARY_SPEED = 70; //Landstrasse
 	public static int SECONDARY_SPEED = 60; //Ortsverbindung
 	public static int RESIDENTIAL_SPEED = 40; //Innerorts
 	public static int ROAD_SPEED = 50; //unclassified
@@ -31,7 +32,7 @@ public class AStarEdge {
 	private int id;
 
 	/**
-	 * 
+	 * Konstruktor
 	 * @param successor der Knoten auf den die Kante gerichtet ist
 	 * @param length laenge der Kante
 	 * @param speed 
@@ -45,24 +46,27 @@ public class AStarEdge {
 		this.id = id;
 	}
 	
-
+	/**
+	 * 
+	 * @return Durchschnittsgeschwindigkeit auf der Kante
+	 */
 	public int getSpeed() {
 		if(speed == 1){
 			switch (highwayType) {
 				case MOTORWAY_ID:
-				return MOTORWAY_SPEED;
+					return MOTORWAY_SPEED;
 				case PRIMARY_ID:
-				return PRIMARY_SPEED;
+					return PRIMARY_SPEED;
 				case SECONDARY_ID:
-				return SECONDARY_SPEED;
+					return SECONDARY_SPEED;
 				case RESIDENTIAL_ID:
-				return RESIDENTIAL_SPEED;
+					return RESIDENTIAL_SPEED;
 				case ROAD_ID:
-				return ROAD_SPEED;
+					return ROAD_SPEED;
 				case LIVING_STREET_ID:
-				return LIVING_STREET_SPEED;
+					return LIVING_STREET_SPEED;
 				default:
-				throw new RuntimeException("highwayType: " + highwayType + " is no defined ID");
+					throw new RuntimeException("highwayType: " + highwayType + " is no defined ID");
 			}
 		}
 		else
@@ -73,6 +77,16 @@ public class AStarEdge {
 		return wayID;
 	}
 	
+	/**
+	 * Autobahn: 		1 <br>
+	 * Landstrasse: 	5 <br>
+	 * Ortsverbindung:	7 <br>
+	 * Innerorts:		10 <br>
+	 * unclassified:	11 <br>
+	 * Spielstrasse:	13 <br>
+	 * 
+	 * @return StraßenTyp.
+	 */
 	public int getHighwayType() {
 		return highwayType;
 	}
@@ -97,11 +111,18 @@ public class AStarEdge {
 		return "[" + successor + "; " + length + "]";
 	}
 
+	/**
+	 * Priority Length
+	 * @return length dividiert durch speed
+	 */
 	public double getPrioLength() {
 		return length / speed;
 	}
 
-	
+	/**
+	 * 
+	 * @return id
+	 */
 	public int getID() {
 		return id;
 	}
