@@ -187,6 +187,7 @@ class AddHandler implements ClickHandler {
 	 */
 	public void onClick(ClickEvent event) {
 		LocationFlexTable.addRow(row);
+		ControlsPanel.getWayDescriptionPanel().setNewSize(-40);
 	}
 	
 	/**
@@ -230,6 +231,7 @@ class RemoveHandler implements ClickHandler {
 	 */
 	public void onClick(ClickEvent event) {
 		LocationFlexTable.removeRow(row);
+		ControlsPanel.getWayDescriptionPanel().setNewSize(20);
 	}
 	
 	/**

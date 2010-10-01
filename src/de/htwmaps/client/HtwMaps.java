@@ -30,9 +30,9 @@ public class HtwMaps implements EntryPoint {
 	public void onModuleLoad() {
 		RootPanel.get("controlsPanel").add(controlsPanel);
 		RootPanel.get("statusLabelContainer").add(statusLabel);
-		RootPanel.get("aboutAnchorContainer").add(aboutAnchor);
+		RootPanel.get("aboutAnchorContainer").add(aboutAnchor); 
 		RootPanel.get("infoAnchorContainer").add(infoAnchor);
-		
+
 		controlsPanel.addStyleName("controlsPanel");
 		controlsPanel.getCalcRouteButton().addClickHandler(new CalcRouteClickHandler(this));
 	}
@@ -40,6 +40,7 @@ public class HtwMaps implements EntryPoint {
 	/**
 	 * Setzt alle Eingabefelder und die Map in ihren Anfangszustand
 	 */
+	@SuppressWarnings("static-access")
 	void resetFields() {
 		controlsPanel.setCalcRouteButton(false);
 		setTextAndStyle(StringConstant.BERECHNE, "statusLabelNormal");

@@ -1,20 +1,21 @@
 package de.htwmaps.client.GUI;
 
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
 
 /**
  * Erstellt das Wegbeschreibungspanel, in dem die Wegbeschreibung ausgegeben wird
  * 
  * @author Thomas Altmeyer, Tim Bartsch
  */
-public class WayDescriptionPanel extends VerticalPanel {
+public class WayDescriptionPanel extends ScrollPanel {
 	
 	
 	/**
 	 * Standardkonstruktor fuer die Klasse
 	 */
 	public WayDescriptionPanel() {
+		setSize("280px", "580px");
 		setVisible(false);
 	}
 	
@@ -24,18 +25,18 @@ public class WayDescriptionPanel extends VerticalPanel {
 	 * @param items Array mit dem Inhalt der Wegbeschreibung
 	 */
 	public void addItems(String[] items){
-		for(String item: items)
-			addItem(item);
+		StringBuilder sb = new StringBuilder();
+		for(String item: items) {
+			sb.append(item)
+			  .append("<br>--------------------------------------<br>");
+		}
+		HTML htmlItem = new HTML(sb.toString());
+		add(htmlItem);
 	}
 	
-	/**
-	 * Fuegt die einzelnen Teile der Wegbeschreibung ins Panel ein
-	 * 
-	 * @param item Text der eingefuegt wird
-	 */
-	public void addItem(String item){
-		HTML htmlItem = new HTML(item);
-		htmlItem.setStyleName("wayDescriptionItem");
-		add(htmlItem);
+	public void setNewSize(int height) {
+		if (getOffsetHeight() > 30) {
+			setSize("280px", (getOffsetHeight() + height) + "px");
+		}
 	}
 }

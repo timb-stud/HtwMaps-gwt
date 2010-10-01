@@ -30,6 +30,7 @@ public class PathDescriptionCallback implements AsyncCallback<PathDescription> {
 	/**
 	 * Gibt bei Erfolgreicher Berechnung die Textdarstellung der Route aus.
 	 */
+	@SuppressWarnings("static-access")
 	@Override
 	public void onSuccess(PathDescription result) {
 		SummaryPanel sp = mainModule.controlsPanel.getSummaryPanel();

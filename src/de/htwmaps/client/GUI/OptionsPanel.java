@@ -47,12 +47,12 @@ public class OptionsPanel extends VerticalPanel {
 		setVisible(false);		
 		
 		//Welcher weg?
-		emptyPanel1.setSize("300px", "15px");
+		emptyPanel1.setSize("280px", "15px");
 		wegLabel.addStyleName("optionsLabel");
 		wegPanel.add(fastestRadioButton);
 		wegPanel.add(shortestRadioButton);
 		fastestRadioButton.setValue(true);
-		wegPanel.setSize("300px", "15px");
+		wegPanel.setSize("280px", "15px");
 		wegPanel.setCellHorizontalAlignment(fastestRadioButton, HasHorizontalAlignment.ALIGN_LEFT);
 		wegPanel.setCellHorizontalAlignment(shortestRadioButton, HasHorizontalAlignment.ALIGN_CENTER);
 		add(wegLabel);
@@ -60,7 +60,7 @@ public class OptionsPanel extends VerticalPanel {
 		add(emptyPanel1);
 		
 		//Speed
-		emptyPanel2.setSize("300px", "15px");
+		emptyPanel2.setSize("280px", "15px");
 		speedLabel.addStyleName("optionsLabel");
 		speedAutobPanel.setSize("250px", "15px");
 		motorwaySpeedTextBox.setSize("40px", "15px");
@@ -87,7 +87,7 @@ public class OptionsPanel extends VerticalPanel {
 		add(emptyPanel2);
 		
 		//Algo
-		emptyPanel3.setSize("300px", "15px");
+		emptyPanel3.setSize("280px", "15px");
 		algoLabel.addStyleName("optionsLabel");
 		algoPanel.add(aStarRadioButton);
 		algoPanel.add(aStarBiRadioButton);

@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
@@ -17,7 +18,7 @@ public class ControlsPanel extends VerticalPanel{
 	LocationFlexTable location = new LocationFlexTable();
 	OptionsPanel optionsPanel = new OptionsPanel();
 	SummaryPanel summaryPanel = new SummaryPanel();
-	WayDescriptionPanel wayDescriptionPanel = new WayDescriptionPanel();
+	static WayDescriptionPanel wayDescriptionPanel = new WayDescriptionPanel();
 	Button calcRouteButton = new Button(StringConstant.ROUTE_BERECHNEN);
 	final Anchor optionsAnchor = new Anchor(StringConstant.OPTIONEN_ANZEIGEN);
 	final Anchor summaryAnchor = new Anchor(StringConstant.ZUSAMMENFASSUNG_ANZEIGEN);
@@ -50,12 +51,31 @@ public class ControlsPanel extends VerticalPanel{
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				String height = "";
 				if(optionsPanel.isVisible()){
 					optionsAnchor.setText(StringConstant.OPTIONEN_ANZEIGEN);
 					optionsPanel.setVisible(false);
-				}else{
+					if (summaryPanel.isVisible()) {
+						height = (RootPanel.get("map").getOffsetHeight() - location.getOffsetHeight() -
+								calcRouteButton.getOffsetHeight() - summaryPanel.getOffsetHeight() - 20) + "px";
+						wayDescriptionPanel.setSize("280px", height);
+					} else {
+						height = (RootPanel.get("map").getOffsetHeight() - location.getOffsetHeight() - 
+								calcRouteButton.getOffsetHeight() - 20) + "px";
+						wayDescriptionPanel.setSize("280px", height);
+					}
+				} else {
 					optionsAnchor.setText(StringConstant.OPTIONEN_AUSBLENDEN);
 					optionsPanel.setVisible(true);
+					if (summaryPanel.isVisible()) {
+						height = (RootPanel.get("map").getOffsetHeight() - location.getOffsetHeight() - 
+								calcRouteButton.getOffsetHeight() - optionsPanel.getOffsetHeight() - summaryPanel.getOffsetHeight() - 20) + "px";
+						wayDescriptionPanel.setSize("280px", height);
+					} else {
+						height = (RootPanel.get("map").getOffsetHeight() - location.getOffsetHeight() - 
+								calcRouteButton.getOffsetHeight() - optionsPanel.getOffsetHeight() - 20) + "px";
+						wayDescriptionPanel.setSize("280px", height);
+					}
 				}
 			}
 		});
@@ -65,12 +85,31 @@ public class ControlsPanel extends VerticalPanel{
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				String height = "";
 				if (summaryPanel.isVisible()) {
 					summaryAnchor.setText(StringConstant.ZUSAMMENFASSUNG_ANZEIGEN);
 					summaryPanel.setVisible(false);
+					if (optionsPanel.isVisible()) {
+						height = (RootPanel.get("map").getOffsetHeight() - location.getOffsetHeight() -
+								calcRouteButton.getOffsetHeight() - optionsPanel.getOffsetHeight() - 20) + "px";
+						wayDescriptionPanel.setSize("280px", height);
+					} else {
+						height = (RootPanel.get("map").getOffsetHeight() - location.getOffsetHeight() - 
+								calcRouteButton.getOffsetHeight() - 20) + "px";
+						wayDescriptionPanel.setSize("280px", height);
+					}
 				} else {
 					summaryAnchor.setText(StringConstant.ZUSAMMENFASSUNG_AUSBLENDEN);
 					summaryPanel.setVisible(true);
+					if (optionsPanel.isVisible()) {
+						height = (RootPanel.get("map").getOffsetHeight() - location.getOffsetHeight() - 
+								calcRouteButton.getOffsetHeight() - optionsPanel.getOffsetHeight() - summaryPanel.getOffsetHeight() - 20) + "px";
+						wayDescriptionPanel.setSize("280px", height);
+					} else {
+						height = (RootPanel.get("map").getOffsetHeight() - location.getOffsetHeight() - 
+								calcRouteButton.getOffsetHeight() - summaryPanel.getOffsetHeight() - 20) + "px";
+						wayDescriptionPanel.setSize("280px", height);
+					}
 				}
 			}
 		});
@@ -126,7 +165,7 @@ public class ControlsPanel extends VerticalPanel{
 	/**
 	 * @return Gibt das Wegbeschreibungspanel zurück
 	 */
-	public WayDescriptionPanel getWayDescriptionPanel() {
+	public static WayDescriptionPanel getWayDescriptionPanel() {
 		return wayDescriptionPanel;
 	}
 	
