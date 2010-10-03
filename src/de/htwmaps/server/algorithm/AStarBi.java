@@ -94,15 +94,17 @@ public class AStarBi extends Thread {
 	private void updateSuccDist(FibonacciHeap Q, AStarBiNode currentNode, AStarBiNode successor, double dist) {
 		double alternative = currentNode.getDist() + dist;
 
-		if (alternative < successor.getDist()) {
+		if (!Q.contains(successor)) {
+			successor.setPredeccessor(currentNode);
 			successor.setDist(alternative);
-			successor.setPredecessor(currentNode);
 			touch(successor);
 			nodesVisited++;
-			if (Q.contains(successor)) {
+			Q.add(successor, alternative + potential(successor));
+		} else {
+			if (alternative < successor.getDist()) {
+				successor.setPredeccessor(currentNode);
+				successor.setDist(alternative);
 				Q.decreaseKey(successor, alternative + potential(successor));
-			} else {
-				Q.add(successor, alternative + potential(successor));
 			}
 		}
 	}
@@ -150,7 +152,7 @@ public class AStarBi extends Thread {
 		AStarBiNode tmp;
 		while (successor != null) {
 			tmp = successor.getPredecessor();
-			successor.setPredecessor(currentNode);
+			successor.setPredeccessor(currentNode);
 			currentNode = successor;
 			successor = tmp;
 		}

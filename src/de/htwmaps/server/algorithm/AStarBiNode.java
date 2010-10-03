@@ -77,7 +77,7 @@ public class AStarBiNode extends Node {
 	/**
 	 * @param new predecessor as a new item of the result set
 	 */
-	public void setPredecessor(AStarBiNode predecessor) {
+	public void setPredeccessor(AStarBiNode predecessor) {
 		this.predecessor = predecessor;
 	}
 
