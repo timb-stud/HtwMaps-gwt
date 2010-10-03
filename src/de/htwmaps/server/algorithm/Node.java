@@ -54,7 +54,7 @@ public abstract class Node {
 		double lat = (this.lat + n.lat) / 2 * 0.01745;
 		double dlon = 111.3 * Math.cos(lat) * (this.lon - n.lon);
 		double dlat = 111.3 * (this.lat - n.lat);
-		return Math.sqrt(dlon * dlon + dlat * dlat);
+		return 1000*Math.sqrt(dlon * dlon + dlat * dlat);
 	}
 
 	/**

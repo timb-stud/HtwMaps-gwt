@@ -119,7 +119,7 @@ public class AStarBi extends Thread {
 	 * @return	Distanz zum Endknoten
 	 */
 	private double potential(AStarBiNode node) {
-		return 1000*node.getDistanceTo(endNode)/maxSpeed;
+		return node.getDistanceTo(endNode)/maxSpeed;
 	}
 
 
