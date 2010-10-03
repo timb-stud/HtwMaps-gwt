@@ -82,7 +82,7 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 	 * @return	kürzester Weg
 	 * @throws PathNotFoundException
 	 */
-	public LinkedList<Node> aStar(int startNodeID, int goalNodeID, int option) throws PathNotFoundException {
+	public LinkedList<Node> aStar(int startNodeID, int goalNodeID, int option, double maxSpeed) throws PathNotFoundException {
 		HashMap<Integer, AStarBiNode> Q = new HashMap<Integer, AStarBiNode>(graphData.getAllNodeIDs().length);
 
 		long time = System.currentTimeMillis();
@@ -95,8 +95,8 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		AStarBiNode start = Q.get(startNodeID); 
 		AStarBiNode goal = Q.get(goalNodeID);
 		
-		AStarBi d0 = new AStarBi(start, goal, true, this);
-		AStarBi d1 = new AStarBi(goal, start, false, this);
+		AStarBi d0 = new AStarBi(start, goal, true, this, maxSpeed);
+		AStarBi d1 = new AStarBi(goal, start, false, this, maxSpeed);
 		
 		d0.setDijkstra(d1);
 		d1.setDijkstra(d0);
@@ -135,9 +135,11 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		AStarEdge.MOTORWAY_SPEED = motorwaySpeed;
 		AStarEdge.PRIMARY_SPEED = primarySpeed;
 		AStarEdge.RESIDENTIAL_SPEED = residentialSpeed;
-		return aStar(startNodeID, goalNodeID, 1);
+		return aStar(startNodeID, goalNodeID, 1, 1.0);
 	}
 
+
+	
 	/**
 	 * Aufruf des Algorithmus mit dem Kriterium schnellster Weg.
 	 */
@@ -148,6 +150,16 @@ public class AStarBiStarter extends ShortestPathAlgorithm {
 		AStarEdge.MOTORWAY_SPEED = motorwaySpeed;
 		AStarEdge.PRIMARY_SPEED = primarySpeed;
 		AStarEdge.RESIDENTIAL_SPEED = residentialSpeed;
-		return aStar(startNodeID, goalNodeID, 0);
+		return aStar(startNodeID, goalNodeID, 0, getMaxSpeed(AStarEdge.LIVING_STREET_SPEED, AStarEdge.MOTORWAY_SPEED, AStarEdge.PRIMARY_SPEED, AStarEdge.RESIDENTIAL_SPEED, AStarEdge.ROAD_SPEED, AStarEdge.SECONDARY_SPEED));
+	}
+	
+	private double getMaxSpeed(int... values) {
+		int max = 0;
+		for (int i : values) {
+			if (max <= i) {
+				max = i;
+			}
+		}
+		return max;
 	}
 }

@@ -32,13 +32,12 @@ public class AStarBi extends Thread {
 	 * @param caller der Starter dieses Objektes.
 	 */
 	public AStarBi(AStarBiNode startNode, AStarBiNode endNode,
-			boolean thread, Object caller) {
+			boolean thread, Object caller, double maxSpeed) {
 		this.startNode = startNode;
 		this.endNode = endNode;
 		this.thread = thread;
 		this.caller = caller;
-		maxSpeed = getMaxSpeed(AStarEdge.LIVING_STREET_SPEED, AStarEdge.MOTORWAY_SPEED, AStarEdge.PRIMARY_SPEED, AStarEdge.RESIDENTIAL_SPEED, AStarEdge.ROAD_SPEED, AStarEdge.SECONDARY_SPEED);
-		System.out.println(maxSpeed);
+		this.maxSpeed = maxSpeed;
 	}
 
 	/**
@@ -53,7 +52,6 @@ public class AStarBi extends Thread {
 		nodesVisited++;
 		while (Q.size() > 0) {
 			AStarBiNode currentNode = (AStarBiNode) Q.popMin();
-			System.out.println(currentNode.getLat()+"\t"+currentNode.getLon()+"\t"+"title\t"+"descr\t"+"rosa_punkt.png\t"+"8,8\t"+"0,0");
 			if (currentNode == endNode) {
 				reactivateCaller();
 				return;
@@ -120,17 +118,6 @@ public class AStarBi extends Thread {
 	 */
 	private double potential(AStarBiNode node) {
 		return node.getDistanceTo(endNode)/maxSpeed;
-	}
-
-
-	private double getMaxSpeed(int... values) {
-		int max = 0;
-		for (int i : values) {
-			if (max <= i) {
-				max = i;
-			}
-		}
-		return max;
 	}
 
 	/**
