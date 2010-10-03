@@ -22,6 +22,7 @@ public class AStarBi extends Thread {
 	private AStarBiNode startNode, endNode;
 	private Object caller;
 	private int nodesVisited;
+	private double maxSpeed;
 
 	/**
 	 * 
@@ -36,6 +37,7 @@ public class AStarBi extends Thread {
 		this.endNode = endNode;
 		this.thread = thread;
 		this.caller = caller;
+		maxSpeed = getMaxSpeed(AStarEdge.LIVING_STREET_SPEED, AStarEdge.MOTORWAY_SPEED, AStarEdge.PRIMARY_SPEED, AStarEdge.RESIDENTIAL_SPEED, AStarEdge.ROAD_SPEED, AStarEdge.SECONDARY_SPEED);
 	}
 
 	/**
@@ -115,7 +117,7 @@ public class AStarBi extends Thread {
 	 * @return	Distanz zum Endknoten
 	 */
 	private double potential(AStarBiNode node) {
-		return 1000*node.getDistanceTo(endNode)/getMaxSpeed(AStarEdge.LIVING_STREET_SPEED, AStarEdge.MOTORWAY_SPEED, AStarEdge.PRIMARY_SPEED, AStarEdge.RESIDENTIAL_SPEED, AStarEdge.ROAD_SPEED, AStarEdge.SECONDARY_SPEED);
+		return 1000*node.getDistanceTo(endNode)/maxSpeed;
 	}
 
 
