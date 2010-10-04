@@ -222,6 +222,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 		opd.setSelectedNodesNumber(dbap.getNodesCount());
 		opd.setSelectEdgesRuntime(dbap.getReceiveEdgesTime()); //TODO fertig refactoren
 		opd.setSelectNodesRuntime(dbap.getReceiveNodesTime());
+		opd.setClosedLatLons(spa.getClosedLatLons());
 		return opd;
 	}
 

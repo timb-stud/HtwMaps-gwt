@@ -24,6 +24,7 @@ public class OptPathData implements Serializable{
 	private int selectedNodesNumber;
 	private int selectedEdgesNumber;
 	private int optNodesNumber;
+	private float[][] closedLatLons;
 	
 	
 	public OptPathData() {}
@@ -118,6 +119,14 @@ public class OptPathData implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public void setClosedLatLons(float[][] closedLatLons) {
+		this.closedLatLons = closedLatLons;
+	}
+
+	public float[][] getClosedLatLons() {
+		return closedLatLons;
 	}
 	
 }

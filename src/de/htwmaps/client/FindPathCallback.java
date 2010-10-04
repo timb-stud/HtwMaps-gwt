@@ -46,8 +46,7 @@ public class FindPathCallback implements AsyncCallback<OptPathData> {
 		mainModule.controlsPanel.setCalcRouteButton(true);
 		float[] nodeLats = result.getNodeLats();
 		float[] nodeLons = result.getNodeLons();
-		int i = 0;
-		for(i=0;i<nodeLats.length;i++){
+		for(int i=0;i<nodeLats.length;i++){
 			mainModule.addPoint(nodeLats[i], nodeLons[i]);
 		}
 		mainModule.drawPolyLine();
@@ -56,7 +55,7 @@ public class FindPathCallback implements AsyncCallback<OptPathData> {
 		float lat;
 		float lon;
 		String beschreibung;
-		for (i = 0; i < destinations.length; i++) {
+		for (int i = 0; i < destinations.length; i++) {
 			lat = Float.parseFloat(destinations[i].substring(0, destinations[i].indexOf("|")));
 			lon = Float.parseFloat(destinations[i].substring(destinations[i].indexOf("|") + 1));
 			if (i == 0) {
@@ -81,6 +80,12 @@ public class FindPathCallback implements AsyncCallback<OptPathData> {
 		ia.setAlgorithmRuntime(result.getAlgorithmRuntime());
 		ia.setOptNodesNumber(result.getOptNodesNumber());
 		ia.setCompleteRuntime((System.currentTimeMillis() - CalcRouteClickHandler.getStartTime()) / 1000);
+		
+		float[][] latLons = result.getClosedLatLons();
+		for(int i=0; i<latLons[0].length;i++){
+			mainModule.addMarker(latLons[0][i], latLons[1][i], "");
+		}
+		
 		
 		AsyncCallback<AllPathData> allPathDataCallback = new AllPathDataCallback(mainModule);
 		mainModule.findPathSvc.buildAllPathData(allPathDataCallback);

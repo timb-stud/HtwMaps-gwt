@@ -49,6 +49,7 @@ public class AStar extends ShortestPathAlgorithm {
 				setAlorithmTime(System.currentTimeMillis() - time);
 				return reconstructPath(goal);
 			}
+			closedNodes.add(current);
 			closedSet.put(current.getId(), current);
 			for (AStarEdge edge : current.getEdgeList()) {
 				AStarNode successor = (AStarNode) edge.getSuccessor();

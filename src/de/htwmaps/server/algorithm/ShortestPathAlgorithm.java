@@ -1,5 +1,6 @@
 package de.htwmaps.server.algorithm;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import de.htwmaps.shared.exceptions.PathNotFoundException;
@@ -12,6 +13,7 @@ import de.htwmaps.shared.exceptions.PathNotFoundException;
  */
 public abstract class ShortestPathAlgorithm {
 	GraphData graphData;
+	ArrayList<Node> closedNodes = new ArrayList<Node>();
 	
 	private long buildNodesTime;
 	private long buildEdgesTime;
@@ -128,6 +130,13 @@ public abstract class ShortestPathAlgorithm {
 		this.alorithmTime += alorithmTime;
 	}
 
-	
+	public float[][] getClosedLatLons(){
+		float[][] latLons = new float[2][closedNodes.size()];
+		for(int i=0; i<latLons[0].length;i++){
+			latLons[0][i] = closedNodes.get(i).lat;
+			latLons[1][i] = closedNodes.get(i).lon;
+		}
+		return latLons;
+	}
 	
 }
