@@ -47,8 +47,8 @@ public class StringConstant {
 	public static final String LANDSTRASSE = "Landstraße:";
 	public static final String INNERORTS = "Innerorts:";
 	
-	public static final String ABOUT_TEXT = "<u><b>Software Projekt HTW PI 2008</b></u><br>" +
-		"Version: <i>01.09.2010</i><br><br>" + 
+	public static final String ABOUT_TEXT = "<u><b>Software Projekt HTW PI 08</b></u><br>" +
+		"Version: <i>1.0</i><br><br>" + 
 		"<b>Entwicklerteam:</b><br>" + 
 		"- Christian Rech<br>" + 
 		"- Tim Bartsch<br>" +
