@@ -160,7 +160,7 @@ public class FindPathServiceImpl extends RemoteServiceServlet implements
 					}
 				} catch (PathNotFoundException e) {
 					System.out.print("2. versuch");
-					dbap.fillGraphData(startNodeID, goalNodeID, h + 1.4f);
+					dbap.fillGraphData(startNodeID, goalNodeID, h + 0.2f);
 					try {
 						switch (option) {
 						case FASTEST: result = spa.findFastestPath(startNodeID, goalNodeID, motorwaySpeed, primarySpeed, residentialSpeed); break;

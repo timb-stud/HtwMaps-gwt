@@ -109,7 +109,7 @@ public class DBAdapterRotativeRectangle{
 	 */
 	private void initNodes() throws SQLException, MySQLException{
 		int tableLength;
-		float bigh = 1.2f;
+		float bigh = h + 1.45f;
 		
 		Connection con = DBConnector.getConnection();
 		PreparedStatement pStmt = con.prepareStatement(NODE_SELECT);
@@ -197,7 +197,7 @@ public class DBAdapterRotativeRectangle{
 		int tableLength;
 		float m = (startNodeLat - endNodeLat)/(startNodeLon - endNodeLon);
 		float mReversed = (startNodeLon - endNodeLon)/(startNodeLat - endNodeLat);
-		float bigh = 1.2f;
+		float bigh = h + 1.45f;
 		
 		Connection con = DBConnector.getConnection();
 		PreparedStatement pStmt = con.prepareStatement(EDGE_SELECT);
