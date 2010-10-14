@@ -206,14 +206,16 @@ public class RouteToText {
 				}
 
 			}
-			while ((info.get(i).getEdgeList().getLast().getHighwayType() == 1)
-					&& (info.get(i).getName().equals(info.get(i + 1).getName())
-							|| isNotTagged(info.get(i).getName()) || isNotTagged(info
-							.get(i + 1).getName()))) {
-//				int j = 1;
-				i++;
-
-			}
+			
+//			while ((info.get(i).getEdgeList().getLast().getHighwayType() == 1)
+//					&& (info.get(i).getName().equals(info.get(i + 1).getName())
+//							|| isNotTagged(info.get(i).getName()) || isNotTagged(info
+//							.get(i + 1).getName()))) {
+////				int j = 1;
+//				i++;
+//
+//			}
+			
 			if (info.get(i).getEdgeList().getLast().getHighwayType() == 1
 					&& info.get(i + 1).getEdgeList().getLast().getHighwayType() == 1) {
 				if (isNotTagged(info.get(i + 1).getName())
